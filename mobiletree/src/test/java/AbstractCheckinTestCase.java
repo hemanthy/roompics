@@ -27,7 +27,7 @@ public class AbstractCheckinTestCase  extends TestCase {
 	
 	public	AbstractCheckinTestCase(){
 		ApplicationContext context = new FileSystemXmlApplicationContext
-	            ("G://Hemanth//Hemanth Code//Spring Security//mobilestree//src//main//webapp//WEB-INF//spring//appServlet//servlet-context.xml");
+	            ("G://Hemanth//Hemanth Code//git//roompics//mobiletree//src//main//webapp//WEB-INF//spring//appServlet//servlet-context.xml");
 		MobileService = (MobileDAOImpl) context.getBean("MobileDAO");
 		
 		MobileServiceImpl = (MobileService) context.getBean("MobileService");

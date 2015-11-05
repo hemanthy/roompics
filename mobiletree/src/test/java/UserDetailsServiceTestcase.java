@@ -38,7 +38,6 @@ public class UserDetailsServiceTestcase extends AbstractCheckinTestCase {
 		Company c1 = new Company();
 		c1.setEnabled(false);
 		//c.setName("samsung");
-		c1.setName("Samsung");
 		//c.setId(1);
 		
 		
@@ -60,7 +59,6 @@ public class UserDetailsServiceTestcase extends AbstractCheckinTestCase {
 		
 		Company c2 = new Company();
 		c2.setEnabled(false);
-		c2.setName("Motorala");
 		//c2.setName("Motorala");
 		Set<Mobile> mobileList2 = new HashSet<Mobile>();
 		for(int i=0;i<6;i++){

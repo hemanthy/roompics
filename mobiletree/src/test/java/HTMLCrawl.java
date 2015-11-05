@@ -93,7 +93,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		//Samsung
 		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_folder-7453.php");
 		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s6_edge+_duos-7509.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s5_neo-6506.php");
+		/*fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s5_neo-6506.php");
 		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s4_mini_i9195i-7468.php");
 		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_a8_duos-7506.php");
 		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_a8-7249.php");
@@ -151,7 +151,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		fileNameList.add("http://www.gsmarena.com/sony_xperia_c5_ultra-7463.php");
 		fileNameList.add("http://www.gsmarena.com/sony_xperia_e3-6634.php");
 		fileNameList.add("http://www.gsmarena.com/sony_xperia_e4-6882.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z3v-6796.php");
+		fileNameList.add("http://www.gsmarena.com/sony_xperia_z3v-6796.php");*/
 		
 		
 
@@ -169,6 +169,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		Company company = new Company();
 		//company.setId(1);
 		company.setEnabled(false);
+		company.setBrandName("Samsung");
 	//	company.setName("Samsung");
 		
 		
@@ -196,7 +197,6 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 						mobile.setModel(modelName.trim());
 					}
 					mobile.setBrandName(titleSplit[0].trim());
-					company.setName("");
 				}
 			mobile.setCompany(company);
 			mobilesList.add(mobile);

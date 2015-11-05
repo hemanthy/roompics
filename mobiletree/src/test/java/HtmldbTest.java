@@ -17,13 +17,13 @@ public class HtmldbTest extends TestCase  {
 	
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost/htmldb";
+	   static final String DB_URL = "jdbc:mysql://localhost/testdb1";
 	   
 	  
 
 	   //  Database credentials
 	   static final String USER = "root";
-	   static final String PASS = "secret";
+	   static final String PASS = "hemanth";
 	   
 	   static Connection conn = null;
 	   static Statement stmt = null;
