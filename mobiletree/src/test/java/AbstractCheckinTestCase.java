@@ -10,22 +10,25 @@ import com.mobilestree.mobile.service.MobileServiceImpl;
 
 import junit.framework.TestCase;
 //@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring-container.xml" })
-public class AbstractCheckinTestCase  extends TestCase {
+public class AbstractCheckinTestCase {
 
-	@Test
 	public void testCreateUserSession(){
 		
 		
 	}
 	
-	MobileDAOImpl MobileService;
+	static MobileDAOImpl MobileService;
 	
-	MobileService MobileServiceImpl;
+	public static MobileService MobileServiceImpl;
 	
-	SessionFactory sessionFactory;
+	public static SessionFactory sessionFactory;
+	
+	public static SessionFactory getSessionFactory(){
+		return sessionFactory;
+	}
 	
 	
-	public	AbstractCheckinTestCase(){
+	public	AbstractCheckinTestCase() throws Exception {
 		ApplicationContext context = new FileSystemXmlApplicationContext
 	            ("G://Hemanth//Hemanth Code//git//roompics//mobiletree//src//main//webapp//WEB-INF//spring//appServlet//servlet-context.xml");
 		MobileService = (MobileDAOImpl) context.getBean("MobileDAO");
@@ -36,5 +39,11 @@ public class AbstractCheckinTestCase  extends TestCase {
 		sessionFactory = (SessionFactory) context.getBean("hibernate4AnnotatedSessionFactory");
 		
 		System.out.println("context::::"+MobileService);
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		new AbstractCheckinTestCase();
 	}
 }

@@ -15,6 +15,11 @@ import com.mobilestree.mobile.model.Mobile;
 
 public class UserDetailsServiceTestcase extends AbstractCheckinTestCase {
 	
+	public UserDetailsServiceTestcase() throws Exception {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Test
 	public void testCreateUserSession(){
 		

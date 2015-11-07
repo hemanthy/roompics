@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" %>
 <html lang="en">
@@ -109,14 +107,14 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Latest Mobile</h3>
+                        <h3 class="panel-title">Latest Mobile....${latestMobilesList}</h3>
                     </div>
                     <div class="panel-body-mb">
                         <ul class="list-group">
                         <c:forEach items="${latestMobilesList}" var="mobile"   varStatus="status" begin="0" end="5">
 	                        <li class="list-group-item">
 	                         	  <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
-                                  <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
+                                  <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}..${mobile.brandName}</a>
 	                        </li>
 						</c:forEach>
                         </ul>

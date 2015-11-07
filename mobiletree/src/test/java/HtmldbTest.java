@@ -47,7 +47,7 @@ public	HtmldbTest() throws ClassNotFoundException, SQLException {
 		return content;
 	}
 	
-	private String readHtmlDataByURLInWeb(String url) throws IOException, ClassNotFoundException, SQLException {
+	public String readHtmlDataByURLInWeb(String url) throws IOException, ClassNotFoundException, SQLException {
 		
 		System.out.println("Reading data from Website ................... "+url);
 		Document doc = Jsoup.connect(url).userAgent("Chrome").timeout(10000).get();

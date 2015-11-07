@@ -196,7 +196,7 @@ public class MobileDAOImpl implements MobileDAO {
 		Session session = this.getSession();
 		List<Company> cmpy = session.createQuery("from Company where brandName = :brandName")
 				.setParameter("brandName", (Object) brandName).list();
-		if (cmpy != null) {
+		if (cmpy != null && !cmpy.isEmpty()) {
 			return  cmpy.get(0);
 		}
 		logger.info("Exit getBrandByName Method");

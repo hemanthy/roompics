@@ -41,114 +41,96 @@ public class MobileServiceImpl implements MobileService {
     }
 
     @Transactional
-    @Override
     public void addPerson(Person p) {
         this.MobileDAO.addPerson(p);
     }
 
     @Transactional
-    @Override
     public void updatePerson(Person p) {
         this.MobileDAO.updatePerson(p);
     }
 
     @Transactional
-    @Override
     public List<Person> listPersons() {
         return this.MobileDAO.listPersons();
     }
 
     @Transactional
-    @Override
     public Person getPersonById(int id) {
         return this.MobileDAO.getPersonById(id);
     }
 
     @Transactional
-    @Override
     public void removePerson(int id) {
         this.MobileDAO.removePerson(id);
     }
 
     @Transactional
-    @Override
     public void addCompany(Company c) {
         this.MobileDAO.addCompany(c);
     }
 
-    @Override
+    
     public void updateCompany(Company c) {
         this.MobileDAO.updateCompany(c);
     }
 
     @Transactional
-    @Override
     public List<Company> listCompanies() {
         return this.MobileDAO.listCompanies();
     }
 
     @Transactional
-    @Override
     public List<Mobile> getMobilesList(int id) {
         return this.MobileDAO.getMobilesList(id);
     }
 
     @Transactional
-    @Override
     public Mobile getMobileById(Integer id) {
         return this.MobileDAO.getMobileById(id);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getLatestMobile() {
         return this.MobileDAO.getLatestMobile();
     }
 
     @Transactional
-    @Override
     public List<Mobile> getTopBrandMobileList() {
         return this.MobileDAO.getTopBrandMobileList();
     }
 
     @Transactional
-    @Override
     public List<Company> getCompaniesList() {
         return this.MobileDAO.getCompaniesList();
     }
 
     @Transactional
-    @Override
     public Company getCompanyById(int id) {
         return this.MobileDAO.getCompanyById(id);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getRelatedMobilesList(Mobile mobile) {
         return this.MobileDAO.getRelatedMobilesList(mobile);
     }
 
     @Transactional
-    @Override
     public Company getBrandByName(String brandName) {
         return this.MobileDAO.getBrandByName(brandName);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getMobilesByRamSize(Integer ramSize) {
         return this.MobileDAO.getMobilesByRamSize(ramSize);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getMobilesByScreenSize(Integer screenSize) {
         return this.MobileDAO.getMobilesByScreenSize(screenSize);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getMobilesBySearchCatageory(String[] catageory) {
         HashMap<String, String[]> catagoryUrl = new HashMap<String, String[]>();
         for (String url : catageory) {
@@ -211,7 +193,6 @@ public class MobileServiceImpl implements MobileService {
     }
 
     @Transactional
-    @Override
     public DataMobileVO getMobileDetailsByQueryString(String queryString) {
         DataMobileVO dataMobileVO = new DataMobileVO();
         ArrayList<AutoCompleteMobileVo> autoCompleteMobileVOList = new ArrayList<AutoCompleteMobileVo>();
@@ -235,25 +216,21 @@ public class MobileServiceImpl implements MobileService {
     }
 
     @Transactional
-    @Override
     public List<Mobile> getUpcomingMobileList() {
         return this.MobileDAO.getUpcomingMobileList();
     }
 
     @Transactional
-    @Override
     public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) {
         return this.MobileDAO.getMobilesBySecondaryCamera(secondaryCamera);
     }
 
     @Transactional
-    @Override
     public List<Mobile> getDualMobiles() {
         return this.MobileDAO.getDualMobiles();
     }
 
     @Transactional
-    @Override
     public Mobile getMobileByName(String mobileName) {
         return this.MobileDAO.getMobileByName(mobileName);
     }

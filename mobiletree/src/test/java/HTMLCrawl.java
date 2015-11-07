@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,17 +14,18 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
 
 import com.mobilestree.mobile.model.Company;
 import com.mobilestree.mobile.model.Mobile;
+import com.mobilestree.mobile.service.MobileService;
 
-public class HTMLCrawl extends AbstractCheckinTestCase {
+public class HTMLCrawl  {
 	
 	
 	private static List<Integer> yearList = new ArrayList<Integer>();
@@ -35,9 +38,25 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 	
 	private static Map<String,String> monthMap = new HashMap<String, String>();
 	
+	private static Map<String,Integer> monthMapIndex = new HashMap<String, Integer>();
 
+	private SessionFactory sessionFactory;
+	
+	MobileService mobileServiceImpl;
+	
+	Map<String, String> map = null;
+	
+	
+	public Map<String, String> setMap(Map<String, String> map){
+		return this.map = map;
+	}
+	
+	public HTMLCrawl( Map<String, String> map,SessionFactory sessionFactory, MobileService mobileServiceImpl){
+		this.map = map;
+		this.sessionFactory = sessionFactory;
+		this.mobileServiceImpl = mobileServiceImpl;
+		
 
-	public HTMLCrawl(){
 		yearList.add(2015);
 		yearList.add(2014);
 		yearList.add(2013);
@@ -61,6 +80,8 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		monthList.add("November");
 		monthList.add("December");
 		
+		
+		
 		monthMap.put("Jan", "January");
 		monthMap.put("Feb", "February");
 		monthMap.put("Mar", "March");
@@ -74,13 +95,28 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		monthMap.put("Nov", "November");
 		monthMap.put("Dec", "December");
 		
+		monthMapIndex.put("January",0);
+		monthMapIndex.put("February",1);
+		monthMapIndex.put("March",2);
+		monthMapIndex.put("April",3);
+		monthMapIndex.put("May",4);
+		monthMapIndex.put("June",5);
+		monthMapIndex.put("July",6);
+		monthMapIndex.put("August",7);
+		monthMapIndex.put("September",8);
+		monthMapIndex.put("October",9);
+		monthMapIndex.put("November",10);
+		monthMapIndex.put("December",11);
 		
+		
+	
 	}
+
+
 	
 	
 	
-	@Test
-	public void testReadHTML() throws ClassNotFoundException, SQLException{
+	public void saveCompany(String brandName) throws ClassNotFoundException, SQLException{
 		
 		
 		Session openSession = sessionFactory.openSession();
@@ -88,128 +124,54 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		
 		
 		Set<Mobile> mobilesList = new HashSet<Mobile>();
-		List<String> fileNameList = new ArrayList<String>();
 		
-		//Samsung
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_folder-7453.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s6_edge+_duos-7509.php");
-		/*fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s5_neo-6506.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s4_mini_i9195i-7468.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_a8_duos-7506.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_a8-7249.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_xcover_550-7119.php");
-		fileNameList.add("http://www.gsmarena.com/samsung_galaxy_s6_active-7114.php");
+		Company cmpy = mobileServiceImpl.getBrandByName(brandName);
+		
+		if(cmpy == null){
+			cmpy = new Company();
+			cmpy.setEnabled(false);
+			cmpy.setBrandName(brandName.trim());
+		}
 		
 		
-		// Lenovo
-		fileNameList.add("http://www.gsmarena.com/lenovo_phab_plus-7557.php");
-		fileNameList.add("http://www.gsmarena.com/lenovo_vibe_s1-7354.php");
-		fileNameList.add("http://www.gsmarena.com/lenovo_vibe_shot-7046.php");
-		fileNameList.add("http://www.gsmarena.com/lenovo_a319-6789.php");
-		fileNameList.add("http://www.gsmarena.com/lenovo_a7000-7088.php");
-		fileNameList.add("http://www.gsmarena.com/lenovo_golden_warrior_note_8-6842.php");
-		
-		// Micromax
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_xpress_2_e313-7452.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_bolt_d303-7432.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_selfie_lens_q345-7401.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_sliver_5-7306.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_knight_2_e471-7276.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_q372_unite_3-7223.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_spark_q380-7213.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_bolt_s300-7162.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_bolt_d320-7163.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_juice_2_aq5001-7140.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_a109_canvas_xl2-7139.php");
-		fileNameList.add("http://www.gsmarena.com/micromax_canvas_4_plus_a315-7143.php");
-		
-		//HTC Desire
-		fileNameList.add("http://www.gsmarena.com/htc_desire_626_(usa)-7421.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_626s-7418.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_526-7419.php");
-		fileNameList.add("http://www.gsmarena.com/htc_one_me-7275.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_820g+_dual_sim-7267.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_326g_dual_sim-7194.php");
-		fileNameList.add("http://www.gsmarena.com/htc_one_m9+-6977.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_820s_dual_sim-7115.php");
-		fileNameList.add("http://www.gsmarena.com/htc_one_m9-6891.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_526g+_dual_sim_-6947.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_620_dual_sim-6830.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_816g_dual_sim-6736.php");
-		fileNameList.add("http://www.gsmarena.com/htc_one_(m8_eye)-6713.php");
-		fileNameList.add("http://www.gsmarena.com/htc_desire_820_dual_sim-6637.php");
-		
-		// Sony
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z5_premium_dual-7538.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z5_premium-7536.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z5_dual-7537.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_m5-7464.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_c5_ultra-7463.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z4v-7296.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z3+-6878.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_m4_aqua_dual-7100.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_c5_ultra-7463.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_e3-6634.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_e4-6882.php");
-		fileNameList.add("http://www.gsmarena.com/sony_xperia_z3v-6796.php");*/
-		
-		
-
-			
-
-			
-		
-	//	fileNameList.add("http://www.gsmarena.com/huawei_honor_4c-7203.php");
-	//  fileNameList.add("http://www.gsmarena.com/samsung_galaxy_v_plus-7395.php");
-	 	/*fileNameList.add("Motorola Moto E (2nd gen) - Full phone specifications.html");
-		fileNameList.add("Huawei G8 - Full phone specifications.html");
-		fileNameList.add("Motorola Moto G (2nd gen) - Full phone specifications.html");
-		fileNameList.add("Motorola Moto G (3rd gen) - Full phone specifications.html");
-		fileNameList.add("Samsung Galaxy Note5 (CDMA) - Full phone specifications.html"); */
-		Company company = new Company();
-		//company.setId(1);
-		company.setEnabled(false);
-		company.setBrandName("Samsung");
-	//	company.setName("Samsung");
-		
-		
-		for (String fileName : fileNameList) {
 			// Read HTML
-			Map<String, String> map = readHtml(fileName);
 			Mobile mobile = constructMobileObject(map);
 				String title = mobile.getTitle();
-				if (title != null) {
-					String[] titleSplit = title.split(" ");
-					int i = 0;
-					String modelName = null ;
-					for (String str : titleSplit) {
-						str = str + " ";
-						if(i!=0){
-							if(modelName!=null){
-								modelName +=  str;
-							}else{
-								modelName = str;
+				
+				Mobile mob = mobileServiceImpl.getMobileByName(title);
+					if (mob == null) {
+						if (title != null) {
+							String[] titleSplit = title.split(" ");
+							int i = 0;
+							String modelName = null ;
+							for (String str : titleSplit) {
+								str = str + " ";
+								if(i!=0){
+									if(modelName!=null){
+										modelName +=  str;
+									}else{
+										modelName = str;
+									}
+								}
+								i++;
 							}
+							if(modelName!=null){
+								mobile.setModel(modelName.trim());
+							}
+							mobile.setBrandName(brandName.trim());
 						}
-						i++;
+					mobile.setCompany(cmpy);
+					mobilesList.add(mobile);
+			
+			
+				
+				cmpy.setMobile(mobilesList);
+				
+				openSession.saveOrUpdate(cmpy);
+				transaction.commit();
+				openSession.close();
+			
 					}
-					if(modelName!=null){
-						mobile.setModel(modelName.trim());
-					}
-					mobile.setBrandName(titleSplit[0].trim());
-				}
-			mobile.setCompany(company);
-			mobilesList.add(mobile);
-		}
-	
-	
-		
-		company.setMobile(mobilesList);
-		
-		openSession.saveOrUpdate(company);
-		transaction.commit();
-		openSession.close();
-		
 	}
 
 
@@ -244,7 +206,48 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		mobile.setEdge(edge);
 		
 		// TODO
-		String Announced = map.get("Announced");
+		String announced = map.get("Announced");
+		if(announced!=null){
+			Integer year = 0;
+			
+			Integer monthIndex = 0;
+			
+			Set<Entry<String, Integer>> entrySet = monthMapIndex.entrySet();
+			for (Entry<String, Integer> entry : entrySet) {
+				if(announced.contains(entry.getKey())){
+					monthIndex = entry.getValue();
+				}
+			}
+			
+			if(announced.contains("Q1")){
+				monthIndex = 5;
+			}
+			if(announced.contains("Q2")){
+				monthIndex = 8;
+			}
+			if(announced.contains("Q3")){
+				monthIndex = 11;
+			}
+			if(announced.contains("Q4")){
+				monthIndex = 3;
+			}
+			
+			;
+			for (Integer yr : yearList) {
+				
+				if(announced.contains(yr.toString())){
+					year = yr;
+				}
+				
+			}
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");	
+			
+			Calendar cal = Calendar.getInstance();
+			cal.set(year, monthIndex, 1);
+			
+			System.out.println(sdf.format(cal.getTime()));
+		}
 		mobile.setAnnounced_Month(new Date());
 		
 		String status = map.get("Status");
@@ -387,7 +390,11 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 							}
 						}
 					}
-				}else{
+				} else if (str.contains("/") && str.contains("GB")) {
+					String s1 = str.split("GB")[0];
+					Integer val = Integer.valueOf(s1.trim());
+					mobile.setInternal_Memory1(val);
+				} else {
 					Integer val = Integer.valueOf(str);
 					mobile.setInternal_Memory1(val);
 				}
@@ -398,7 +405,13 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 				mobile.setInternal_Memory2(val1);
 			}else if(split.length >= 1 && split[1].contains("GB")){
 				 String str1 = split[1].substring(0, 3);
-				 Integer val1 = Integer.valueOf(str1.trim());
+				 Integer val1 = null;
+				 if(str1.contains("G")){
+					 String s1 = split[1].split("GB")[0];
+					 val1  = Integer.valueOf(s1.trim());
+				 }else{
+					 val1  = Integer.valueOf(str1.trim());
+				 }
 				 mobile.setInternal_Memory2(val1);
 			}
 			
@@ -429,18 +442,20 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 			}*/
 				
 		//	}
-		}else if(internal_Memory!=null && internal_Memory.contains(",")){
+		}else if(internal_Memory!=null && internal_Memory.contains(",") && internal_Memory.contains("GB")){
 		String str = internal_Memory.split(",")[0];
 			int indexGB = str.indexOf("GB");
 			String substring = str.substring(0, indexGB);
 			Integer valueOf = Integer.valueOf(substring.trim());
 			mobile.setInternal_Memory(valueOf);
+		} else if(internal_Memory!=null && internal_Memory.contains("GB") && internal_Memory.contains("RAM")){
+			
 		}
 		
-		
 		String primary_Camera = map.get("primary_camera");
-		mobile.setPrimary_Camera(Float.valueOf(primary_Camera));
-		
+		if(primary_Camera!=null){
+			mobile.setPrimary_Camera(Float.valueOf(primary_Camera));
+		}
 		
 		// flash
 		String primary_Camera_flash = map.get("Primary");
@@ -457,7 +472,25 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 	
 	// TODO
 		String secondary_Camera = map.get("Secondary");
-		if(secondary_Camera!=null && secondary_Camera.contains("MP")){
+		if(secondary_Camera!=null && secondary_Camera.contains("VGA/") && secondary_Camera.contains("MP")){
+			secondary_Camera = secondary_Camera.split("VGA/")[1];
+			int indexOf = secondary_Camera.indexOf("MP");
+			String substring = secondary_Camera.substring(0, indexOf);
+			Float valueOf = Float.valueOf(substring.trim());
+			if(valueOf!=null){
+				mobile.setSecondary_Camera(valueOf);
+			}
+		
+		}else if(secondary_Camera!=null && secondary_Camera.contains("VGA@") && secondary_Camera.contains("MP")){
+			secondary_Camera = secondary_Camera.split("VGA@")[1];
+			int indexOf = secondary_Camera.indexOf("MP");
+			String substring = secondary_Camera.substring(0, indexOf);
+			Float valueOf = Float.valueOf(substring.trim());
+			if(valueOf!=null){
+				mobile.setSecondary_Camera(valueOf);
+			}
+		
+		}else if(secondary_Camera!=null && secondary_Camera.contains("MP")){
 			int indexOf = secondary_Camera.indexOf("MP");
 			String substring = secondary_Camera.substring(0, indexOf);
 			Float valueOf = Float.valueOf(substring.trim());
@@ -475,8 +508,26 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		String headphones = map.get("3.5mm jack");
 		mobile.setHeadphones(headphones);
 		
-	// TODO
-	//	String wlan = map.get("WLAN");
+		String wlan = map.get("WLAN");
+		
+		if(wlan.contains("Wi-Fi Direct")){
+			mobile.setWi_Fi_Direct(true);
+		}else{
+			mobile.setWi_Fi_Direct(false);
+		}
+		
+		if(wlan.contains("Wi-Fi")){
+			mobile.setWi_Fi(true);;
+		}else{
+			mobile.setWi_Fi(false);
+		}
+		
+		if(wlan.contains("Wi-Fi") && wlan.contains(",")){
+			String wifiStd = wlan.split(",")[0];
+			mobile.setWi_Fi_Standards_Supported(wifiStd);
+		}else{
+			mobile.setWi_Fi(false);
+		}
 		
 		String bluetooth = map.get("Bluetooth");
 		mobile.setBluetooth(bluetooth);
@@ -556,7 +607,13 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 				mobile.setInternal_Memory3(Integer.valueOf(ram4));
 			}
 		}else if(internal_storage!=null){
-			mobile.setInternal_Memory(Integer.valueOf(internal_storage));
+			if(internal_storage.contains(".")){
+				Double internalMemory = Math.ceil(Double.valueOf(internal_storage));
+				mobile.setInternal_Memory(Integer.valueOf(internalMemory.intValue()));
+			}else{
+				mobile.setInternal_Memory(Integer.valueOf(internal_storage));
+			}
+				
 		}
 		
 		String internal_storage_in_mb = map.get("internal_storage_mb");
@@ -572,7 +629,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		return mobile;
 	}
 	
-	private Map<String, String> readHtml(String fileName) throws ClassNotFoundException, SQLException{
+	public  Map<String, String> readHtml(String fileName) throws ClassNotFoundException, SQLException{
 
 		Map<String, String> map = null;
 
@@ -604,7 +661,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 	}
 	
 
-	private static Map<String, String> getColumnNameAndValues(Document doc) {
+	public static Map<String, String> getColumnNameAndValues(Document doc) {
 		Integer colCount = 0;
 		Map<String, String> mp = new LinkedHashMap<String, String>();
 		
@@ -725,7 +782,7 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 		// for(int i=1;i<= divList.size();i++){
 
 		Elements tables = divList.get(0).select("table");
-		for (int i = 0; i < tables.size(); i++) {
+		/*for (int i = 0; i < tables.size(); i++) {
 			Elements trList = tables.get(i).select("tr");
 			for (int j = 0; j < trList.size(); j++) {
 				Elements tdttlList = trList.select("td.ttl");
@@ -764,25 +821,32 @@ public class HTMLCrawl extends AbstractCheckinTestCase {
 					}
 				}
 				
-				/*for (int y = 0; y < tdnfoList.size(); y++) {
+				for (int y = 0; y < tdnfoList.size(); y++) {
 					System.out.println("tdnfoList......."+y+"....."+tdnfoList.get(y).text());					
-				}*/
+				}
 									
 				
-				/*for (int y = 0; y < tdList.size(); y++) {
+				for (int y = 0; y < tdList.size(); y++) {
 					Element element = tdList.get(y);
 					if (element != null) {
 						System.out.println(element.text());
 					}
-				}*/
+				}
 
 			}
 //		System.out.println("tr........."+trList.size());
 //		System.out.println("table...." + i);
 	//		System.out.println(colCount);
-		}
+		}*/
 		return mp;
 	}
+
+
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 
 
 }
