@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,58 +117,62 @@ public class HTMLCrawl  {
 	
 	public void saveCompany(String brandName) throws ClassNotFoundException, SQLException{
 		
-		
-		Session openSession = sessionFactory.openSession();
-		Transaction transaction = openSession.beginTransaction();
-		
-		
-		Set<Mobile> mobilesList = new HashSet<Mobile>();
-		
-		Company cmpy = mobileServiceImpl.getBrandByName(brandName);
-		
-		if(cmpy == null){
-			cmpy = new Company();
-			cmpy.setEnabled(false);
-			cmpy.setBrandName(brandName.trim());
-		}
-		
+		System.out.println("save company::"+brandName);
 		
 			// Read HTML
 			Mobile mobile = constructMobileObject(map);
-				String title = mobile.getTitle();
-				
-				Mobile mob = mobileServiceImpl.getMobileByName(title);
-					if (mob == null) {
-						if (title != null) {
-							String[] titleSplit = title.split(" ");
-							int i = 0;
-							String modelName = null ;
-							for (String str : titleSplit) {
-								str = str + " ";
-								if(i!=0){
-									if(modelName!=null){
-										modelName +=  str;
-									}else{
-										modelName = str;
-									}
-								}
-								i++;
+		if (mobile == null) {
+			System.out.println("....." + brandName);
+		} else {
+			
+			Session openSession = sessionFactory.openSession();
+			Transaction transaction = openSession.beginTransaction();
+			
+			Set<Mobile> mobilesList = new HashSet<Mobile>();
+			
+			Company cmpy = mobileServiceImpl.getBrandByName(brandName);
+			
+			if(cmpy == null){
+				cmpy = new Company();
+				cmpy.setEnabled(false);
+				cmpy.setBrandName(brandName.trim());
+			}
+			
+			
+			String title = mobile.getTitle();
+			Mobile mob = mobileServiceImpl.getMobileByName(title);
+			if (mob == null) {
+				if (title != null) {
+					String[] titleSplit = title.split(" ");
+					int i = 0;
+					String modelName = null;
+					for (String str : titleSplit) {
+						str = str + " ";
+						if (i != 0) {
+							if (modelName != null) {
+								modelName += str;
+							} else {
+								modelName = str;
 							}
-							if(modelName!=null){
-								mobile.setModel(modelName.trim());
-							}
-							mobile.setBrandName(brandName.trim());
 						}
-					mobile.setCompany(cmpy);
-					mobilesList.add(mobile);
-			
-			
-				
+						i++;
+					}
+					if (modelName != null) {
+						mobile.setModel(modelName.trim());
+					}
+					mobile.setBrandName(brandName.trim());
+				}
+				mobile.setCompany(cmpy);
+				mobilesList.add(mobile);
+
 				cmpy.setMobile(mobilesList);
-				
+
 				openSession.saveOrUpdate(cmpy);
 				transaction.commit();
 				openSession.close();
+			}
+			
+				
 			
 					}
 	}
@@ -183,6 +186,55 @@ public class HTMLCrawl  {
 		mobile.setTitle(title);
 		
 		mobile.setModel(title);
+		
+		// TODO
+				String announced = map.get("Announced");
+				if(announced!=null){
+					Integer year = 0;
+					
+					Integer monthIndex = 0;
+					
+					Set<Entry<String, Integer>> entrySet = monthMapIndex.entrySet();
+					for (Entry<String, Integer> entry : entrySet) {
+						if(announced.contains(entry.getKey())){
+							monthIndex = entry.getValue();
+						}
+					}
+					
+					if(announced.contains("Q1")){
+						monthIndex = 5;
+					}
+					if(announced.contains("Q2")){
+						monthIndex = 8;
+					}
+					if(announced.contains("Q3")){
+						monthIndex = 11;
+					}
+					if(announced.contains("Q4")){
+						monthIndex = 3;
+					}
+					
+					;
+					for (Integer yr : yearList) {
+						
+						if(announced.contains(yr.toString())){
+							year = yr;
+						}
+						
+					}
+					
+					Calendar cal = Calendar.getInstance();
+					cal.set(year, monthIndex, 1);
+					mobile.setAnnounced_Month(cal.getTime());
+				}
+				
+				Calendar.getInstance().get(Calendar.YEAR);
+				
+				
+				int year = getYearFromDate(mobile.getAnnounced_Month());
+				
+				if(year < 2012)
+					return null;
 		
 		String technology = map.get("Technology");
 		mobile.setTechnology(technology);
@@ -204,51 +256,6 @@ public class HTMLCrawl  {
 		
 		String edge = map.get("EDGE");
 		mobile.setEdge(edge);
-		
-		// TODO
-		String announced = map.get("Announced");
-		if(announced!=null){
-			Integer year = 0;
-			
-			Integer monthIndex = 0;
-			
-			Set<Entry<String, Integer>> entrySet = monthMapIndex.entrySet();
-			for (Entry<String, Integer> entry : entrySet) {
-				if(announced.contains(entry.getKey())){
-					monthIndex = entry.getValue();
-				}
-			}
-			
-			if(announced.contains("Q1")){
-				monthIndex = 5;
-			}
-			if(announced.contains("Q2")){
-				monthIndex = 8;
-			}
-			if(announced.contains("Q3")){
-				monthIndex = 11;
-			}
-			if(announced.contains("Q4")){
-				monthIndex = 3;
-			}
-			
-			;
-			for (Integer yr : yearList) {
-				
-				if(announced.contains(yr.toString())){
-					year = yr;
-				}
-				
-			}
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");	
-			
-			Calendar cal = Calendar.getInstance();
-			cal.set(year, monthIndex, 1);
-			
-			System.out.println(sdf.format(cal.getTime()));
-		}
-		mobile.setAnnounced_Month(new Date());
 		
 		String status = map.get("Status");
 		mobile.setStatus(status);
@@ -370,7 +377,7 @@ public class HTMLCrawl  {
 		
 	// TODO
 		String internal_Memory = map.get("Internal");
-		if(internal_Memory!=null && internal_Memory.contains("/")){
+		if(internal_Memory!=null && internal_Memory.contains("/") && internal_Memory.contains("GB")){
 			String[] split = internal_Memory.split("/");
 		//	for (String str : split) {
 			if(split.length >= 0){
@@ -415,7 +422,7 @@ public class HTMLCrawl  {
 				 mobile.setInternal_Memory2(val1);
 			}
 			
-			if(split.length >= 3 && !split[2].contains("GB")){
+			if(split.length >= 3 && !split[2].contains("GB") && !split[2].contains("MB") && !split[2].contains("RAM")){
 				String str2 = split[2];
 				Integer val2 = Integer.valueOf(str2);
 				mobile.setInternal_Memory3(val2);
@@ -442,14 +449,32 @@ public class HTMLCrawl  {
 			}*/
 				
 		//	}
-		}else if(internal_Memory!=null && internal_Memory.contains(",") && internal_Memory.contains("GB")){
+		} else if(internal_Memory!=null && internal_Memory.contains(",") &&
+				// TODO check RAM changes on internal memory
+				internal_Memory.contains("GB") && internal_Memory.contains("RAM")){
+			String str = internal_Memory.split(",")[0];
+			
+			String s1 = null;
+			if(str.contains("GB")){
+				s1 = str.split("GB")[0];
+			}else{
+				s1 = str;
+			}
+			
+			if(s1.contains(".")){
+				Double ceil = Math.ceil(Double.valueOf(s1.trim()));
+				mobile.setInternal_Memory(Integer.valueOf(ceil.intValue()));
+			}else{
+				Integer valueOf = Integer.valueOf(s1.trim());
+				mobile.setInternal_Memory(valueOf);
+			}
+		}
+		else if(internal_Memory!=null && internal_Memory.contains(",") && internal_Memory.contains("GB")){
 		String str = internal_Memory.split(",")[0];
 			int indexGB = str.indexOf("GB");
 			String substring = str.substring(0, indexGB);
 			Integer valueOf = Integer.valueOf(substring.trim());
 			mobile.setInternal_Memory(valueOf);
-		} else if(internal_Memory!=null && internal_Memory.contains("GB") && internal_Memory.contains("RAM")){
-			
 		}
 		
 		String primary_Camera = map.get("primary_camera");
@@ -563,7 +588,9 @@ public class HTMLCrawl  {
 		mobile.setTalkTime(talkTime);
 		
 		String batteryCapactiy = map.get("batteryCapacity");
-		if (batteryCapactiy != null) {
+		if (batteryCapactiy != null && batteryCapactiy.contains("/")) {
+			mobile.setBatteryCapactiy(Integer.valueOf(batteryCapactiy.split("/")[0]));
+		} else if (batteryCapactiy != null) {
 			mobile.setBatteryCapactiy(Integer.valueOf(batteryCapactiy));
 		}
 		
@@ -573,9 +600,9 @@ public class HTMLCrawl  {
 		String colors = map.get("Colors");
 		mobile.setColors(colors);
 		
-		String year = map.get("year");
-		if(year!=null){
-			mobile.setYear(Integer.valueOf(year));
+		String year1 = map.get("year");
+		if(year1!=null){
+			mobile.setYear(Integer.valueOf(year1));
 		}
 		
 		String month = map.get("month");
@@ -637,10 +664,6 @@ public class HTMLCrawl  {
 
 			Document doc = null;
 			
-		//	FileInputStream fileInputStream = new FileInputStream("C://Users//BOSS//Downloads//Compressed//hemanth//gsmarena//"+fileName);
-			
-		//	Document doc = Jsoup.parse(fileInputStream, "UTF-8", "http://example.com/");
-			
 			HtmldbTest htmldbTest = new HtmldbTest();
 			
 		
@@ -662,7 +685,8 @@ public class HTMLCrawl  {
 	
 
 	public static Map<String, String> getColumnNameAndValues(Document doc) {
-		Integer colCount = 0;
+		
+		
 		Map<String, String> mp = new LinkedHashMap<String, String>();
 		
 		String title = doc.select("h1.specs-phone-name-title").text();
@@ -769,75 +793,7 @@ public class HTMLCrawl  {
 		
 		 
 		 System.out.println("specs-brief-accent::"+doc.select(".specs-brief-accent").text());
-	//	mp.put("weight", weight);
 		
-		
-	/*	String os = doc.select("i.head-icon").text();
-		int beginIndex = os.lastIndexOf("v");
-		os = os.substring(beginIndex, os.length());
-		mp.put("os", os);*/
-		
-		Elements divList = doc.select("div#specs-list");
-		System.out.println("div size : " + divList.size());
-		// for(int i=1;i<= divList.size();i++){
-
-		Elements tables = divList.get(0).select("table");
-		/*for (int i = 0; i < tables.size(); i++) {
-			Elements trList = tables.get(i).select("tr");
-			for (int j = 0; j < trList.size(); j++) {
-				Elements tdttlList = trList.select("td.ttl");
-				Elements tdnfoList = trList.select("td.nfo");
-				for (int y = 0; y < tdttlList.size(); y++) {
-		//			System.out.print("tdttlList......."+y+"....."+tdttlList.get(y).text());
-					mp.put(tdttlList.get(y).text().trim(), "");	
-					if(tdnfoList.size() > y){
-						
-						Elements aElementList = tdnfoList.get(0).select("a");
-						if(aElementList!=null && aElementList.size() >0 && aElementList.get(0)!=null){
-							String text = aElementList.get(0).text();
-			//				System.out.println("a....."+text);
-						}
-						
-			//			System.out.println("......."+y+"....."+tdnfoList.get(y).text());
-						
-						if(tdttlList.get(y).text().trim().length()==0 || tdttlList.get(y).text().trim().contains("nbsp")){
-							mp.put((++colCount).toString(), tdnfoList.get(y).text().trim().replaceAll("check quality", "").trim());
-						}else{
-							mp.put(tdttlList.get(y).text().trim(), tdnfoList.get(y).text().trim().replaceAll("check quality", "").trim());								
-						}
-						
-						if(tdnfoList.get(y).text().trim().contains("removable")){
-							mp.put("protection", tdnfoList.get(y).text().trim());
-						}
-						
-						if(tdnfoList.get(y).text().trim().contains("mAh")){
-							String[] split = tdnfoList.get(y).text().trim().split("mAh");
-							String string = split[0];
-							String[] split2 = string.split(" ");
-							String string2 = split2[split2.length - 1];
-							mp.put("batteryCapacity", string2.trim());
-						}
-						
-					}
-				}
-				
-				for (int y = 0; y < tdnfoList.size(); y++) {
-					System.out.println("tdnfoList......."+y+"....."+tdnfoList.get(y).text());					
-				}
-									
-				
-				for (int y = 0; y < tdList.size(); y++) {
-					Element element = tdList.get(y);
-					if (element != null) {
-						System.out.println(element.text());
-					}
-				}
-
-			}
-//		System.out.println("tr........."+trList.size());
-//		System.out.println("table...." + i);
-	//		System.out.println(colCount);
-		}*/
 		return mp;
 	}
 
@@ -847,6 +803,15 @@ public class HTMLCrawl  {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	public static int getYearFromDate(Date date) {
+	    int result = -1;
+	    if (date != null) {
+	        Calendar cal = Calendar.getInstance();
+	        cal.setTime(date);
+	        result = cal.get(Calendar.YEAR);
+	    }
+	    return result;
+	}
 
 
 }
