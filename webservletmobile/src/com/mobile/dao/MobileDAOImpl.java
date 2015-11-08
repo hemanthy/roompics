@@ -151,7 +151,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getTopBrandMobileList() {
-		String sql = "select * from Mobile where (ram >= 4.7 or screenSize >= 5) and (company.id = 1 or company.id = 2)";
+		String sql = "select * from Mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 1 or Company_id = 2)";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -167,7 +167,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getRelatedMobilesList(Mobile mobile) {
-		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (company.id = 1 or company.id = 2)";
+		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 1 or Company_id = 2)";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -534,7 +534,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getUpcomingMobileList() {
-		String sql = "select * from Mobile where isUpcomingMobile = true";
+		String sql = "select * from Mobile where Upcoming_mobile = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}

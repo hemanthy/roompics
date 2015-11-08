@@ -20,9 +20,6 @@ public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static String INSERT_OR_EDIT = "/user.jsp";
     private static String LIST_USER = "/listUser.jsp";
-    
-    private static String INDEX_URL = "/index";
-    
     private UserDao dao;
 
     public UserController() {
@@ -37,30 +34,32 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward="";
         String action = request.getParameter("action");
-        String requestURI = request.getRequestURI().toLowerCase();
 
-        if (action!=null && action.equalsIgnoreCase("delete")){
+        if (action.equalsIgnoreCase("delete")){
             int userId = Integer.parseInt(request.getParameter("userId"));
             dao.deleteUser(userId);
             forward = LIST_USER;
             request.setAttribute("users", dao.getAllUsers());    
-        } else if (action!=null && action.equalsIgnoreCase("edit")){
+        } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int userId = Integer.parseInt(request.getParameter("userId"));
             User user = dao.getUserById(userId);
             request.setAttribute("user", user);
-        } else if (action!=null && action.equalsIgnoreCase("listUser")){
+        } else if (action.equalsIgnoreCase("listUser")){
             forward = LIST_USER;
             request.setAttribute("users", dao.getAllUsers());
+        }else if (action.equalsIgnoreCase("mobile")){
+        		forward = "/mobile.jsp";
+        		request.setAttribute("users", dao.getAllUsers());
+            	//indexPageInfo(request, response);
+        		//RequestDispatcher view = request.getRequestDispatcher("/mobile.jsp");
+	            request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
+	            request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());
+	            request.setAttribute("upcomingMobilesList", this.MobileService.getUpcomingMobileList());
+         //   view.forward(request, response);
         } else {
             forward = INSERT_OR_EDIT;
         }
-        
-        if(requestURI.contains(INDEX_URL)){
-        	indexPageInfo(request, response);
-        }
-        
-        
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
@@ -93,10 +92,10 @@ public class UserController extends HttpServlet {
     }
     
     public void indexPageInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 	RequestDispatcher view = request.getRequestDispatcher("mobile.jsp");
-	        request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
-	        request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());
-	        request.setAttribute("upcomingMobilesList", this.MobileService.getUpcomingMobileList());
-	        view.forward(request, response);
-	}
+	 	RequestDispatcher view = request.getRequestDispatcher("/mobile.jsp");
+        request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
+        request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());
+        request.setAttribute("upcomingMobilesList", this.MobileService.getUpcomingMobileList());
+        view.forward(request, response);
+}
 }

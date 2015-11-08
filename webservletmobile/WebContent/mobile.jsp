@@ -4,6 +4,7 @@
 <%@ page session="false" %>
 <html lang="en">
 
+
 <head>
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -11,17 +12,21 @@
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/style.css">  
+    <link rel="stylesheet" type="text/css" href="css/style.css">  
     
-   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <script src="/resources/script/jquery.min.js"></script>
-    <script src="/resources/script/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css">   
+<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">   --> 
+	
+	<link type="text/css"    href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
 	
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<!-- script src="http://code.jquery.com/jquery-1.10.2.js"></script-->
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	<script type="text/javascript" src="/resources/script/autosearch.js"></script>
+  	<script type="text/javascript" src="js/autosearch.js"></script>
   
 </head>
 
