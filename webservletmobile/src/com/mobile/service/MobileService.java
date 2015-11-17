@@ -29,4 +29,11 @@ public interface MobileService {
 	public List<Mobile> getMobilesBySearchCatageory(String[] catageory);
 	public DataMobileVO getMobileDetailsByQueryString(String queryString);
 	public List<Mobile> getUpcomingMobileList();
+	public Mobile getMobileByName(String mobileName1);
+    public List<Mobile> getMobilesBySecondaryCamera(Integer var1);
+    public List<Mobile> getDualMobiles();
+    public Company getCompanyById(int var1);
+	public List<Mobile> getMobilesByCompanyId(int id);
+	public List<Mobile> getMobilesByBrandName(String brandName);
+    
 }

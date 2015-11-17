@@ -83,6 +83,7 @@ $('#advancesearch-from input:checked').each(function() {
     var val = $(this).attr('value');
     var type = $(this).parent().parent().parent().attr('id');
 	var isChecked = $(this).is(':checked');
+	console.log();
 	if(isChecked){
 			addAttr(type, val);
 	}else{

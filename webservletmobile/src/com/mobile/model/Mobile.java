@@ -161,7 +161,7 @@ public class Mobile implements Serializable {
 	
     private Company company;
 
-	
+    private Integer company_Id;
 	
 
 	public Mobile() {
@@ -183,7 +183,7 @@ public class Mobile implements Serializable {
 			String standBy, String talkTime, String colors, String musicPlay, Integer batteryCapactiy,
 			String batteryType, String image_path1, String image_path2, Boolean enabled, Integer year, String month,
 			Float thinkness, String osVersion, Boolean dualSim, Boolean tripleSim, Boolean isUpcomingMobile,
-			Company company) {
+			Company company,Integer company_Id) {
 		super();
 		this.id = id;
 		this.brandName = brandName;
@@ -260,6 +260,7 @@ public class Mobile implements Serializable {
 		this.tripleSim = tripleSim;
 		this.isUpcomingMobile = isUpcomingMobile;
 		this.company = company;
+		this.company_Id = company_Id;
 	}
 
 
@@ -1310,6 +1311,16 @@ public class Mobile implements Serializable {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+
+	public Integer getCompany_Id() {
+		return company_Id;
+	}
+
+
+	public void setCompany_Id(Integer company_Id) {
+		this.company_Id = company_Id;
 	}
 
 

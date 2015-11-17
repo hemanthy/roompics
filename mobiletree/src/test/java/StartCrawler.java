@@ -18,7 +18,7 @@ public class StartCrawler  extends AbstractCheckinTestCase  {
 
 		for (String url1 : urlList) {
 			
-			BrandCrawler brandCrawler = new BrandCrawler(url1,sessionFactory,MobileServiceImpl);
+			BrandCrawlerGsm brandCrawler = new BrandCrawlerGsm(url1,sessionFactory,MobileServiceImpl);
 		}
 		
 	}

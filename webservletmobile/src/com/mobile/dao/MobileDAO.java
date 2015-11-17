@@ -28,4 +28,10 @@ public interface MobileDAO {
 	public List<Mobile> getMobilesBySearchCatageory(Map<String, String[]> catagoryUrl);
 	public List<Mobile> getMobileDetailsByQueryString(String queryString);
 	public List<Mobile> getUpcomingMobileList();
+	public Mobile getMobileByName(String mobileName);
+    public List<Mobile> getMobilesBySecondaryCamera(Integer var1);
+    public List<Mobile> getDualMobiles();
+	public Company getCompanyById(int id);
+	public List<Mobile> getMobilesByCompanyId(int id);
+	public List<Mobile> getMobilesByBrandName(String brandName);
 }

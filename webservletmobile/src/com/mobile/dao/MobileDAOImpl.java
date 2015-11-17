@@ -26,21 +26,25 @@ public class MobileDAOImpl implements MobileDAO {
 	}
 	
 	private  List<Mobile> getMobileObjList(String sql,Map<String,String> map){
-		PreparedStatement preparedStatement;
+		PreparedStatement preparedStatement = null;
 		List<Mobile> mobileList =  new ArrayList<Mobile>();
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Mobile mobile = new Mobile();
 				mobile.setId(rs.getInt("id"));
 				mobile.setBrandName(rs.getString("Brand_Name"));
+				mobile.setTitle(rs.getString("Title"));
+				mobile.setImage_path1(rs.getString("Image_path1"));
+				mobile.setCompany_Id(rs.getInt("Company_id"));
 				mobileList.add(mobile);
 			}
+			rs.close();
+			preparedStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		preparedStatement.setInt(1, userId);
 		return mobileList;
 	}
 	
@@ -49,22 +53,16 @@ public class MobileDAOImpl implements MobileDAO {
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(sql);
-//		preparedStatement.setInt(1, userId);
 		ResultSet rs = preparedStatement.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Company company = new Company();
 			company.setId(rs.getInt("id"));
 			company.setBrandName(rs.getString("brandName"));
-			company.setEnabled(rs.getBoolean("brandName"));
 			cmpyList.add(company);
-			
-			/*user.setUserid(rs.getInt("userid"));
-			user.setFirstName(rs.getString("firstname"));
-			user.setLastName(rs.getString("lastname"));
-			user.setDob(rs.getDate("dob"));
-			user.setEmail(rs.getString("email"));*/
 		}
+		rs.close();
+		preparedStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -143,7 +141,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getLatestMobile(){
-		String sql = "select * from Mobile order by Announced_Month desc";
+		String sql = "select * from Mobile order by Announced_Month desc limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -151,7 +149,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getTopBrandMobileList() {
-		String sql = "select * from Mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 1 or Company_id = 2)";
+		String sql = "select * from Mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 7 or Company_id = 8) limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -167,14 +165,14 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getRelatedMobilesList(Mobile mobile) {
-		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 1 or Company_id = 2)";
+		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 7 or Company_id = 14)";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	@Override
 	public Company getBrandByName(String brandName) {
-		String sql = "select * from Company where brandName = "+brandName;
+		String sql = "select * from Company where brandName = '"+brandName+"'";
 		List<Company> companiesList  =	getCompanyObjList(sql, null);
 		if(!companiesList.isEmpty()){
 			return companiesList.get(0);
@@ -193,7 +191,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getMobilesByScreenSize(Integer screenSize) {
-		String sql = "select * from Mobile where screenSize = "+screenSize;
+		String sql = "select * from Mobile where Screen_size = "+screenSize;
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -539,5 +537,156 @@ public class MobileDAOImpl implements MobileDAO {
 		return mobileList;
 	}
 	
+	public Mobile getMobileByName(String mobileName) {
+		
+		String sql = "select * from Mobile where title like  '" + mobileName + "'";
+		
+		return getMobileDetails(sql, null);
+	}
+	
+	@Override
+	public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) {
+		String sql = "select * from Mobile where secondary_Camera >= " + secondaryCamera;
+		List<Mobile> mobileList  = getMobileObjList(sql, null);
+		return mobileList;
+	}
+	
+	@Override
+	public List<Mobile> getDualMobiles() {
+		String sql = "select * from Mobile where dual_sim = true";
+		List<Mobile> mobileList  = getMobileObjList(sql, null);
+		return mobileList;
+	}
+	
+	@Override
+	public Company getCompanyById(int id) {
+		String sql = "select * from Company where id = "+id;
+		List<Company> companyList = getCompanyObjList(sql, null);
+		return companyList.get(0);
+	}
+	
+
+	@Override
+	public List<Mobile> getMobilesByCompanyId(int id) {
+		String sql = "select * from Mobile where Company_id = "+id;
+		List<Mobile> mobileList  = getMobileObjList(sql, null);
+		return mobileList;
+	}
+	
+	@Override
+	public List<Mobile> getMobilesByBrandName(String brandName) {
+		String sql = "select * from Mobile where Brand_Name = '" + brandName+"'";
+		List<Mobile> mobileList  = getMobileObjList(sql, null);
+		return mobileList;
+	}
+
+	private Mobile getMobileDetails(String sql, Object object) {
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Mobile mobile = new Mobile();
+				mobile.setId(rs.getInt("id"));
+				mobile.setBrandName(rs.getString("Brand_Name"));
+				mobile.setModel(rs.getString("Model"));
+				mobile.setTitle(rs.getString("Title"));
+				mobile.setScreenType(rs.getString("Screen_Type"));
+				mobile.setScreenSize(rs.getFloat("Screen_Size"));
+				mobile.setRam(rs.getFloat("Ram"));
+				mobile.setRamSizeInMB(rs.getInt("Ram_Size_In_MB"));
+				mobile.setTechnology(rs.getString("Technology"));
+				mobile.setBand_2G(rs.getString("2G"));
+				mobile.setBand_3G(rs.getString("3G"));
+				
+				mobile.setBand_4G(rs.getString("4G"));
+				mobile.setSpeed(rs.getString("Speed"));
+				
+				mobile.setGprs(rs.getString("GPRS"));
+				mobile.setEdge(rs.getString("EDGE"));
+				mobile.setStatus(rs.getString("Status"));
+				mobile.setDimensions(rs.getString("Dimensions"));
+				mobile.setWeight(rs.getInt("Weight"));
+				
+				mobile.setSim(rs.getString("SIM"));
+				mobile.setRemovable_Battery(rs.getString("Removable_Battery"));
+				mobile.setDisplay_Type(rs.getString("Display_Type"));
+				mobile.setResolution(rs.getString("Resolution"));
+				mobile.setPpl(rs.getInt("PPL"));
+				mobile.setMultitouch(rs.getString("Multitouch"));
+				mobile.setProtection(rs.getString("Protection"));
+				mobile.setOs(rs.getString("OS"));
+				
+				mobile.setChipset(rs.getString("Chipset"));
+				mobile.setProcessor(rs.getString("Processor"));
+				mobile.setGpu(rs.getString("GPU"));
+				mobile.setCard_Slot(rs.getString("Card_Slot"));
+				
+				mobile.setInternal_Memory(rs.getInt("Internal_Memory"));
+				mobile.setInternal_Memory1(rs.getInt("Internal_Memory1"));
+				mobile.setInternal_Memory2(rs.getInt("Internal_Memory2"));
+				mobile.setInternal_Memory3(rs.getInt("Internal_Memory3"));
+				mobile.setInternal_Memory4(rs.getInt("Internal_Memory4"));
+				
+			//	mobile.sete(rs.getInt("External_memory"));
+				
+				mobile.setInternal_Memory_In_MB(rs.getInt("Internal_Memory_In_MB"));
+				mobile.setPrimary_Camera(rs.getFloat("Primary_Camera"));
+				mobile.setSecondary_Camera(rs.getFloat("Secondary_Camera"));
+				mobile.setFlash(rs.getBoolean("Flash"));
+				mobile.setFeatures(rs.getString("Features"));
+				
+				mobile.setVideo(rs.getString("Video"));
+				mobile.setAlert_Types(rs.getString("Alert_Types"));
+				mobile.setLoudspeaker(rs.getString("Loudspeaker"));
+				mobile.setHeadphones(rs.getString("Headphones"));
+				
+				mobile.setWi_Fi(rs.getBoolean("Wi_Fi"));
+				mobile.setWi_Fi_Direct(rs.getBoolean("Wi_Fi_Direct"));
+				mobile.setWi_Fi_Standards_Supported(rs.getString("Wi_Fi_Standards_Supported"));
+				mobile.setBluetooth(rs.getString("Bluetooth"));
+				
+				mobile.setHdmi(rs.getBoolean("HDMI"));
+				mobile.setGps(rs.getString("GPS"));
+				mobile.setNfc(rs.getString("NFC"));
+				mobile.setRadio(rs.getString("Radio"));
+				
+				mobile.setUsb(rs.getString("USB"));
+				mobile.setSensors(rs.getString("Sensors"));
+				mobile.setMessaging(rs.getString("Messaging"));
+				mobile.setBrowser(rs.getString("Browser"));
+				
+				mobile.setJava(rs.getString("Java"));
+				mobile.setStandBy(rs.getString("Stand_By"));
+				mobile.setTalkTime(rs.getString("Talk_Time"));
+				mobile.setColors(rs.getString("Colors"));
+				
+				mobile.setMusicPlay(rs.getString("Music_Play"));
+				mobile.setBatteryCapactiy(rs.getInt("Battery_Capactiy"));
+				mobile.setBatteryType(rs.getString("Battery_Type"));
+				mobile.setAnnounced_Month(rs.getDate("Announced_Month"));
+				
+				mobile.setImage_path1(rs.getString("Image_path1"));
+				mobile.setImage_path2(rs.getString("Image_path2"));
+				mobile.setYear(rs.getInt("year"));
+				mobile.setMonth(rs.getString("month"));
+				mobile.setThinkness(rs.getFloat("thinkness"));
+				mobile.setOsVersion(rs.getString("os_version"));
+				mobile.setDualSim(rs.getBoolean("dual_sim"));
+				mobile.setTripleSim(rs.getBoolean("triple_sim"));
+				mobile.setEnabled(rs.getBoolean("Enabled"));
+				mobile.setIsUpcomingMobile(rs.getBoolean("Upcoming_mobile"));
+				mobile.setCompany_Id(rs.getInt("Company_id"));
+				return mobile;
+				
+			}
+			rs.close();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

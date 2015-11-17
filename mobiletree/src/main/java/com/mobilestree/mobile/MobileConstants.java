@@ -13,4 +13,9 @@ public class MobileConstants {
     public static final String AVAILABILITY = "availability";
     public static final String INTERNAL_MEMORY = "internal-memory";
     public static final String EXTERNAL_MEMORY = "external-memory";
+    public static final String FOLDER_PATH = "F:/Mobiletree/";
+    public static final String IMG_EXTENSION = ".jpg";
+    
+    public static Boolean isRemote = true;
+    
 }

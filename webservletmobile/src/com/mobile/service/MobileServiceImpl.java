@@ -184,9 +184,39 @@ public class MobileServiceImpl implements MobileService {
 		
 		return dataMobileVO;
 	}
-
+	
 	@Override
 	public List<Mobile> getUpcomingMobileList() {
 		return this.MobileDAO.getUpcomingMobileList();
+	}
+
+	@Override
+	public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) {
+		return this.MobileDAO.getMobilesBySecondaryCamera(secondaryCamera);
+	}
+
+	@Override
+	public List<Mobile> getDualMobiles() {
+		return this.MobileDAO.getDualMobiles();
+	}
+
+	@Override
+	public Mobile getMobileByName(String mobileName) {
+        return this.MobileDAO.getMobileByName(mobileName);
+    }
+	
+	@Override
+	 public Company getCompanyById(int id) {
+	        return this.MobileDAO.getCompanyById(id);
+	    }
+
+	@Override
+	public List<Mobile> getMobilesByCompanyId(int id) {
+		 return this.MobileDAO.getMobilesByCompanyId(id);
+	}
+
+	@Override
+	public List<Mobile> getMobilesByBrandName(String brandName) {
+		 return this.MobileDAO.getMobilesByBrandName(brandName);
 	}
 }

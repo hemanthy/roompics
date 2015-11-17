@@ -12,8 +12,9 @@ public class DbUtil {
 	private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection != null)
+        if (connection != null){
             return connection;
+        }
         else {
             try {
             	Properties prop = new Properties();

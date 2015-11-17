@@ -9,7 +9,7 @@ import org.jsoup.select.Elements;
 
 import com.mobilestree.mobile.service.MobileService;
 
-public class BrandCrawler {
+public class BrandCrawlerGsm {
 	
 	static Document doc;
 	
@@ -29,20 +29,19 @@ public class BrandCrawler {
 		sessionFactory = sessFactory;
 	}
 	
-	public BrandCrawler(String url,SessionFactory sessionFactory,MobileService mobileServiceImpl) throws IOException, ClassNotFoundException, SQLException {
+	public BrandCrawlerGsm(String url, SessionFactory sessionFactory, MobileService mobileServiceImpl)
+			throws IOException, ClassNotFoundException, SQLException {
 		this.url = url;
 		this.sessionFactory = sessionFactory;
 		this.mobileServiceImpl = mobileServiceImpl;
-		
+
 		System.out.println("Reading url :" + url);
-		
-		doc = Jsoup.connect(url).userAgent("Chrome").timeout(10000).get();
-		
-		brandTitle = getTitle();
-		
-		extractMobileUrls();
-		
-		
+
+		if (url != null) {
+			doc = Jsoup.connect(url).userAgent("Chrome").timeout(10000).get();
+			brandTitle = getTitle();
+			extractMobileUrls();
+		}
 	}
 	
 	
@@ -61,22 +60,27 @@ public class BrandCrawler {
 
 		String mobileUrl = element.attr("abs:href");
 		
-		HtmldbTest htmldbTest = new HtmldbTest();
-		
-		String content = htmldbTest.readHtmlDataByURLInDB(mobileUrl);
-		
-		if (content == null) {
-			htmldbTest.readHtmlDataByURLInWeb(mobileUrl);
-			MobileCrawler mobileCrawler = new MobileCrawler(mobileUrl);
-			HTMLCrawl htmlCrawl = new HTMLCrawl(mobileCrawler.map, sessionFactory,mobileServiceImpl);
-			htmlCrawl.saveCompany(brandTitle);
-		}
+		saveMobileInfo(mobileUrl);
 		
 		
 		
 		
 	
 		
+	}
+
+	public void saveMobileInfo(String mobileUrl) throws ClassNotFoundException, SQLException, IOException {
+		PresistCrawelData presistCrawelData = new PresistCrawelData();
+		presistCrawelData.setSessionFactory(sessionFactory);
+		presistCrawelData.setMobileServiceImpl(mobileServiceImpl);
+		String content = presistCrawelData.readHtmlDataByURLInDB(mobileUrl);
+		
+		if (content == null) {
+			presistCrawelData.readHtmlDataByURLInWeb(mobileUrl);
+			MobileCrawlerGsm mobileCrawlerGsm = new MobileCrawlerGsm(mobileUrl,brandTitle);
+			presistCrawelData.setMobile(mobileCrawlerGsm.mobile);
+			presistCrawelData.saveCompany(brandTitle);
+		}
 	}
 	
 	public void extractMobileUrls() throws IOException, ClassNotFoundException, SQLException {
