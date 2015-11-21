@@ -116,7 +116,7 @@ function submitUrl(urlArr){
 		newurlArr.push(key+'-'+urlArr[key]);
 	}
 
-  var queryStr = "http://localhost:8080"+seo_path+'/'+seo_search;
+  var queryStr = seo_path+'/'+seo_search;
   if(newurlArr !=''){
 	  var queryStr = queryStr+'/'+newurlArr.join('/');
   }

@@ -6,16 +6,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:forward page="/UserController?action=indexPage" />
-
-<%-- <jsp:forward page="/UserController?action=all-brands" /> --%>
-
-<%-- <jsp:forward page="/UserController?action=advance-search" /> --%>
-
-<%-- <jsp:forward page="/UserController?action=compare" /> --%>
 
 
+<% String val = (String) request.getParameter("path"); %>
 
+<jsp:forward  page="/UserController" >
+
+<jsp:param name="action" value='indexPage'/>
+
+</jsp:forward>`
 
 </body>
 </html>

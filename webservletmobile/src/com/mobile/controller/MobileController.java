@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mobile.dao.UserDao;
+import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
@@ -34,8 +35,13 @@ public class MobileController extends HttpServlet {
 
     public MobileController() {
         super();
-        dao = new UserDao();
-        MobileService = new MobileServiceImpl();
+        try {
+			dao = new UserDao();
+			MobileService = new MobileServiceImpl();
+		} catch (MobileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private MobileService MobileService;
@@ -47,7 +53,12 @@ public class MobileController extends HttpServlet {
         String requestURI = request.getRequestURI().toLowerCase();
         
         if(requestURI.contains("mobilecontroller")){
-        	indexPageInfo(request, response);
+        	try {
+				indexPageInfo(request, response);
+			} catch (MobileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
       }
 
             forward = INDEX_URL;
@@ -87,7 +98,7 @@ public class MobileController extends HttpServlet {
         view.forward(request, response);
     }
     
-    public void indexPageInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void indexPageInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MobileException {
 		 	RequestDispatcher view = request.getRequestDispatcher("mobile.jsp");
 	        request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
 	        request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());

@@ -8,14 +8,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.mobile.exception.MobileException;
+
 public class DbUtil {
 	private static Connection connection = null;
 
-    public static Connection getConnection() {
-        if (connection != null){
-            return connection;
-        }
-        else {
+    public static Connection getConnection() throws MobileException {
             try {
             	Properties prop = new Properties();
                 InputStream inputStream = DbUtil.class.getClassLoader().getResourceAsStream("/db.properties");
@@ -29,7 +27,7 @@ public class DbUtil {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new MobileException(e);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -37,6 +35,4 @@ public class DbUtil {
             }
             return connection;
         }
-
-    }
 }

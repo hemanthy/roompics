@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
@@ -19,17 +20,20 @@ import com.mobile.vo.MobileConstants;
 public class MobileDAOImpl implements MobileDAO {
 	
 
-	private Connection connection;
+	private Connection connection = null;
 
-	public MobileDAOImpl() {
+	public MobileDAOImpl() throws MobileException {
 		connection = DbUtil.getConnection();
 	}
 	
-	private  List<Mobile> getMobileObjList(String sql,Map<String,String> map){
+	private  List<Mobile> getMobileObjList(String sql,Map<String,String> map) throws MobileException{
 		PreparedStatement preparedStatement = null;
 		List<Mobile> mobileList =  new ArrayList<Mobile>();
 		try {
-			preparedStatement = connection.prepareStatement(sql);
+			if(connection == null || connection.isClosed()){
+				connection = DbUtil.getConnection();
+			}
+			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Mobile mobile = new Mobile();
@@ -42,19 +46,22 @@ public class MobileDAOImpl implements MobileDAO {
 			}
 			rs.close();
 			preparedStatement.close();
+		//	connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new MobileException(e);
 		}
 		return mobileList;
 	}
 	
-	public List<Company> getCompanyObjList(String sql,Map<String,String> map){
+	public List<Company> getCompanyObjList(String sql,Map<String,String> map) throws MobileException{
 		List<Company> cmpyList =  new ArrayList<Company>();
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement(sql);
+			if(connection == null || connection.isClosed()){
+				connection = DbUtil.getConnection();
+			}
+		preparedStatement = connection.prepareStatement(sql.toLowerCase());
 		ResultSet rs = preparedStatement.executeQuery();
-		
 		while (rs.next()) {
 			Company company = new Company();
 			company.setId(rs.getInt("id"));
@@ -63,8 +70,9 @@ public class MobileDAOImpl implements MobileDAO {
 		}
 		rs.close();
 		preparedStatement.close();
+		//connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new MobileException(e);
 		}
 		
 		return cmpyList;
@@ -122,14 +130,14 @@ public class MobileDAOImpl implements MobileDAO {
 	}
 
 	@Override
-	public List<Company> listCompanies() {
+	public List<Company> listCompanies() throws MobileException {
 		String sql = "select * from Company";
 		List<Company> companyList = getCompanyObjList(sql, null);
 		return companyList;
 	}
 
 	@Override
-	public Mobile getMobileById(Integer id) {
+	public Mobile getMobileById(Integer id) throws MobileException {
 		String sql = "select * from Mobile where id ="+id;
 		List<Mobile> mobileList =	getMobileObjList(sql, null);
 		if(!mobileList.isEmpty()){
@@ -140,23 +148,23 @@ public class MobileDAOImpl implements MobileDAO {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getLatestMobile(){
-		String sql = "select * from Mobile order by Announced_Month desc limit 0,10";
+	public List<Mobile> getLatestMobile() throws MobileException {
+		String sql = "select * from mobile order by Announced_Month desc limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getTopBrandMobileList() {
-		String sql = "select * from Mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 7 or Company_id = 8) limit 0,10";
+	public List<Mobile> getTopBrandMobileList() throws MobileException {
+		String sql = "select * from mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 7 or Company_id = 8) limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Company> getCompaniesList() {
+	public List<Company> getCompaniesList() throws MobileException {
 		String sql = "select * from Company order by brandName asc";
 		List<Company> companiesList  =	getCompanyObjList(sql, null);
 		return companiesList;
@@ -164,14 +172,14 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getRelatedMobilesList(Mobile mobile) {
+	public List<Mobile> getRelatedMobilesList(Mobile mobile) throws MobileException {
 		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 7 or Company_id = 14)";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	@Override
-	public Company getBrandByName(String brandName) {
+	public Company getBrandByName(String brandName) throws MobileException {
 		String sql = "select * from Company where brandName = '"+brandName+"'";
 		List<Company> companiesList  =	getCompanyObjList(sql, null);
 		if(!companiesList.isEmpty()){
@@ -182,7 +190,7 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getMobilesByRamSize(Integer ramSize) {
+	public List<Mobile> getMobilesByRamSize(Integer ramSize) throws MobileException {
 		String sql = "select * from Mobile where ram = "+ramSize;
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
@@ -190,7 +198,7 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getMobilesByScreenSize(Integer screenSize) {
+	public List<Mobile> getMobilesByScreenSize(Integer screenSize) throws MobileException {
 		String sql = "select * from Mobile where Screen_size = "+screenSize;
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
@@ -198,7 +206,7 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getMobilesBySearchCatageory(Map<String, String[]> catagoryUrl) {
+	public List<Mobile> getMobilesBySearchCatageory(Map<String, String[]> catagoryUrl) throws MobileException {
 		Map<String,List<String>> urlMap = new HashMap<String, List<String>>();
 		
 		StringBuffer sb = new StringBuffer();
@@ -517,7 +525,7 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getMobileDetailsByQueryString(String queryString) {
+	public List<Mobile> getMobileDetailsByQueryString(String queryString) throws MobileException {
 		List<Mobile> mobileList = null;
 		if (queryString.length() == 1) {
 			String sql = "select * from Mobile where title like  '" + queryString + "%'";
@@ -531,13 +539,13 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Mobile> getUpcomingMobileList() {
-		String sql = "select * from Mobile where Upcoming_mobile = true";
+	public List<Mobile> getUpcomingMobileList() throws MobileException {
+		String sql = "select * from mobile where Upcoming_mobile = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
-	public Mobile getMobileByName(String mobileName) {
+	public Mobile getMobileByName(String mobileName) throws MobileException {
 		
 		String sql = "select * from Mobile where title like  '" + mobileName + "'";
 		
@@ -545,21 +553,21 @@ public class MobileDAOImpl implements MobileDAO {
 	}
 	
 	@Override
-	public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) {
+	public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) throws MobileException {
 		String sql = "select * from Mobile where secondary_Camera >= " + secondaryCamera;
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
-	public List<Mobile> getDualMobiles() {
+	public List<Mobile> getDualMobiles() throws MobileException {
 		String sql = "select * from Mobile where dual_sim = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
-	public Company getCompanyById(int id) {
+	public Company getCompanyById(int id) throws MobileException {
 		String sql = "select * from Company where id = "+id;
 		List<Company> companyList = getCompanyObjList(sql, null);
 		return companyList.get(0);
@@ -567,23 +575,26 @@ public class MobileDAOImpl implements MobileDAO {
 	
 
 	@Override
-	public List<Mobile> getMobilesByCompanyId(int id) {
+	public List<Mobile> getMobilesByCompanyId(int id) throws MobileException {
 		String sql = "select * from Mobile where Company_id = "+id;
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
-	public List<Mobile> getMobilesByBrandName(String brandName) {
+	public List<Mobile> getMobilesByBrandName(String brandName) throws MobileException {
 		String sql = "select * from Mobile where Brand_Name = '" + brandName+"'";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 
-	private Mobile getMobileDetails(String sql, Object object) {
+	private Mobile getMobileDetails(String sql, Object object) throws MobileException {
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement(sql);
+			if(connection == null || connection.isClosed()){
+				connection = DbUtil.getConnection();
+			}
+			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Mobile mobile = new Mobile();
@@ -682,8 +693,9 @@ public class MobileDAOImpl implements MobileDAO {
 			}
 			rs.close();
 			preparedStatement.close();
+		//	connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new MobileException(e);
 		}
 		return null;
 	}

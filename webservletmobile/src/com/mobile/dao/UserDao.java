@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mobile.exception.MobileException;
 import com.mobile.model.User;
 import com.mobile.util.DbUtil;
 
@@ -14,7 +16,7 @@ public class UserDao {
 
 	private Connection connection;
 
-	public UserDao() {
+	public UserDao() throws MobileException {
 		connection = DbUtil.getConnection();
 	}
 

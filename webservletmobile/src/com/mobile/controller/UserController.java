@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mobile.dao.UserDao;
+import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.User;
@@ -29,38 +30,56 @@ public class UserController extends HttpServlet {
     public static final Integer SCREEN_SIZE = 5;
     public static final Integer SECONDARY_CAMERA = 5;
     public static final String COMPARE_URL = "/compare/";
+    
+    public static MobileException mobileexception;
 
     public UserController() {
         super();
-        dao = new UserDao();
-        MobileService = new MobileServiceImpl();
+        try {
+        	dao = new UserDao();
+		} catch (MobileException e) {
+			this.mobileexception = e;
+		}
+        try {
+			MobileService = new MobileServiceImpl();
+		} catch (MobileException e) {
+			this.mobileexception = e;
+		}
     }
     
     private MobileService MobileService;
 	
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward="/error.jsp";
         String action = "";
         action  = request.getParameter("action");
-        if(action == null)
+        if(action == null){
         	action = "";
+        }
+        
+        action = action.toLowerCase();
         
         String requestURI = request.getRequestURI();
+
+        
+        if(requestURI.contains("UserController")){
+        	requestURI = action;
+        }
         
         System.out.println(requestURI);
-
-        if (action.equalsIgnoreCase("indexPage")){
-        		forward = "/index.jsp";
+        try{
+        if (action.contains("indexpage")){
+        		forward = "/index1.jsp";
 	            request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
 	            request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());
 	            request.setAttribute("upcomingMobilesList", this.MobileService.getUpcomingMobileList());
 	            request.setAttribute("companyList", this.MobileService.getCompaniesList());
+	            request.setAttribute("mobiless", "LandingPage");
          //   view.forward(request, response);
-        }else if (action.equalsIgnoreCase("all-brands") || requestURI.contains("all-brands")) {
+        }else if (action.contains("all-brands") || requestURI.contains("all-brands")) {
 			forward = "/mobiles.jsp";
 			request.setAttribute("companyList", this.MobileService.getCompaniesList());
-		} else if (action.equalsIgnoreCase("/advance-search/") || requestURI.contains("/advance-search/")) {
+		} else if (action.contains("/advance-search/") || requestURI.contains("/advance-search/")) {
 			forward = "/advanceSearch.jsp";
 			request.setAttribute("companyList", this.MobileService.getCompaniesList());
 			if (requestURI.contains((CharSequence)"search")) {
@@ -75,7 +94,7 @@ public class UserController extends HttpServlet {
 	        }
 		} 
 		
-		else if (action.equalsIgnoreCase("/advance-search") || requestURI.contains("/advance-search")) {
+		else if (action.contains("/advance-search") || requestURI.contains("/advance-search")) {
 				forward = "/advanceSearch.jsp";
 			 	request.setAttribute("ramBasedmobiles", (Object)this.MobileService.getMobilesByRamSize(RAM_SIZE));
 		        request.setAttribute("screensizeBasedmobiles", (Object)this.MobileService.getMobilesByScreenSize(SCREEN_SIZE));
@@ -84,7 +103,7 @@ public class UserController extends HttpServlet {
 		        request.setAttribute("companyList", (Object)this.MobileService.getCompaniesList());
 		}
 		
-		else if (action.equalsIgnoreCase("compare") || requestURI.contains("compare")) {
+		else if (action.contains("compare") || requestURI.contains("compare")) {
 			forward = "/compare.jsp";
 	        String requestURL = request.getRequestURI().toLowerCase();
 	        if (requestURL.contains((CharSequence)"-vs-")) {
@@ -122,7 +141,7 @@ public class UserController extends HttpServlet {
 	            String mobileName1 = mobileName.replaceAll("-", " ");
 	            request.setAttribute("mobile1", (Object)this.MobileService.getMobileByName(mobileName1));
 	        }
-		} else if (action.equalsIgnoreCase("mobiles/") || requestURI.contains("mobiles/")) {
+		} else if (action.contains("mobiles/") || requestURI.contains("mobiles/")) {
 			String mobileName = requestURI.split("mobiles/")[1];
 			if (mobileName.endsWith("upcoming-phones")) {
 				request.setAttribute("availability", (Object) "upcoming-mobiles");
@@ -183,12 +202,23 @@ public class UserController extends HttpServlet {
 				forward = "/mobile.jsp";
 			}
 		}
+        request.setAttribute("excep", mobileexception);
+        }catch(Exception e){
+        	forward = "/index1.jsp";
+        	 request.setAttribute("excep", e.getCause());
+        	 e.printStackTrace();
+        }
         
-        RequestDispatcher view = request.getRequestDispatcher(forward);
+        
+        request.setAttribute("aaa","1234");
+        
+       RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
+        
+   //     getServletConfig().getServletContext().getRequestDispatcher(forward).forward(request,response);
     }
 
-    private void getBrandDetails(HttpServletRequest request, String brandName) {
+    private void getBrandDetails(HttpServletRequest request, String brandName) throws MobileException {
     	 Company company = this.MobileService.getBrandByName(brandName);
     	 //request.setAttribute("mobilesBySearchCatageoryList", MobileService.getMobilesByCompanyId(company.getId()));
     	 request.setAttribute("mobilesBySearchCatageoryList", MobileService.getMobilesByBrandName(brandName));
@@ -221,7 +251,7 @@ public class UserController extends HttpServlet {
         view.forward(request, response);
     }
     
-    public void indexPageInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void indexPageInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MobileException {
 	 	RequestDispatcher view = request.getRequestDispatcher("/mobile.jsp");
         request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
         request.setAttribute("topBrandMobilesList", this.MobileService.getTopBrandMobileList());
