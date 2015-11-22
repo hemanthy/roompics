@@ -7,19 +7,15 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   
+   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-     
-     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<!-- script src="http://code.jquery.com/jquery-1.10.2.js"></script-->
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	
-  	<link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/css/style.css"> 
-	<script type="text/javascript" src="/js/autosearch.js"></script>   
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+	<script type="text/javascript" src="/js/autosearch.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">  
 	
 </head>
 <style>
@@ -78,7 +74,7 @@
 }
 
 .full-specs-sub-list {
-	background: url(../resources/images/row2_bg.gif) repeat-x left top;
+	background: url(../images/row2_bg.gif) repeat-x left top;
 }
 .add_search {
   height: 56px;
@@ -167,7 +163,7 @@
 </c:if>
 <c:if test="${empty mobile1}">
 <script>
-	var vsPath = "";
+	var vsPath = "/";
 </script>
 </c:if>
 <div class="compare-page">
@@ -287,13 +283,13 @@
 														<c:set var="title" value="${fn:toLowerCase(mobile1.title)}" />
 															<a class="device_title" href="/mobiles/${fn:replace(title,' ', '-')}"
 																alt="${mobile1.title}" title="${mobile1.title}"> ${mobile1.title} </a>
-																<a class="cross" href="/mobiles/compare<c:if test="${!empty m2}">/${m2}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/resources/images/cross.png"> </a>
+																<a class="cross" href="/mobiles/compare<c:if test="${!empty m2}">/${m2}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/images/cross.png"> </a>
 													</div>
 													<div class="block block_info">
 														<a href="/mobiles/${fn:replace(title,' ', '-')}"
 															style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 															alt="${mobile1.title} title="${mobile1.title}">
-															<img src="/resources/images${mobile1.image_path1}"
+															<img src="/images${mobile1.image_path1}"
 															alt="Compare ${mobile1.title}" title="Compare ${mobile1.title}" width="105">
 														</a>
 													</div>
@@ -312,13 +308,13 @@
 																	<c:set var="title" value="${fn:toLowerCase(mobile2.title)}" />
 																		<a class="device_title" href="/mobiles/${fn:replace(title,' ', '-')}"
 																			alt="${mobile2.title}" title="${mobile2.title}"> ${mobile2.title} </a>
-																			<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/resources/images/cross.png"> </a>
+																			<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/images/cross.png"> </a>
 																</div>
 																<div class="block block_info">
 																	<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																		style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																		alt="${mobile2.title} title="${mobile2.title}">
-																		<img src="/resources/images${mobile2.image_path1}"
+																		<img src="/images${mobile2.image_path1}"
 																		alt="Compare ${mobile2.title}" title="Compare ${mobile2.title}" width="105">
 																	</a>
 																</div>
@@ -337,13 +333,13 @@
 																<c:set var="title" value="${fn:toLowerCase(mobile3.title)}" />
 																	<a class="device_title" href="/mobiles/${fn:replace(title,' ', '-')}"
 																		alt="${mobile3.title}" title="${mobile3.title}"> ${mobile3.title} </a>
-																		<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m2}">-vs-${m2}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/resources/images/cross.png"> </a>
+																		<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m2}">-vs-${m2}</c:if><c:if test="${!empty m4}">-vs-${m4}</c:if>" id="cross0"> <img src="/images/cross.png"> </a>
 															</div>
 															<div class="block block_info">
 																<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																	style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																	alt="${mobile3.title} title="${mobile3.title}">
-																	<img src="/resources/images${mobile3.image_path1}"
+																	<img src="/images${mobile3.image_path1}"
 																	alt="Compare ${mobile3.title}" title="Compare ${mobile3.title}" width="105">
 																</a>
 															</div>
@@ -362,13 +358,13 @@
 																<c:set var="title" value="${fn:toLowerCase(mobile4.title)}" />
 																	<a class="device_title" href="/mobiles/${fn:replace(title,' ', '-')}"
 																		alt="${mobile4.title}" title="${mobile4.title}"> ${mobile4.title} </a>
-																		<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m2}">-vs-${m2}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if>" id="cross0"> <img src="/resources/images/cross.png"> </a>
+																		<a class="cross" href="/mobiles/compare/<c:if test="${!empty m1}">${m1}</c:if><c:if test="${!empty m2}">-vs-${m2}</c:if><c:if test="${!empty m3}">-vs-${m3}</c:if>" id="cross0"> <img src="/images/cross.png"> </a>
 															</div>
 															<div class="block block_info">
 																<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																	style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																	alt="${mobile4.title} title="${mobile4.title}">
-																	<img src="/resources/images${mobile4.image_path1}"
+																	<img src="/images${mobile4.image_path1}"
 																	alt="Compare ${mobile4.title}" title="Compare ${mobile4.title}" width="105">
 																</a>
 															</div>
@@ -483,7 +479,7 @@
 		                                    			${mobile1.secondary_Camera}
 		                                          </c:if>
 		                                          <c:if test="${mobile1.secondary_Camera le 0.3}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
 	                                          </td>
                                     		 <td>
@@ -491,7 +487,7 @@
 		                                    			${mobile2.secondary_Camera}
 		                                          </c:if>
 		                                          <c:if test="${mobile2.secondary_Camera le 0.3}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
 											</td>
                                     		<td>
@@ -499,7 +495,7 @@
 		                                    			${mobile3.secondary_Camera}
 		                                          </c:if>
 		                                          <c:if test="${mobile3.secondary_Camera le 0.3}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
 											</td>
                                     		 <td>
@@ -507,7 +503,7 @@
 		                                    			${mobile4.secondary_Camera}
 		                                          </c:if>
 		                                          <c:if test="${mobile4.secondary_Camera le 0.3}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
 											</td>
                              </tr>
@@ -515,34 +511,34 @@
                                         <th>Flash</th>
                                     		 <td>
                                     		 	<c:if test="${mobile1.flash eq true}">
-		                                    			<img src="/resources/images/yes.gif"> Available
+		                                    			<img src="/images/yes.gif"> Available
 		                                          </c:if>
 		                                          <c:if test="${mobile1.flash eq false}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
                                     		 </td>
                                     		 <td>
                                     		 	<c:if test="${mobile2.flash eq true}">
-		                                    			<img src="/resources/images/yes.gif"> Available
+		                                    			<img src="/images/yes.gif"> Available
 		                                          </c:if>
 		                                          <c:if test="${mobile2.flash eq false}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
                                     		 </td>
                                     		 <td>
                                     		 	<c:if test="${mobile3.flash eq true}">
-		                                    			<img src="/resources/images/yes.gif"> Available
+		                                    			<img src="/images/yes.gif"> Available
 		                                          </c:if>
 		                                          <c:if test="${mobile3.flash eq false}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
                                     		 </td>
                                     		 <td>
                                     		 	<c:if test="${mobile4.flash eq true}">
-		                                    			<img src="/resources/images/yes.gif"> Available
+		                                    			<img src="/images/yes.gif"> Available
 		                                          </c:if>
 		                                          <c:if test="${mobile4.flash eq false}">
-		                                    			<img src="/resources/images/no.png"> Not Available
+		                                    			<img src="/images/no.png"> Not Available
 		                                          </c:if>
                                     		 </td>
                              </tr>
@@ -570,34 +566,34 @@
                                         <th>GPS</th>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile1 && !empty mobile1.gps}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile1 && empty mobile1.gps}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                                          	 <td>
 	                                    		<c:if test="${!empty mobile2 && !empty mobile2.gps}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile2 && empty mobile2.gps}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 				                             </td>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile3 && !empty mobile3.gps}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile3 && empty mobile3.gps}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                                          	<td>
 	                                    		<c:if test="${!empty mobile4 && !empty mobile4.gps}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile4 && empty mobile4.gps}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 				                            </td>
                              </tr>
@@ -612,34 +608,34 @@
                                         <th>USB Connector</th>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile1 && !empty mobile1.usb}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile1 && empty mobile1.usb}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile2 && !empty mobile2.usb}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile2 && empty mobile2.usb}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile3 && !empty mobile3.usb}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile3 && empty mobile3.usb}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                                       	  <td>
 	                                    		<c:if test="${!empty mobile4 && !empty mobile4.usb}">
-				                                	<img src="/resources/images/yes.gif"> Available
+				                                	<img src="/images/yes.gif"> Available
 				                                </c:if>
 				                                <c:if test="${!empty mobile4 && empty mobile4.usb}">
-				                                	<img src="/resources/images/no.png"> Not Available
+				                                	<img src="/images/no.png"> Not Available
 				                                </c:if>
 			                               </td>
                              </tr>
@@ -659,34 +655,34 @@
                                         <th>3G</th>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile1 && !empty mobile1.band_3G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile1 && empty mobile1.band_3G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile2 && !empty mobile2.band_3G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile2 && empty mobile2.band_3G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile3 && !empty mobile3.band_3G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile3 && empty mobile3.band_3G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile4 && !empty mobile4.band_3G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile4 && empty mobile4.band_3G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
                              </tr>
@@ -694,34 +690,34 @@
                                         <th>4G</th>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile1 && !empty mobile1.band_4G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile1 && empty mobile1.band_4G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile2 && !empty mobile2.band_4G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile2 && empty mobile2.band_4G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile3 && !empty mobile3.band_4G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile3 && empty mobile3.band_4G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile4 && !empty mobile4.band_4G}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile4 && empty mobile4.band_4G}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
                              </tr>
@@ -734,34 +730,34 @@
                                         <th>GPRS</th>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile1 && !empty mobile1.gprs}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile1 && empty mobile1.gprs}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile2 && !empty mobile2.gprs}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile2 && empty mobile2.gprs}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile3 && !empty mobile3.gprs}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile3 && empty mobile3.gprs}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile4 && !empty mobile4.gprs}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile4 && empty mobile4.gprs}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
                              </tr>
@@ -769,34 +765,34 @@
                                         <th>EDGE</th>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile1 && !empty mobile1.edge}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile1 && empty mobile1.edge}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile2 && !empty mobile2.edge}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile2 && empty mobile2.edge}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile3 && !empty mobile3.edge}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile3 && empty mobile3.edge}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
 		                                      	  <td>
 			                                    		<c:if test="${!empty mobile4 && !empty mobile4.edge}">
-						                                	<img src="/resources/images/yes.gif"> Available
+						                                	<img src="/images/yes.gif"> Available
 						                                </c:if>
 						                                <c:if test="${!empty mobile4 && empty mobile4.edge}">
-						                                	<img src="/resources/images/no.png"> Not Available
+						                                	<img src="/images/no.png"> Not Available
 						                                </c:if>
 					                               </td>
                              </tr>

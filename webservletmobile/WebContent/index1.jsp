@@ -13,30 +13,11 @@
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">  
-    
-<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">   --> 
-	
-	<link type="text/css"    href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-
-	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<!-- script src="http://code.jquery.com/jquery-1.10.2.js"></script-->
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	
-  	
-  	
-  	<link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css"> 
 	<script type="text/javascript" src="js/autosearch.js"></script>
-	
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">  
+  
   
 </head>
 
@@ -63,7 +44,7 @@
               	 	<input id="project" placeholder="Search">
                 </div>
                 <div class="col-sm-4">
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li>
                                 <a href="#">About</a>
@@ -75,7 +56,7 @@
                                 <a href="#">Contact</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -129,7 +110,7 @@
                         <c:forEach items="${latestMobilesList}" var="mobile"   varStatus="status" begin="0" end="5">
 	                        <li class="list-group-item">
 	                         	  <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
-                                  <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}..${mobile.brandName}</a>
+                                  <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
 	                        </li>
 						</c:forEach>
                         </ul>
@@ -137,20 +118,33 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="jumbotron">
-                    <p>
-                        Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl et.
-                    </p>
-                </div>
+            	<div class="panel panel-info">
+            		<div class="panel-heading">
+                        <h3 class="panel-title">The Best Mobile Phone October Mobile</h3>
+                    </div>
+		                       <div class="panel-body">
+		                    		<div class="col-sm-6">
+								                                <c:set var="title" value="${fn:toLowerCase(upcomingMobilesList[0])}" />
+				                                   				<a href="/mobiles/${fn:replace(title,' ', '-')}">
+								                                <img height="146" width="100" src="/resources/images${mobile.image_path1}" title="">
+									                                <strong>
+									                               		<span>${mobile.title}</span>
+									                                </strong>
+								                                </a>
+										</div>
+										<div class="col-sm-6">
+											<p>
+				                        		Best Mobile 
+				                       		</p>
+										</div>
+								</div>
+                    </div>
 
             </div>
             <div class="col-sm-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Top Brand Mobiles......${mobiless}///
-									??<%= request.getAttribute("excep") %>:::
-									??<%= request.getAttribute("aaa") %>:::
-									<%= request.getAttribute("mobiless") %>///</h3>
+                        <h3 class="panel-title">Top Brand Mobiles</h3>
                     </div>
                     <div class="panel-body-mb">
                         <ul class="list-group">

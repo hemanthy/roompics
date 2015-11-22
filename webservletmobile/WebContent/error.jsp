@@ -40,7 +40,7 @@
 </head>
 
 <body>
-	Error Page
+	??<%= request.getAttribute("excep") %>:::
 </body>
 
 <style>

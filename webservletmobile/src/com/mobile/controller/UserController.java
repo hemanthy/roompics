@@ -19,6 +19,9 @@ import com.mobile.model.Mobile;
 import com.mobile.model.User;
 import com.mobile.service.MobileService;
 import com.mobile.service.MobileServiceImpl;
+import com.mobile.vo.DataMobileVO;
+
+import com.google.gson.Gson;
 
 public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -31,7 +34,7 @@ public class UserController extends HttpServlet {
     public static final Integer SECONDARY_CAMERA = 5;
     public static final String COMPARE_URL = "/compare/";
     
-    public static MobileException mobileexception;
+    public MobileException mobileexception;
 
     public UserController() {
         super();
@@ -52,7 +55,8 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward="/error.jsp";
         String action = "";
-        action  = request.getParameter("action");
+        String parameter = request.getParameter("action");
+		action  = parameter;
         if(action == null){
         	action = "";
         }
@@ -66,8 +70,26 @@ public class UserController extends HttpServlet {
         	requestURI = action;
         }
         
+        
         System.out.println(requestURI);
+        System.out.println("MobileService::"+this.MobileService.toString());
         try{
+        	
+        	if(requestURI.contains("queryString")){
+            		String mobileName = request.getParameter("q");
+            		 DataMobileVO dataMobileVO = this.MobileService.getMobileDetailsByQueryString(mobileName);
+            	        Gson gson = new Gson();
+            	        String jsonData = gson.toJson((Object)dataMobileVO);
+            	        request.setAttribute("jsonData", (Object)jsonData);
+            	        System.out.println(jsonData);
+            	      //  response.s
+            	        response.setContentType("application/json");
+            	        response.getWriter().write(jsonData);
+            	        response.getWriter().flush();
+            	        return;
+            	//super.doGet(request, response);
+            }
+        	
         if (action.contains("indexpage")){
         		forward = "/index1.jsp";
 	            request.setAttribute("latestMobilesList", this.MobileService.getLatestMobile());
@@ -204,7 +226,7 @@ public class UserController extends HttpServlet {
 		}
         request.setAttribute("excep", mobileexception);
         }catch(Exception e){
-        	forward = "/index1.jsp";
+        	forward = "/error.jsp";
         	 request.setAttribute("excep", e.getCause());
         	 e.printStackTrace();
         }

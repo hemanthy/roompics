@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
@@ -24,6 +28,35 @@ public class MobileDAOImpl implements MobileDAO {
 
 	public MobileDAOImpl() throws MobileException {
 		connection = DbUtil.getConnection();
+		
+		
+		/*InitialContext cxt = null;
+		DataSource  lookup = null;
+		try {
+			cxt = new InitialContext();
+		} catch (NamingException e) {
+			e.printStackTrace();
+			 throw new MobileException(e.getCause());
+		}
+		if ( cxt == null ) {
+		 System.out.println( "Uh oh -- no context!");
+		}
+		
+		try {
+			 lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf" );
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}if ( lookup == null ) {
+			   throw new MobileException("Data source not found!");
+		}
+		try {
+			connection =	lookup.getConnection();
+		} catch (SQLException e) {
+			throw new MobileException(e.getCause());
+		}*/
+		
+		System.out.println("connection::"+connection.toString());
+		
 	}
 	
 	private  List<Mobile> getMobileObjList(String sql,Map<String,String> map) throws MobileException{
@@ -528,10 +561,10 @@ public class MobileDAOImpl implements MobileDAO {
 	public List<Mobile> getMobileDetailsByQueryString(String queryString) throws MobileException {
 		List<Mobile> mobileList = null;
 		if (queryString.length() == 1) {
-			String sql = "select * from Mobile where title like  '" + queryString + "%'";
+			String sql = "select * from Mobile where title like  '" + queryString + "%' limit 0,10";
 			mobileList = getMobileObjList(sql, null);
 		} else if (queryString.length() > 1) {
-			String sql = "select * from Mobile where title like  '%" + queryString + "%'";
+			String sql = "select * from Mobile where title like  '%" + queryString + "%' limit 0,10";
 			mobileList = getMobileObjList(sql, null);
 		}
 		return mobileList;

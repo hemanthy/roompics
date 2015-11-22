@@ -7,7 +7,7 @@ var path = window.location.pathname;
     $( "#project").keyup(function() {
     	queryString = $( "#project" ).val();
     	//alert(queryString);
-    	 $.ajax({
+    	/* $.ajax({
      		   type: "GET",
      		   dataType: "json",
      		   url: "/queryString?q="+queryString,
@@ -15,7 +15,22 @@ var path = window.location.pathname;
      		    console.log(jsonData);
      		    loadingAutoComplete(jsonData.mobileVoList);
      		   }
-     		});
+     		});*/
+    	 $.ajax({
+   		   type: "GET",
+   		   dataType: "json",
+   		   url: "/queryString?q="+queryString,
+   		   success: function (data, text) {
+   			console.log("data::"+data);
+   			console.log("text::"+text);
+   		 loadingAutoComplete(data.mobileVoList);
+   	    },
+   		   error: function (request, status, error) {
+   			console.log(request.responseText);
+   			console.log(status);
+   			console.log(error);
+   	    }
+   		});
     });
     
     loadingAutoComplete("");

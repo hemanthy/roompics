@@ -12,7 +12,7 @@
 
 <jsp:forward  page="/UserController" >
 
-<jsp:param name="action" value='indexPage'/>
+<jsp:param name="action" value='<%= val %>'/>
 
 </jsp:forward>`
 

@@ -8,28 +8,16 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  	
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/resources/script/simplegallery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-	
-	
-	<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <script src="/resources/script/jquery.min.js"></script>
-    <script src="/resources/script/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css">   
-	
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<!-- script src="http://code.jquery.com/jquery-1.10.2.js"></script-->
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	<script type="text/javascript" src="/resources/script/autosearch.js"></script>
-  	
-  	<link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/css/style.css"> 
-	<script type="text/javascript" src="/js/autosearch.js"></script>   
+  	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+	<script type="text/javascript" src="/js/autosearch.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">  
+  	 
     <style>
         .product-img {
             float: left;
@@ -235,7 +223,7 @@
                 <div id="gallery" class="product-img">
                     <div class="main-img">
                         <div class="content">
-                            <img src="/resources/images${mobile.image_path1}" class="image_1" alt="" />
+                            <img src="/images${mobile.image_path1}" class="image_1" alt="" />
                             <!--
                             	 <img src="http://biqcdn.com.s3.amazonaws.com/m/img/p/p96617-pi201295-ci0-ui166762-s360x360.jpg" class="image_2" style="display:none" alt="" />
                             	<img src="http://biqcdn.com.s3.amazonaws.com/m/img/p/p96617-pi201296-ci0-ui166763-s360x360.jpg" class="image_3" style="display:none" alt="" />
@@ -401,7 +389,7 @@
 											<c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
 											 <a
 												href="/mobiles/${fn:replace(title,' ', '-')}">
-												<img height="146" width="100" src="/resources/images${mobile.image_path1}" title="${mobile.title}">
+												<img height="146" width="100" src="/images${mobile.image_path1}" title="${mobile.title}">
 													<strong> <span>${mobile.title}</span>
 												</strong>
 											</a></li>
@@ -425,7 +413,7 @@
 						                         <li>
 						                              <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
 			                                  		   <a href="/mobiles/${fn:replace(title,' ', '-')}">
-						                               	<img height="146" width="100" src="/resources/images${mobile.image_path1}" title="${mobile.title}">
+						                               	<img height="146" width="100" src="/images${mobile.image_path1}" title="${mobile.title}">
 							                                <strong>
 							                               		<span>${mobile.title}</span>
 							                                </strong>
@@ -531,7 +519,7 @@
 		                                <td width="30%">Flash</td>
 		                                <td width="70%">
 			                                <c:if test="${!empty mobile.flash}">
-			                                	<img src="/resources/images/yes.gif">
+			                                	<img src="/images/yes.gif">
 			                                </c:if>
 		                                </td>
 		                            </tr>
@@ -553,7 +541,7 @@
                                 <td id="no-border" width="30%">Dual Sim</td>
                                 <td id="no-border" width="70%">
                                 	<c:if test="${!empty mobile.dualSim}">
-	                                	<img src="/resources/images/yes.gif">
+	                                	<img src="/images/yes.gif">
 	                                </c:if>
                                 </td>
                             </tr>
@@ -561,7 +549,7 @@
                                 <td id="no-border" width="30%">GPS</td>
                                 <td id="no-border" width="70%">
 									<c:if test="${!empty mobile.gps}">
-	                                	<img src="/resources/images/yes.gif">
+	                                	<img src="/images/yes.gif">
 	                                </c:if>
                                 </td>
                             </tr>
@@ -573,7 +561,7 @@
                                 <td id="no-border" width="30%">USB Connector</td>
                                 <td id="no-border" width="70%">
 	                                <c:if test="${!empty mobile.usb}">
-		                                	<img src="/resources/images/yes.gif">
+		                                	<img src="/images/yes.gif">
 		                            </c:if>
                                 </td>
                             </tr>
@@ -596,10 +584,10 @@
                                 <td width="30%">3G</td>
                                 <td width="70%">
 										<c:if test="${!empty mobile.band_3G}">
-			                                	<img src="/resources/images/yes.gif">
+			                                	<img src="/images/yes.gif">
 			                         	</c:if>
 			                         	<c:if test="${empty mobile.band_3G}">
-			                                	<img src="/resources/images/no.png">
+			                                	<img src="/images/no.png">
 			                         	</c:if>
 			                    </td>
                             </tr>
@@ -607,10 +595,10 @@
                                 <td width="30%">4G</td>
                                 <td width="70%">
 									<c:if test="${!empty mobile.band_4G}">
-			                                	<img src="/resources/images/yes.gif">
+			                                	<img src="/images/yes.gif">
 			                         </c:if>
 			                         <c:if test="${empty mobile.band_4G}">
-			                                	<img src="/resources/images/no.png">
+			                                	<img src="/images/no.png">
 			                         </c:if>
 								</td>
                             </tr>
@@ -623,20 +611,20 @@
                                 <td width="30%">GPRS</td>
                                 <td width="70%">
 	                                 <c:if test="${!empty mobile.gprs}">
-			                                	<img src="/resources/images/yes.gif">
+			                                	<img src="/images/yes.gif">
 			                         </c:if>
 			                          <c:if test="${empty mobile.gprs}">
-			                                	<img src="/resources/images/no.png">
+			                                	<img src="/images/no.png">
 			                         </c:if>
                             </tr>
                             <tr>
                                 <td width="30%">EDGE</td>
                                 <td width="70%">
 									<c:if test="${!empty mobile.edge}">
-			                                	<img src="/resources/images/yes.gif">
+			                                	<img src="/images/yes.gif">
 			                         </c:if>
 			                         <c:if test="${empty mobile.edge}">
-			                                	<img src="/resources/images/no.png">
+			                                	<img src="/images/no.png">
 			                         </c:if>
 								</td>
                             </tr>
@@ -665,11 +653,11 @@
                             </tr> -->
                             <tr>
                                 <td width="30%">Speakerphone</td>
-                                <td width="70%"><img src="/resources/images/yes.gif"></td>
+                                <td width="70%"><img src="/images/yes.gif"></td>
                             </tr>
 							 <tr>
                                 <td width="30%">HeadSet</td>
-                                <td width="70%"><img src="/resources/images/yes.gif"></td>
+                                <td width="70%"><img src="/images/yes.gif"></td>
                             </tr>
                         </table>
 						<table id="full-specs-sub-list-table" width="100%">
@@ -678,7 +666,7 @@
                             </th>
                             <tr>
                                 <td width="30%">Type</td>
-                                <td width="70%">${mobile.batteryType}</td>
+                                <td width\="70%">${mobile.batteryType}</td>
                             </tr>
                             <tr>
                                 <td width="30%">Capacity  (mAh)</td>
@@ -720,7 +708,7 @@
 
 </body>
 
-<script language="JavaScript" type="text/javascript">
+<!-- <script language="JavaScript" type="text/javascript">
     $(document).ready(function() {
 
         $('#gallery').simplegallery({
@@ -731,6 +719,6 @@
         });
 
     });
-</script>
+</script> -->
 
 </html>
