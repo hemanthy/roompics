@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="false" %>
+<%@ page isELIgnored="false" %>
 <html lang="en">
 
 <head>
@@ -140,7 +141,7 @@
               	 	<input id="project" placeholder="Search">
                 </div>
                 <div class="col-sm-4">
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!--                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li>
                                 <a href="#">About</a>
@@ -152,7 +153,7 @@
                                 <a href="#">Contact</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -223,7 +224,7 @@
                 <div id="gallery" class="product-img">
                     <div class="main-img">
                         <div class="content">
-                            <img src="/images${mobile.image_path1}" class="image_1" alt="" />
+                            <img src="/brand_images/${mobile.image_path1}" class="image_1" alt="" />
                             <!--
                             	 <img src="http://biqcdn.com.s3.amazonaws.com/m/img/p/p96617-pi201295-ci0-ui166762-s360x360.jpg" class="image_2" style="display:none" alt="" />
                             	<img src="http://biqcdn.com.s3.amazonaws.com/m/img/p/p96617-pi201296-ci0-ui166763-s360x360.jpg" class="image_3" style="display:none" alt="" />
@@ -370,9 +371,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <div style="border:1px red solid; height: 250px">
+               <!--  <div style="border:0px red solid; height: 250px">
                     Adv
-                </div>
+                </div> -->
                 <c:if test="${!empty sameBrandMobiles}">
 	                <hr>
 	                <div id="border-color-div" class="panel panel-info">
@@ -389,7 +390,7 @@
 											<c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
 											 <a
 												href="/mobiles/${fn:replace(title,' ', '-')}">
-												<img height="146" width="100" src="/images${mobile.image_path1}" title="${mobile.title}">
+												<img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}">
 													<strong> <span>${mobile.title}</span>
 												</strong>
 											</a></li>
@@ -413,7 +414,7 @@
 						                         <li>
 						                              <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
 			                                  		   <a href="/mobiles/${fn:replace(title,' ', '-')}">
-						                               	<img height="146" width="100" src="/images${mobile.image_path1}" title="${mobile.title}">
+						                               	<img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}">
 							                                <strong>
 							                               		<span>${mobile.title}</span>
 							                                </strong>

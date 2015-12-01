@@ -19,7 +19,7 @@ var path = window.location.pathname;
     	 $.ajax({
    		   type: "GET",
    		   dataType: "json",
-   		   url: "/queryString?q="+queryString,
+   		   url: "/querystring?q="+queryString,
    		   success: function (data, text) {
    			console.log("data::"+data);
    			console.log("text::"+text);
@@ -70,7 +70,7 @@ function loadingAutoComplete(data){
     	 $.ajax({
      		   type: "GET",
      		   dataType: "json",
-     		   url: "/queryString?q="+queryString,
+     		   url: "/querystring?q="+queryString,
      		   success: function(jsonData){
      		    console.log(jsonData);
      		    loadingAutoComplete1(jsonData.mobileVoList);
@@ -113,7 +113,7 @@ function loadingAutoComplete1(data){
 	    	 $.ajax({
 	     		   type: "GET",
 	     		   dataType: "json",
-	     		   url: "/queryString?q="+queryString,
+	     		   url: "/querystring?q="+queryString,
 	     		   success: function(jsonData){
 	     		    console.log(jsonData);
 	     		    loadingAutoComplete2(jsonData.mobileVoList);
@@ -155,7 +155,7 @@ function loadingAutoComplete1(data){
 	    	 $.ajax({
 	     		   type: "GET",
 	     		   dataType: "json",
-	     		   url: "/queryString?q="+queryString,
+	     		   url: "/querystring?q="+queryString,
 	     		   success: function(jsonData){
 	     		    console.log(jsonData);
 	     		    loadingAutoComplete3(jsonData.mobileVoList);
@@ -197,7 +197,7 @@ function loadingAutoComplete1(data){
 	    	 $.ajax({
 	     		   type: "GET",
 	     		   dataType: "json",
-	     		   url: "/queryString?q="+queryString,
+	     		   url: "/querystring?q="+queryString,
 	     		   success: function(jsonData){
 	     		    console.log(jsonData);
 	     		    loadingAutoComplete4(jsonData.mobileVoList);

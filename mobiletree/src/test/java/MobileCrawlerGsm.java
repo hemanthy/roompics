@@ -25,7 +25,7 @@ public class MobileCrawlerGsm  {
 	
 static Document doc;
 	
-	static String title;
+	static String title = null;
 
     //The path of the folder that you want to save the images to
 	
@@ -60,9 +60,18 @@ static Document doc;
 		
 		title = getTitle();
 		
-		Map<String, String> map = getColumnNameAndValues(doc);
+		String titl = title.toLowerCase();
 		
-		mobile = constructMobileObject(map);
+		if(!(titl.contains("gear") || titl.contains("watch") || titl.contains("tab") || titl.contains("samsung galaxy tab pro 8.4 3g")
+				|| titl.contains("/"))){
+			Map<String, String> map = getColumnNameAndValues(doc);
+			if(map!=null){
+				mobile = constructMobileObject(map);
+			}
+			
+		}
+		
+		
 	
 	}
 
@@ -129,9 +138,9 @@ static Document doc;
 	}
 	
 	public String getTitle() {
-		String title = doc.select("h1.article-info-name").text();
+		String title = doc.select("h1.specs-phone-name-title").text();
 		System.out.println("Mobile title :"+ title);
-		return title;
+		return title.trim();
 	}
 	
 
@@ -246,10 +255,6 @@ static Document doc;
    //       }
 		}
 		
-		CommonHelper.downloadImgAndGetImgPath(doc, mp,title,"specs-photo-main",brandName);
-		
-		Element imagElement = doc.select("div.specs-photo-main").get(0);
-        Elements img =   imagElement.getElementsByTag("img");
 
 		 
 		 System.out.println("specs-brief-accent::"+doc.select(".specs-brief-accent").text());
@@ -315,6 +320,16 @@ static Document doc;
 
 			}
 			}
+			
+			Date extractAnnouncedDate = extractAnnouncedDate(mp);
+			
+			int year = getYearFromDate(extractAnnouncedDate);
+			
+			if(year < 2012)
+				return null;
+			
+			CommonHelper.downloadImgAndGetImgPath(doc, mp,title,"specs-photo-main",brandName);
+			
 				System.out.println(mp);
 		return mp;
 	
@@ -329,48 +344,8 @@ static Document doc;
 		mobile.setModel(title);
 		
 		// TODO
-				String announced = map.get("Announced");
-				if(announced!=null){
-					Integer year = 0;
-					
-					Integer monthIndex = 0;
-					
-					Set<Entry<String, Integer>> entrySet = monthMapIndex.entrySet();
-					for (Entry<String, Integer> entry : entrySet) {
-						if(announced.contains(entry.getKey())){
-							monthIndex = entry.getValue();
-						}
-					}
-					
-					if(announced.contains("Q1")){
-						monthIndex = 5;
-					}
-					if(announced.contains("Q2")){
-						monthIndex = 8;
-					}
-					if(announced.contains("Q3")){
-						monthIndex = 11;
-					}
-					if(announced.contains("Q4")){
-						monthIndex = 3;
-					}
-					
-					;
-					for (Integer yr : yearList) {
-						
-						if(announced.contains(yr.toString())){
-							year = yr;
-						}
-						
-					}
-					
-					Calendar cal = Calendar.getInstance();
-					cal.set(year, monthIndex, 1);
-					mobile.setAnnounced_Month(cal.getTime());
-				}
-				
-				Calendar.getInstance().get(Calendar.YEAR);
-				
+				Date extractAnnouncedDate = extractAnnouncedDate(map);
+				mobile.setAnnounced_Month(extractAnnouncedDate);
 				
 				int year = getYearFromDate(mobile.getAnnounced_Month());
 				
@@ -400,6 +375,15 @@ static Document doc;
 		
 		String status = map.get("Status");
 		mobile.setStatus(status);
+		
+		
+		if (status.trim().toLowerCase().contains("exp") || status.trim().toLowerCase().contains("coming soon")
+				|| status.trim().toLowerCase().contains("rumored")) {
+			mobile.setIsUpcomingMobile(true);
+		} else {
+			mobile.setIsUpcomingMobile(false);
+		}
+			
 		
 		String dimensions = map.get("Dimensions");
 		if(dimensions!=null && dimensions.contains("(")){
@@ -542,7 +526,7 @@ static Document doc;
 					String s1 = str.split("GB")[0];
 					Integer val = Integer.valueOf(s1.trim());
 					mobile.setInternal_Memory1(val);
-				} else {
+				} else if(!str.contains("GB")){
 					Integer val = Integer.valueOf(str);
 					mobile.setInternal_Memory1(val);
 				}
@@ -569,8 +553,14 @@ static Document doc;
 				mobile.setInternal_Memory3(val2);
 			}else if(split.length >= 3 && split[2].contains("GB")){
 				 String str2 = split[2].substring(0, 3);
-				 Integer val2 = Integer.valueOf(str2.trim());
-				 mobile.setInternal_Memory3(val2);
+				 if(str2.contains("G")){
+					 Integer val2 = Integer.valueOf(str2.trim().split("G")[0].trim());
+					 mobile.setInternal_Memory3(val2);
+				 }else{
+					 Integer val2 = Integer.valueOf(str2.trim());
+					 mobile.setInternal_Memory3(val2);
+				 }
+				 
 			}
 				
 			if(split.length >= 4 && !split[3].contains("GB")){
@@ -647,7 +637,7 @@ static Document doc;
 				mobile.setSecondary_Camera(valueOf);
 			}
 		
-		}else if(secondary_Camera!=null && secondary_Camera.contains("VGA@") && secondary_Camera.contains("MP")){
+		}else if(secondary_Camera!=null && secondary_Camera.contains("VGA@") && secondary_Camera.contains("MP") && !secondary_Camera.contains("fps") ){
 			secondary_Camera = secondary_Camera.split("VGA@")[1];
 			int indexOf = secondary_Camera.indexOf("MP");
 			String substring = secondary_Camera.substring(0, indexOf);
@@ -731,7 +721,7 @@ static Document doc;
 		String batteryCapactiy = map.get("batteryCapacity");
 		if (batteryCapactiy != null && batteryCapactiy.contains("/")) {
 			mobile.setBatteryCapactiy(Integer.valueOf(batteryCapactiy.split("/")[0]));
-		} else if (batteryCapactiy != null) {
+		} else if (batteryCapactiy != null && !batteryCapactiy.contains(")")) {
 			mobile.setBatteryCapactiy(Integer.valueOf(batteryCapactiy));
 		}
 		
@@ -794,7 +784,63 @@ static Document doc;
 		if(thickness!=null){
 			mobile.setThinkness(Float.valueOf(thickness));
 		}
+		
+		String image_path = map.get("image_path");
+		if(image_path!=null){
+			mobile.setImage_path1(image_path);
+		}
+		
+		String image_path2 = map.get("image_path2");
+		if(image_path2!=null){
+			mobile.setImage_path2(image_path2);
+		}
+		
 		return mobile;
+	}
+
+
+	private static Date extractAnnouncedDate(Map<String, String> map) {
+		String announced = map.get("Announced");
+		if(announced!=null){
+			Integer year = 0;
+			
+			Integer monthIndex = 0;
+			
+			Set<Entry<String, Integer>> entrySet = monthMapIndex.entrySet();
+			for (Entry<String, Integer> entry : entrySet) {
+				if(announced.contains(entry.getKey())){
+					monthIndex = entry.getValue();
+				}
+			}
+			
+			if(announced.contains("Q1")){
+				monthIndex = 5;
+			}
+			if(announced.contains("Q2")){
+				monthIndex = 8;
+			}
+			if(announced.contains("Q3")){
+				monthIndex = 11;
+			}
+			if(announced.contains("Q4")){
+				monthIndex = 3;
+			}
+			
+			;
+			for (Integer yr : yearList) {
+				
+				if(announced.contains(yr.toString())){
+					year = yr;
+				}
+				
+			}
+			
+			Calendar cal = Calendar.getInstance();
+			cal.set(year, monthIndex, 1);
+			return cal.getTime();
+		}
+		return null;
+		
 	}
 
 	public static int getYearFromDate(Date date) {

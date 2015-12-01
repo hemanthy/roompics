@@ -185,24 +185,29 @@ public class PresistCrawelData extends TestCase  {
 
 		if (mobile == null) {
 			System.out.println("....." + brandName);
+			return;
 		} else {
 
-			Session openSession = sessionFactory.openSession();
+			Session openSession = this.sessionFactory.openSession();
 			Transaction transaction = openSession.beginTransaction();
 
 			Set<Mobile> mobilesList = new HashSet<Mobile>();
-
-			Company cmpy = mobileServiceImpl.getBrandByName(brandName);
-
-			if (cmpy == null) {
+			System.out.println("getBrandByName::"+brandName);
+			Company cmpy = this.mobileServiceImpl.getBrandByName(brandName);
+			System.out.println(cmpy);
+			if (cmpy != null) {
+				System.out.println(cmpy + "is already exists");
+			} else if (cmpy == null) {
 				cmpy = new Company();
 				cmpy.setEnabled(false);
 				cmpy.setBrandName(brandName.trim());
 			}
 
 			String title = mobile.getTitle();
-			Mobile mob = mobileServiceImpl.getMobileByName(title+"");
-			if (mob == null) {
+			Mobile mob = this.mobileServiceImpl.getMobileByName(title.trim());
+			if(mob!=null){
+				System.out.println(mob + "is already exists");
+			}else if (mob == null) {
 				if (title != null) {
 					String[] titleSplit = title.split(" ");
 					int i = 0;

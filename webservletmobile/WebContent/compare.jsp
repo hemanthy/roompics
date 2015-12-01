@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page isELIgnored="false" %>
 <%@ page session="false" %>
 
 <head>
@@ -189,7 +190,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
+                        <!-- <ul class="nav navbar-nav">
                             <li>
                                 <a href="#">About</a>
                             </li>
@@ -199,7 +200,7 @@
                             <li>
                                 <a href="#">Contact</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -289,7 +290,7 @@
 														<a href="/mobiles/${fn:replace(title,' ', '-')}"
 															style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 															alt="${mobile1.title} title="${mobile1.title}">
-															<img src="/images${mobile1.image_path1}"
+															<img src="/brand_images/${mobile1.image_path1}"
 															alt="Compare ${mobile1.title}" title="Compare ${mobile1.title}" width="105">
 														</a>
 													</div>
@@ -314,7 +315,7 @@
 																	<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																		style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																		alt="${mobile2.title} title="${mobile2.title}">
-																		<img src="/images${mobile2.image_path1}"
+																		<img src="/brand_images/${mobile2.image_path1}"
 																		alt="Compare ${mobile2.title}" title="Compare ${mobile2.title}" width="105">
 																	</a>
 																</div>
@@ -339,7 +340,7 @@
 																<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																	style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																	alt="${mobile3.title} title="${mobile3.title}">
-																	<img src="/images${mobile3.image_path1}"
+																	<img src="/brand_images/${mobile3.image_path1}"
 																	alt="Compare ${mobile3.title}" title="Compare ${mobile3.title}" width="105">
 																</a>
 															</div>
@@ -364,7 +365,7 @@
 																<a href="/mobiles/${fn:replace(title,' ', '-')}"
 																	style="font-size: 14px; color: #454545; margin: 0px; font-family: 'Roboto-Medium', sans-serif; float: none; cursor: pointer;"
 																	alt="${mobile4.title} title="${mobile4.title}">
-																	<img src="/images${mobile4.image_path1}"
+																	<img src="/brand_images/${mobile4.image_path1}"
 																	alt="Compare ${mobile4.title}" title="Compare ${mobile4.title}" width="105">
 																</a>
 															</div>

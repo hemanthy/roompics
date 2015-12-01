@@ -14,6 +14,7 @@ import com.mobile.model.Person;
 import com.mobile.vo.AutoCompleteMobileVo;
 import com.mobile.vo.DataMobileVO;
 import com.mobile.vo.MobileConstants;
+import java.sql.Connection;
 
 public class MobileServiceImpl implements MobileService {
 	
@@ -219,5 +220,10 @@ public class MobileServiceImpl implements MobileService {
 	@Override
 	public List<Mobile> getMobilesByBrandName(String brandName)  throws MobileException {
 		 return this.MobileDAO.getMobilesByBrandName(brandName);
+	}
+
+	@Override
+	public void setConnection(Connection connection) throws MobileException {
+		this.MobileDAO.setConnection(connection);		
 	}
 }

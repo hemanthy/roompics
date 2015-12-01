@@ -1,16 +1,21 @@
 package com.mobile.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.mobile.dao.UserDao;
 import com.mobile.exception.MobileException;
@@ -19,6 +24,7 @@ import com.mobile.model.Mobile;
 import com.mobile.model.User;
 import com.mobile.service.MobileService;
 import com.mobile.service.MobileServiceImpl;
+import com.mobile.util.DbUtil;
 import com.mobile.vo.DataMobileVO;
 
 import com.google.gson.Gson;
@@ -35,6 +41,8 @@ public class UserController extends HttpServlet {
     public static final String COMPARE_URL = "/compare/";
     
     public MobileException mobileexception;
+	private Connection connection = null;
+	private DataSource  lookup = null;
 
     public UserController() {
         super();
@@ -48,11 +56,38 @@ public class UserController extends HttpServlet {
 		} catch (MobileException e) {
 			this.mobileexception = e;
 		}
+        
     }
+
+	private DataSource getDataSource() throws MobileException {
+		InitialContext cxt = null;
+		try {
+			cxt = new InitialContext();
+		} catch (NamingException e) {
+			e.printStackTrace();
+			 throw new MobileException(e.getCause());
+		}
+		if ( cxt == null ) {
+		 System.out.println( "Uh oh -- no context!");
+		}
+		
+		try {
+			 lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf" );
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new MobileException(e);
+		}if ( lookup == null ) {
+			   throw new MobileException("Data source not found!");
+		}
+		
+		return lookup;
+	}
     
     private MobileService MobileService;
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       // String forward="";
+    	
         String forward="/error.jsp";
         String action = "";
         String parameter = request.getParameter("action");
@@ -70,19 +105,25 @@ public class UserController extends HttpServlet {
         	requestURI = action;
         }
         
-        
         System.out.println(requestURI);
         System.out.println("MobileService::"+this.MobileService.toString());
         try{
         	
-        	if(requestURI.contains("queryString")){
+        	request.setAttribute("requestURI", requestURI);
+        	
+        	DataSource dataSource = getDataSource();
+        //	Connection conn =    DbUtil.getConnection();
+        	connection = dataSource.getConnection();
+        	this.MobileService.setConnection(connection);
+        	System.out.println("connection:::"+connection.toString());
+        	if(requestURI.contains("querystring")){
             		String mobileName = request.getParameter("q");
             		 DataMobileVO dataMobileVO = this.MobileService.getMobileDetailsByQueryString(mobileName);
+            		 	request.setAttribute("dataMobileVO", dataMobileVO);
             	        Gson gson = new Gson();
             	        String jsonData = gson.toJson((Object)dataMobileVO);
-            	        request.setAttribute("jsonData", (Object)jsonData);
+            	      //  request.setAttribute("jsonData", jsonData);
             	        System.out.println(jsonData);
-            	      //  response.s
             	        response.setContentType("application/json");
             	        response.getWriter().write(jsonData);
             	        response.getWriter().flush();
@@ -127,9 +168,9 @@ public class UserController extends HttpServlet {
 		
 		else if (action.contains("compare") || requestURI.contains("compare")) {
 			forward = "/compare.jsp";
-	        String requestURL = request.getRequestURI().toLowerCase();
-	        if (requestURL.contains((CharSequence)"-vs-")) {
-	            String[] splitUrl = requestURL.split("-vs-");
+	        //String requestURL = request.getRequestURI().toLowerCase();
+	        if (requestURI.contains((CharSequence)"-vs-")) {
+	            String[] splitUrl = requestURI.split("-vs-");
 	            int mobileCount = 1;
 	            for (String mobileName : splitUrl) {
 	                if (mobileName.contains((CharSequence)"/compare/")) {
@@ -157,9 +198,9 @@ public class UserController extends HttpServlet {
 	                String url = splitUrl[3];
 	                request.setAttribute("m4", (Object)url);
 	            }
-	        } else if (requestURL.contains((CharSequence)"/compare/")) {
-	            int index1 = requestURL.indexOf("/compare/");
-	            String mobileName = requestURL.substring("/compare/".length() + index1);
+	        } else if (requestURI.contains((CharSequence)"/compare/")) {
+	            int index1 = requestURI.indexOf("/compare/");
+	            String mobileName = requestURI.substring("/compare/".length() + index1);
 	            String mobileName1 = mobileName.replaceAll("-", " ");
 	            request.setAttribute("mobile1", (Object)this.MobileService.getMobileByName(mobileName1));
 	        }
@@ -228,8 +269,22 @@ public class UserController extends HttpServlet {
         }catch(Exception e){
         	forward = "/error.jsp";
         	 request.setAttribute("excep", e.getCause());
+        	 request.setAttribute("msg", e.getMessage());
+        	 request.setAttribute("block", "catch block");
         	 e.printStackTrace();
-        }
+        }finally {
+			try {
+				if(connection !=null){
+					connection.close();
+				}
+			} catch (SQLException e) {
+				forward = "/error.jsp";
+	        	request.setAttribute("excep1", e.getCause());
+	        	request.setAttribute("msg1", e.getMessage());
+	        	request.setAttribute("block", "finally block");
+				e.printStackTrace();
+			}
+		}
         
         
         request.setAttribute("aaa","1234");

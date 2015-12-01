@@ -126,15 +126,14 @@
 		                    		<div class="col-sm-6">
 								                                <c:set var="title" value="${fn:toLowerCase(upcomingMobilesList[0])}" />
 				                                   				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-								                                <img height="146" width="100" src="/resources/images${mobile.image_path1}" title="">
+								                              	<img height="146" width="100" src="http://cdn2.gsmarena.com/vv/bigpic/samsung-galaxy-note-5-r.jpg" title="">
 									                                <strong>
 									                               		<span>${mobile.title}</span>
 									                                </strong>
 								                                </a>
 										</div>
 										<div class="col-sm-6">
-											<p>
-				                        		Best Mobile 
+											<p> &nbsp;
 				                       		</p>
 										</div>
 								</div>
@@ -175,7 +174,7 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/resources/images${mobile.image_path1}" title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -207,7 +206,8 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(company.brandName)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}-phones">
-				                                <img height="146" width="100" src="/resources/images${mobile.image_path1}" title="">
+				                               <%--  <img height="146" width="100" src="/images/${company.brandName}/${mobile.image_path1}" title=""> --%>
+				                               <img height="146" width="100" src="http://cdn2.gsmarena.com/vv/bigpic/samsung-galaxy-note-5-r.jpg" title="">
 					                                <strong>
 					                               		<span>${company.brandName}</span>
 					                                </strong>

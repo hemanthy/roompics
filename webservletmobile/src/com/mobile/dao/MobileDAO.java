@@ -7,6 +7,7 @@ import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
+import java.sql.Connection;
 
 public interface MobileDAO {
 
@@ -35,4 +36,5 @@ public interface MobileDAO {
 	public Company getCompanyById(int id) throws MobileException ;
 	public List<Mobile> getMobilesByCompanyId(int id) throws MobileException ;
 	public List<Mobile> getMobilesByBrandName(String brandName) throws MobileException ;
+	public void setConnection(Connection connection);
 }

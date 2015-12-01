@@ -27,7 +27,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UserController</servlet-name>
-    <url-pattern>/queryString</url-pattern>
+    <url-pattern>/querystring</url-pattern>
   </servlet-mapping>
   <resource-ref>
       <description>DB Connection</description>

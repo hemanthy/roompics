@@ -21,7 +21,7 @@ public class DataDump extends AbstractCheckinTestCase {
 		
 		
 		//presistCrawelData.setMobile(mobile);
-		for (int i = 0; i <= 3; i++) {
+		for (int i = 1356; i <= 3000; i++) {
 			String url =	presistCrawelData.getWebUrlById(i);
 			if(url == null){
 				continue;

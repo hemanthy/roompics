@@ -43,11 +43,11 @@ public class CommonHelper {
 
          System.out.println("Image Found!");
          System.out.println("src attribute is : "+src);
-         mp.put("image_path2", src);
+         mp.put("image_path2", src.trim());
          
          String imgPath = title.replaceAll(" ", "-");
          
-         String imgPathExtenstion = imgPath+""+MobileConstants.IMG_EXTENSION;
+         String imgPathExtenstion = (imgPath+""+MobileConstants.IMG_EXTENSION).toLowerCase();
          
          mp.put("image_path",imgPathExtenstion);
          
@@ -70,6 +70,13 @@ public class CommonHelper {
         indexname = src.lastIndexOf("/");
         String name = src.substring(indexname, src.length());
         System.out.println(name);
+        
+        String dir = MobileConstants.FOLDER_PATH + brandName;
+        Boolean isDirExist = isImgExists(dir);
+        if(!isDirExist){
+        	File f1 = new File(dir);
+        	f1.mkdirs();
+        }
 
         Boolean isExists = isImgExists(MobileConstants.FOLDER_PATH + brandName +"/" + imgPath);
         
@@ -81,14 +88,13 @@ public class CommonHelper {
         URL url = new URL(src);
         InputStream in = url.openStream();
 
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(MobileConstants.FOLDER_PATH+ imgPath));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(MobileConstants.FOLDER_PATH + brandName +"/" + imgPath));
 
         for (int b; (b = in.read()) != -1;) {
             out.write(b);
         }
         out.close();
         in.close();
-
     }
 
 
@@ -97,7 +103,7 @@ public class CommonHelper {
 		if(file.exists()){
 			return true;
 		}else{
-			return true;
+			return false;
 		}
 	}
 }

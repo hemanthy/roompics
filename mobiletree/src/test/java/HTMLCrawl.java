@@ -24,7 +24,7 @@ import com.mobilestree.mobile.model.Company;
 import com.mobilestree.mobile.model.Mobile;
 import com.mobilestree.mobile.service.MobileService;
 
-public class HTMLCrawl  {
+public class HTMLCrawl  implements Runnable{
 	
 	
 	
@@ -38,7 +38,46 @@ public class HTMLCrawl  {
 	
 	private static Map<String,String> monthMap = new HashMap<String, String>();
 	
-
+	/*public static void main(String[] args) throws IOException {
+		for(int i=1;i<1000;i++){
+			System.out.println(i);
+			Document document = Jsoup.connect("http://allgadgetsroundup.com/").userAgent("Chrome").timeout(10000).get();
+			System.out.println(document.toString());
+		}
+	}*/
+	
+	
+	 public static void main(String a[]){
+         System.out.println("Starting Main Thread...");
+         HTMLCrawl mrt = new HTMLCrawl();
+         for(int i=1;i<100;i++){
+         Thread t = new Thread(mrt);
+         t.start();
+       //  while(HTMLCrawl.myCount <= 10){
+                 System.out.println("Main Thread: "+(++HTMLCrawl.myCount));
+                 //Thread.sleep(100);
+   //      }
+         }
+         System.out.println("End of Main Thread...");
+     }
+	
+	 public static int myCount = 0;
+	    public HTMLCrawl(){
+	         
+	    }
+	    
+	    public void run() {
+	     //   while(HTMLCrawl.myCount <= 10){
+				Document document = null;
+				try {
+					document = Jsoup.connect("http://localhost:8080.com/").userAgent("Chrome").timeout(10000).get();
+					System.out.println(document.toString()+"............"+HTMLCrawl.myCount);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	  //      }
+	    }
+	    
 }
 
 

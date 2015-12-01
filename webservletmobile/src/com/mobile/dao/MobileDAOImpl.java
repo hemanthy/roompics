@@ -1,6 +1,7 @@
 package com.mobile.dao;
 
 import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,15 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
-import com.mobile.util.DbUtil;
 import com.mobile.vo.MobileConstants;
 
 
@@ -27,35 +23,6 @@ public class MobileDAOImpl implements MobileDAO {
 	private Connection connection = null;
 
 	public MobileDAOImpl() throws MobileException {
-		connection = DbUtil.getConnection();
-		
-		
-		/*InitialContext cxt = null;
-		DataSource  lookup = null;
-		try {
-			cxt = new InitialContext();
-		} catch (NamingException e) {
-			e.printStackTrace();
-			 throw new MobileException(e.getCause());
-		}
-		if ( cxt == null ) {
-		 System.out.println( "Uh oh -- no context!");
-		}
-		
-		try {
-			 lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf" );
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}if ( lookup == null ) {
-			   throw new MobileException("Data source not found!");
-		}
-		try {
-			connection =	lookup.getConnection();
-		} catch (SQLException e) {
-			throw new MobileException(e.getCause());
-		}*/
-		
-		System.out.println("connection::"+connection.toString());
 		
 	}
 	
@@ -64,7 +31,7 @@ public class MobileDAOImpl implements MobileDAO {
 		List<Mobile> mobileList =  new ArrayList<Mobile>();
 		try {
 			if(connection == null || connection.isClosed()){
-				connection = DbUtil.getConnection();
+			//	connection = DbUtil.getConnection();
 			}
 			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();
@@ -91,7 +58,7 @@ public class MobileDAOImpl implements MobileDAO {
 		PreparedStatement preparedStatement;
 		try {
 			if(connection == null || connection.isClosed()){
-				connection = DbUtil.getConnection();
+				//connection = DbUtil.getConnection();
 			}
 		preparedStatement = connection.prepareStatement(sql.toLowerCase());
 		ResultSet rs = preparedStatement.executeQuery();
@@ -625,7 +592,7 @@ public class MobileDAOImpl implements MobileDAO {
 		PreparedStatement preparedStatement;
 		try {
 			if(connection == null || connection.isClosed()){
-				connection = DbUtil.getConnection();
+				//connection = DbUtil.getConnection();
 			}
 			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();
@@ -731,6 +698,11 @@ public class MobileDAOImpl implements MobileDAO {
 			throw new MobileException(e);
 		}
 		return null;
+	}
+
+	@Override
+	public void setConnection(Connection connection) {
+		this.connection = connection;
 	}
 
 

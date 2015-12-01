@@ -7,6 +7,7 @@ import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
 import com.mobile.vo.DataMobileVO;
+import java.sql.Connection;
 
 public interface MobileService {
 
@@ -36,5 +37,6 @@ public interface MobileService {
     public Company getCompanyById(int var1) throws MobileException;
 	public List<Mobile> getMobilesByCompanyId(int id) throws MobileException;
 	public List<Mobile> getMobilesByBrandName(String brandName) throws MobileException;
+	public void setConnection(Connection connection) throws MobileException;
     
 }
