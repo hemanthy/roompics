@@ -17,7 +17,13 @@
   	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     
 	<script type="text/javascript" src="/js/autosearch.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">  
+    <link rel="stylesheet" type="text/css" href="/css/style.css"> 
+    
+      <!-- Auto Complete Start -->
+     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="/js/bootstrap.js"></script>
+     <!-- Auto Complete End -->
 	
   
 </head>
@@ -30,12 +36,12 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="col-sm-4">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button>
+                        </button> -->
                         <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
                         </a>
@@ -86,7 +92,7 @@
         </div>
     </div>
     <hr>
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -94,10 +100,8 @@
                     </div>
                 </div>
             </nav>
-
-
         </div>
-    </div>
+    </div> -->
     
     <div class="container">
         <div class="row">
@@ -112,7 +116,7 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(company.brandName)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}-phones">
-				                                <img height="146" width="100" src="http://cdn2.gsmarena.com/vv/bigpic/samsung-galaxy-note-5-r.jpg" title="">
+				                               <img height="100" width="146" src="/brand_images/${title}.jpg" title="${company.brandName} Phones" alt="${company.brandName}">
 					                                <strong>
 					                               		<span>${company.brandName}</span>
 					                                </strong>
@@ -138,10 +142,10 @@
 
 #advanced-search-right-sect .panel-body li {
   float: left;
-  height: 206px;
+  height: 173px;
   position: relative;
   text-align: center;
-  width: 155px;							/*Increased width*/
+  width: 179px;							/*Increased width*/
   list-style: none !important;
   margin: 0px 0px 27px 0px;				/*Increased margin bottom*/
   padding-top: 0;

@@ -4,7 +4,8 @@
 <%@ page isELIgnored="false" %>
 
 <body>
-	??<%= request.getAttribute("excep") %>:::
+<div class="error-div">
+??<%= request.getAttribute("excep") %>:::
 	
 	:::
 	<%= request.getAttribute("requestURI") %>
@@ -19,6 +20,7 @@
 	...........message...........<%= request.getAttribute("msg") %>
 	
 	...........message1...........<%= request.getAttribute("msg1") %>
-	
+
+</div>
 </body>
 

@@ -12,13 +12,18 @@
   	
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
     
-	<script type="text/javascript" src="/js/autosearch.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">  
-  	 
+    <link rel="stylesheet" type="text/css" href="/css/style.css"> 
+    <script type="text/javascript" src="/js/autosearch.js"></script>
+    
+    <!-- Auto Complete Start -->
+     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="/js/bootstrap.js"></script>
+     <!-- Auto Complete End -->
+     
+    
     <style>
         .product-img {
             float: left;
@@ -104,6 +109,15 @@
         
     </style>
 </head>
+<c:set var="title" value="${mobile.title}" />
+<c:set var="brandTitle" value="${fn:toLowerCase(title)}" />
+<c:set var="currentBrandTitle" value="${fn:replace(brandTitle,' ', '-')}" />
+<input type="hidden" id="mobileTitle" value="${currentBrandTitle}">
+
+<script>
+	var vsPath = "-vs-";
+</script>
+
 
 
 <body>
@@ -126,12 +140,12 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="col-sm-4">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar">df</span>
-                            <span class="icon-bar">dfsa</span>
-                            <span class="icon-bar">dfa</span>
-                        </button>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> -->
                         <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
                         </a>
@@ -185,22 +199,15 @@
 		</div>
 
     <hr>
-    <div class="container">
+<!--     <div class="container">
         <div class="row">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">Ad</div>
                 </div>
             </nav>
-            <!-- <div class="alert alert-dismissible alert-warning">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <h4>Warning!</h4>
-                <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna,
-                    <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.
-                </p>
-            </div> -->
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <div class="row">
             <ul class="breadcrumb">
@@ -208,11 +215,11 @@
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/mobiles/all-brands">Mobiles</a>
+                    <a title="All Brands" href="/mobiles/all-brands">Mobiles</a>
                 </li>
                 <li><c:set var="brandName" value="${mobile.brandName}" />
                 <c:set var="brandNameLowerCase" value="${fn:toLowerCase(brandName)}" />
-                    <a href="/mobiles/${fn:replace(brandNameLowerCase,' ', '-')}-phones">${mobile.brandName}</a>
+                    <a href="/mobiles/${fn:replace(brandNameLowerCase,' ', '-')}-phones" title="${mobile.brandName} Phones">${mobile.brandName}</a>
                 </li>
                 <li class="active">${mobile.title}</li>
             </ul>
@@ -232,6 +239,11 @@
                             	<img src="http://biqcdn.com.s3.amazonaws.com/m/img/p/p43596-pi330326-ci0-ui295793-s360x360.jpg" class="image_5" style="display:none" alt="" />
                        	 	--> 
                         </div>
+                    </div>
+                    <div>
+                    	<div class="add_search" style="display:block;">
+						         Compare with : <input autocomplete="off" class="textfield"  type="text" id="project5" placeholder="Enter name of the mobile">
+						</div>
                     </div>
                     <div class="clear">&nbsp</div>
                     <!-- <div id="prod-gal" class="clearfix">
@@ -700,7 +712,6 @@
 		}
 		
 		#mobile-left-nav-sect .panel-body {
-			   padding-bottom: 10px;
   			   padding-top: 10px;
   			   padding-left: 0px;
   			   padding-right: 0px;

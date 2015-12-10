@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
 import com.mobile.dao.UserDao;
 import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
@@ -24,10 +28,7 @@ import com.mobile.model.Mobile;
 import com.mobile.model.User;
 import com.mobile.service.MobileService;
 import com.mobile.service.MobileServiceImpl;
-import com.mobile.util.DbUtil;
 import com.mobile.vo.DataMobileVO;
-
-import com.google.gson.Gson;
 
 public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -42,7 +43,9 @@ public class UserController extends HttpServlet {
     
     public MobileException mobileexception;
 	private Connection connection = null;
-	private DataSource  lookup = null;
+	
+	Map<Integer,String> connectionMap = new HashMap<Integer,String>();
+	
 
     public UserController() {
         super();
@@ -61,6 +64,7 @@ public class UserController extends HttpServlet {
 
 	private DataSource getDataSource() throws MobileException {
 		InitialContext cxt = null;
+		DataSource  lookup = null;
 		try {
 			cxt = new InitialContext();
 		} catch (NamingException e) {
@@ -72,7 +76,24 @@ public class UserController extends HttpServlet {
 		}
 		
 		try {
-			 lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf" );
+			connectionMap.put(0, "cla88inf_all6");
+			connectionMap.put(1, "cla88inf_all1");
+	        connectionMap.put(2, "cla88inf_all2");
+	        connectionMap.put(3, "cla88inf_all3");
+	        connectionMap.put(4, "cla88inf_all4");
+	        connectionMap.put(5, "cla88inf_all5");
+	        connectionMap.put(6, "cla88inf_all6");
+	        connectionMap.put(7, "cla88inf_all7");
+	        connectionMap.put(8, "cla88inf_all8");
+	        connectionMap.put(9, "cla88inf_all9");
+	        connectionMap.put(10, "cla88inf");
+			
+			Integer round = (int) Math.round(Math.random()*10);
+			
+			String poolVal = connectionMap.get(10);
+			System.out.println("poolVal:::"+poolVal+"......"+round);
+			 //lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf"+poolVal );
+			lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/"+poolVal );
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new MobileException(e);
@@ -106,30 +127,15 @@ public class UserController extends HttpServlet {
         }
         
         System.out.println(requestURI);
-        System.out.println("MobileService::"+this.MobileService.toString());
+        //System.out.println("MobileService::"+this.MobileService.toString());
         try{
         	
-        	request.setAttribute("requestURI", requestURI);
-        	
-        	DataSource dataSource = getDataSource();
         //	Connection conn =    DbUtil.getConnection();
-        	connection = dataSource.getConnection();
-        	this.MobileService.setConnection(connection);
-        	System.out.println("connection:::"+connection.toString());
-        	if(requestURI.contains("querystring")){
-            		String mobileName = request.getParameter("q");
-            		 DataMobileVO dataMobileVO = this.MobileService.getMobileDetailsByQueryString(mobileName);
-            		 	request.setAttribute("dataMobileVO", dataMobileVO);
-            	        Gson gson = new Gson();
-            	        String jsonData = gson.toJson((Object)dataMobileVO);
-            	      //  request.setAttribute("jsonData", jsonData);
-            	        System.out.println(jsonData);
-            	        response.setContentType("application/json");
-            	        response.getWriter().write(jsonData);
-            	        response.getWriter().flush();
-            	        return;
-            	//super.doGet(request, response);
-            }
+        		DataSource dataSource = getDataSource();
+        		connection = dataSource.getConnection();
+        		this.MobileService.setConnection(connection);
+        	request.setAttribute("requestURI", requestURI);
+        	//System.out.println("connection:::"+connection.toString());
         	
         if (action.contains("indexpage")){
         		forward = "/index1.jsp";
@@ -146,14 +152,22 @@ public class UserController extends HttpServlet {
 			forward = "/advanceSearch.jsp";
 			request.setAttribute("companyList", this.MobileService.getCompaniesList());
 			if (requestURI.contains((CharSequence)"search")) {
+				request.setAttribute("mobilesList", "Mobiles");
 	            String[] urlSplit = requestURI.split("search");
 	            String searchURL = urlSplit[1];
 	            String[] catageoryList = searchURL.split("/");
 	            List<Mobile> mobilesBySearchCatageoryList = this.MobileService.getMobilesBySearchCatageory(catageoryList);
+	            if(mobilesBySearchCatageoryList.isEmpty()){
+	            	//request.red
+	            	searchURL = "/brand-apple";
+	            	 String[] catageoryList1 = searchURL.split("/");
+	 	            mobilesBySearchCatageoryList = this.MobileService.getMobilesBySearchCatageory(catageoryList1);
+	 	           request.setAttribute("NotFoundMessage", "Sorry! There are no mobile matches with your criteria :) ");
+	            }
+	            this.constructMobelAttribute(request, catageoryList);
 	            request.setAttribute("companyList", (Object)this.MobileService.getCompaniesList());
 	            request.setAttribute("mobilesBySearchCatageoryList", (Object)mobilesBySearchCatageoryList);
 	            request.setAttribute("url", (Object)requestURI);
-	            this.constructMobelAttribute(request, catageoryList);
 	        }
 		} 
 		
@@ -164,6 +178,7 @@ public class UserController extends HttpServlet {
 		        request.setAttribute("secondaryCameraBasedmobiles", (Object)this.MobileService.getMobilesBySecondaryCamera(SECONDARY_CAMERA));
 		        request.setAttribute("dualSimMobiles", (Object)this.MobileService.getDualMobiles());
 		        request.setAttribute("companyList", (Object)this.MobileService.getCompaniesList());
+		        request.setAttribute("mobilesList", "Mobiles");
 		}
 		
 		else if (action.contains("compare") || requestURI.contains("compare")) {
@@ -267,7 +282,14 @@ public class UserController extends HttpServlet {
 		}
         request.setAttribute("excep", mobileexception);
         }catch(Exception e){
-        	forward = "/error.jsp";
+        	System.out.println("errormsg........"+e.getMessage());
+        	// forward = "/error.jsp";
+        	forward = requestURI;
+	        	 try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
         	 request.setAttribute("excep", e.getCause());
         	 request.setAttribute("msg", e.getMessage());
         	 request.setAttribute("block", "catch block");
@@ -278,7 +300,13 @@ public class UserController extends HttpServlet {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				forward = "/error.jsp";
+				//forward = "/error.jsp";
+				forward = requestURI;
+	        	 try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
 	        	request.setAttribute("excep1", e.getCause());
 	        	request.setAttribute("msg1", e.getMessage());
 	        	request.setAttribute("block", "finally block");
@@ -340,6 +368,20 @@ public class UserController extends HttpServlet {
         for (String cat : catageoryList) {
             if (cat.startsWith("brand-")) {
                 request.setAttribute("brand", (Object)cat);
+                String brandName = cat.split("brand-")[1];
+                
+                if(brandName.contains("_")){
+                	StringBuffer sb = new StringBuffer();
+                	String[] brandNames = brandName.split("_");
+                	for (String name : brandNames) {
+                		sb.append(convertFirstLetterIntoUpperCase(name)+", ");
+					}
+                	String substring = sb.substring(0, sb.length()-2);
+                	request.setAttribute("mobilesList", (Object)substring +" Mobiles");
+                }else{
+                	
+                	request.setAttribute("mobilesList", (Object)convertFirstLetterIntoUpperCase(brandName) +" Mobile");
+                }
                 continue;
             }
             if (cat.startsWith("ram-")) {
@@ -374,4 +416,8 @@ public class UserController extends HttpServlet {
             request.setAttribute("externalmemory", (Object)cat);
         }
     }
+
+	private String convertFirstLetterIntoUpperCase(String brandName) {
+		return brandName.substring(0, 1).toUpperCase() + brandName.substring(1);
+	}
 }

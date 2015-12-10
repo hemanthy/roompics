@@ -24,7 +24,7 @@ import com.mobilestree.mobile.model.Company;
 import com.mobilestree.mobile.model.Mobile;
 import com.mobilestree.mobile.service.MobileService;
 
-public class HTMLCrawl  implements Runnable{
+public class HTMLCrawl {
 	
 	
 	
@@ -49,34 +49,22 @@ public class HTMLCrawl  implements Runnable{
 	
 	 public static void main(String a[]){
          System.out.println("Starting Main Thread...");
-         HTMLCrawl mrt = new HTMLCrawl();
          for(int i=1;i<100;i++){
-         Thread t = new Thread(mrt);
-         t.start();
-       //  while(HTMLCrawl.myCount <= 10){
-                 System.out.println("Main Thread: "+(++HTMLCrawl.myCount));
-                 //Thread.sleep(100);
-   //      }
+        	 long startTime = System.currentTimeMillis();
+        	 Document document = null;
+				try {
+					//document = Jsoup.connect("http://www.allgadgetsroundup.com").userAgent("Chrome").timeout(10000).get();
+					document = Jsoup.connect("http://localhost:8080/mobiles/compare/micromax-canvas-play-4g-q469-vs-huawei-honor-7i").userAgent("Chrome").timeout(80000).get();
+					String s1 = document.select("div.error-div").text();
+					long endTime = System.currentTimeMillis();
+					System.out.println(s1 + "....." + i + ".........." + (endTime - startTime));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
          }
          System.out.println("End of Main Thread...");
      }
 	
-	 public static int myCount = 0;
-	    public HTMLCrawl(){
-	         
-	    }
-	    
-	    public void run() {
-	     //   while(HTMLCrawl.myCount <= 10){
-				Document document = null;
-				try {
-					document = Jsoup.connect("http://localhost:8080.com/").userAgent("Chrome").timeout(10000).get();
-					System.out.println(document.toString()+"............"+HTMLCrawl.myCount);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	  //      }
-	    }
 	    
 }
 

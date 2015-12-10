@@ -8,6 +8,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.mobile.exception.MobileException;
 
 public class DbUtil {
@@ -35,4 +39,29 @@ public class DbUtil {
             }
             return connection;
         }
+    
+    public static DataSource getDataSource() throws MobileException {
+		InitialContext cxt = null;
+		DataSource  lookup = null;
+		try {
+			cxt = new InitialContext();
+		} catch (NamingException e) {
+			e.printStackTrace();
+			 throw new MobileException(e.getCause());
+		}
+		if ( cxt == null ) {
+		 System.out.println( "Uh oh -- no context!");
+		}
+		
+		try {
+			 lookup = (DataSource) cxt.lookup( "java:/comp/env/jdbc/cla88inf" );
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new MobileException(e);
+		}if ( lookup == null ) {
+			   throw new MobileException("Data source not found!");
+		}
+		
+		return lookup;
+	}
 }

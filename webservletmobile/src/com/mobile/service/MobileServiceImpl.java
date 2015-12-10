@@ -204,6 +204,11 @@ public class MobileServiceImpl implements MobileService {
 
 	@Override
 	public Mobile getMobileByName(String mobileName)  throws MobileException {
+		mobileName =	mobileName.replaceAll("wi fi", "wi-fi").replaceAll("ale l04", "ale-l04").replaceAll("a10 70", "a10-70")
+		.replaceAll("a7 30", "a7-30").replaceAll("a7 50", "a7-50").replaceAll("a8 50", "a8-50")
+		.replaceAll("3 chip", "3-chip").replaceAll("shv e220", "shv-e220").replaceAll("lte a", "lte-a")
+		.replaceAll("octa core", "octa-core").replaceAll("so 03d", "so-03d").replaceAll("so 04d", "so-04d")
+		.replaceAll("so 05d", "so-05d");
         return this.MobileDAO.getMobileByName(mobileName);
     }
 	

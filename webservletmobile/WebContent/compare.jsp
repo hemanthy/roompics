@@ -16,7 +16,13 @@
   	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     
 	<script type="text/javascript" src="/js/autosearch.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">  
+    <link rel="stylesheet" type="text/css" href="/css/style.css"> 
+    
+    <!-- Auto Complete Start -->
+      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="/js/bootstrap.js"></script>
+    <!-- Auto Complete End -->
 	
 </head>
 <style>
@@ -172,14 +178,14 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="col-sm-4">
+              	<div class="col-sm-4">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button>
+                        </button> -->
                         <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
                         </a>
@@ -230,7 +236,7 @@
         </div>
     </div>
     <hr>
-    <div class="container">
+<!--     <div class="container">
         <div class="row">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -238,10 +244,8 @@
                     </div>
                 </div>
             </nav>
-
-
         </div>
-    </div>
+    </div> -->
 	<div class="container">
         <div class="row">
 			<div id="border-color-div" class="panel panel-info">

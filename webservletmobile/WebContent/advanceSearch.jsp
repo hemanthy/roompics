@@ -18,6 +18,12 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">  
 	<script type="text/javascript" src="/js/adv-search.js"></script>
 	
+	  <!-- Auto Complete Start -->
+     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="/js/bootstrap.js"></script>
+     <!-- Auto Complete End -->
+	
 </head>
 <style>
 
@@ -66,6 +72,11 @@
     color: #fff;
 }
 
+#more-info {
+  margin-top: 176px;
+  margin-left: 14px;
+}
+
 
 </style>
 <body>
@@ -85,18 +96,18 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
 			<div class="col-sm-4">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">
-						<img src="http://placehold.it/150x50&amp;text=Logo" alt="">
-					</a>
-				</div>
-			</div>
+                    <div class="navbar-header">
+                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> -->
+                        <a class="navbar-brand" href="#">
+                            <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
+                        </a>
+                    </div>
+                </div>
             <div class="col-sm-4" id="mobile-search">
               	 	<input id="project" placeholder="Search">
                 </div>
@@ -144,7 +155,7 @@
 				</div>
 		</div>
 			<hr>
-	<div class="container">
+	<!-- <div class="container">
 			<div class="row">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -155,18 +166,15 @@
 				
 			
 			</div>
-	</div>
+	</div> -->
 	
 	<div class="container">
 			<div class="row">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
 							<div class="navbar-header">
-									<h1 class="modal-title"> 
-									
-									 <c:forEach items="${mobilesBySearchCatageoryList}" var="company" varStatus="i">
-									 </c:forEach>
-										Mobiles
+									<h1 class="modal-title">
+										${mobilesList}
 									</h1>
 							</div>
 					</div>
@@ -672,7 +680,7 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -680,9 +688,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/2-gb-ram-phones">More Info</a>
-										</p>
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -700,7 +708,7 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}"  title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}"  title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -708,9 +716,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/5-inches-phones">More Info</a>
-										</p>
+										</div>
 									</li>						
 								</ul>
 							</div>
@@ -728,7 +736,7 @@
 										<li>
 				                               <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -736,9 +744,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/best-selfie-phones">More Info</a>
-										</p>
+										</div>
 									</li>						
 								</ul>
 							</div>
@@ -756,7 +764,7 @@
 										<li>
 				                               <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -764,9 +772,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/dual-sim-phone">More Info</a>
-										</p>
+										</div>
 									</li>						
 								</ul>
 							</div>
@@ -783,12 +791,16 @@
 								<h3 class="panel-title">Mobiles</h3>
 							</div>
 							<div class="panel-body">
+								<c:if test="${!empty NotFoundMessage}">
+									<h2 class="modal-title">${NotFoundMessage}</h2>
+								<br>
+								</c:if>
 								<ul>
 								  <c:forEach items="${mobilesBySearchCatageoryList}" var="mobile"  varStatus="status">
 										<li>
 										<c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    		<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                 <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
+				                                 <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>

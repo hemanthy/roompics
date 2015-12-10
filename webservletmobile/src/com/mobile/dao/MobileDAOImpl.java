@@ -14,6 +14,7 @@ import com.mobile.exception.MobileException;
 import com.mobile.model.Company;
 import com.mobile.model.Mobile;
 import com.mobile.model.Person;
+import com.mobile.util.DbUtil;
 import com.mobile.vo.MobileConstants;
 
 
@@ -27,11 +28,15 @@ public class MobileDAOImpl implements MobileDAO {
 	}
 	
 	private  List<Mobile> getMobileObjList(String sql,Map<String,String> map) throws MobileException{
+		System.out.println(sql);
 		PreparedStatement preparedStatement = null;
 		List<Mobile> mobileList =  new ArrayList<Mobile>();
 		try {
 			if(connection == null || connection.isClosed()){
 			//	connection = DbUtil.getConnection();
+			//	connection =	DbUtil.getDataSource().getConnection();
+				System.out.println(connection);
+				System.out.println(connection.isClosed());
 			}
 			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();
@@ -48,17 +53,22 @@ public class MobileDAOImpl implements MobileDAO {
 			preparedStatement.close();
 		//	connection.close();
 		} catch (SQLException e) {
+			e.getCause();
 			throw new MobileException(e);
 		}
 		return mobileList;
 	}
 	
 	public List<Company> getCompanyObjList(String sql,Map<String,String> map) throws MobileException{
+		System.out.println(sql);
 		List<Company> cmpyList =  new ArrayList<Company>();
 		PreparedStatement preparedStatement;
 		try {
 			if(connection == null || connection.isClosed()){
 				//connection = DbUtil.getConnection();
+			//	connection = DbUtil.getDataSource().getConnection();
+				System.out.println(connection);
+				System.out.println(connection.isClosed());
 			}
 		preparedStatement = connection.prepareStatement(sql.toLowerCase());
 		ResultSet rs = preparedStatement.executeQuery();
@@ -131,14 +141,14 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	public List<Company> listCompanies() throws MobileException {
-		String sql = "select * from Company";
+		String sql = "select * from Company where Enabled = true";
 		List<Company> companyList = getCompanyObjList(sql, null);
 		return companyList;
 	}
 
 	@Override
 	public Mobile getMobileById(Integer id) throws MobileException {
-		String sql = "select * from Mobile where id ="+id;
+		String sql = "select * from Mobile where id ="+id +" and Enabled = true";
 		List<Mobile> mobileList =	getMobileObjList(sql, null);
 		if(!mobileList.isEmpty()){
 			return mobileList.get(0);
@@ -149,7 +159,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getLatestMobile() throws MobileException {
-		String sql = "select * from mobile order by Announced_Month desc limit 0,10";
+		String sql = "select * from mobile where Enabled = true order by Announced_Month desc limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -157,7 +167,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getTopBrandMobileList() throws MobileException {
-		String sql = "select * from mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 7 or Company_id = 8) limit 0,10";
+		String sql = "select * from mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 3 or Company_id = 5 or Company_id = 7) and Enabled = true  ORDER BY  Announced_Month,RAND() limit 0,10";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -165,7 +175,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Company> getCompaniesList() throws MobileException {
-		String sql = "select * from Company order by brandName asc";
+		String sql = "select * from Company where Enabled = true order by brandName asc";
 		List<Company> companiesList  =	getCompanyObjList(sql, null);
 		return companiesList;
 	}
@@ -173,14 +183,14 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getRelatedMobilesList(Mobile mobile) throws MobileException {
-		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 7 or Company_id = 14)";
+		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 7 or Company_id = 14) and Enabled = true";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	@Override
 	public Company getBrandByName(String brandName) throws MobileException {
-		String sql = "select * from Company where brandName = '"+brandName+"'";
+		String sql = "select * from Company where brandName = '"+brandName+"' and Enabled = true";
 		List<Company> companiesList  =	getCompanyObjList(sql, null);
 		if(!companiesList.isEmpty()){
 			return companiesList.get(0);
@@ -191,7 +201,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getMobilesByRamSize(Integer ramSize) throws MobileException {
-		String sql = "select * from Mobile where ram = "+ramSize;
+		String sql = "select * from Mobile where ram = "+ramSize + " and Enabled = true";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -199,7 +209,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getMobilesByScreenSize(Integer screenSize) throws MobileException {
-		String sql = "select * from Mobile where Screen_size = "+screenSize;
+		String sql = "select * from Mobile where Screen_size = "+screenSize+" and Enabled = true";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -248,9 +258,29 @@ public class MobileDAOImpl implements MobileDAO {
 			queryStr = queryStr.substring(index+3,queryStr.length());
 		}
 		
-		System.out.println("select id,brand_name, ram ,Primary_Camera pc, Secondary_Camera sc, Screen_size sz from Mobile where "+ queryStr +" ;");
+		if(brandList!=null){
+			int brandSize = brandList.size();
+			StringBuffer sb1 = new StringBuffer(" ( "+queryStr+ " ) ");
+			if(brandSize>0){
+				sb1.append(" ORDER BY FIELD(brand_name,");
+				for(int i=0;i<brandSize;i++){
+					sb1.append("'"+brandList.get(i)+"'");
+					if(i!=(brandSize-1)){
+						sb1.append(", ");
+					}
+				}
+				sb1.append(") desc");
+			}
+			queryStr =  sb1.toString();
+		}
 		
-		List<Mobile> mobileList =	getMobileObjList("select * from Mobile where "+queryStr, null);
+		//ORDER BY FIELD(brand_name, "celkon", "apple", "alcatel") desc;
+		
+		
+		System.out.println("select id,brand_name, ram ,Primary_Camera pc, Secondary_Camera sc, Screen_size sz from Mobile where Enabled = true and "+ queryStr +" ;");
+		
+		List<Mobile> mobileList =	getMobileObjList("select * from Mobile where  Enabled = true and  "+queryStr+" ", null);
+		
 		return mobileList;
 	}
 
@@ -528,10 +558,10 @@ public class MobileDAOImpl implements MobileDAO {
 	public List<Mobile> getMobileDetailsByQueryString(String queryString) throws MobileException {
 		List<Mobile> mobileList = null;
 		if (queryString.length() == 1) {
-			String sql = "select * from Mobile where title like  '" + queryString + "%' limit 0,10";
+			String sql = "select * from Mobile where enabled = true and title like  '" + queryString + "%' limit 0,10";
 			mobileList = getMobileObjList(sql, null);
 		} else if (queryString.length() > 1) {
-			String sql = "select * from Mobile where title like  '%" + queryString + "%' limit 0,10";
+			String sql = "select * from Mobile where enabled = true and title like  '%" + queryString + "%' limit 0,10";
 			mobileList = getMobileObjList(sql, null);
 		}
 		return mobileList;
@@ -540,35 +570,35 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getUpcomingMobileList() throws MobileException {
-		String sql = "select * from mobile where Upcoming_mobile = true";
+		String sql = "select * from mobile where Upcoming_mobile = true and enabled = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	public Mobile getMobileByName(String mobileName) throws MobileException {
 		
-		String sql = "select * from Mobile where title like  '" + mobileName + "'";
+		String sql = "select * from Mobile where title like  '" + mobileName + "' and enabled = true";
 		
 		return getMobileDetails(sql, null);
 	}
 	
 	@Override
 	public List<Mobile> getMobilesBySecondaryCamera(Integer secondaryCamera) throws MobileException {
-		String sql = "select * from Mobile where secondary_Camera >= " + secondaryCamera;
+		String sql = "select * from Mobile where secondary_Camera >= " + secondaryCamera + " and enabled = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
 	public List<Mobile> getDualMobiles() throws MobileException {
-		String sql = "select * from Mobile where dual_sim = true";
+		String sql = "select * from Mobile where dual_sim = true and enabled = true";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
 	public Company getCompanyById(int id) throws MobileException {
-		String sql = "select * from Company where id = "+id;
+		String sql = "select * from Company where id = "+id+ " and enabled = true";
 		List<Company> companyList = getCompanyObjList(sql, null);
 		return companyList.get(0);
 	}
@@ -576,23 +606,27 @@ public class MobileDAOImpl implements MobileDAO {
 
 	@Override
 	public List<Mobile> getMobilesByCompanyId(int id) throws MobileException {
-		String sql = "select * from Mobile where Company_id = "+id;
+		String sql = "select * from Mobile where enabled = true and Company_id = "+id;
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 	
 	@Override
 	public List<Mobile> getMobilesByBrandName(String brandName) throws MobileException {
-		String sql = "select * from Mobile where Brand_Name = '" + brandName+"'";
+		String sql = "select * from Mobile where enabled = true and Brand_Name = '" + brandName+"'";
 		List<Mobile> mobileList  = getMobileObjList(sql, null);
 		return mobileList;
 	}
 
 	private Mobile getMobileDetails(String sql, Object object) throws MobileException {
+		System.out.println(sql);
 		PreparedStatement preparedStatement;
 		try {
 			if(connection == null || connection.isClosed()){
-				//connection = DbUtil.getConnection();
+			//	connection = DbUtil.getDataSource().getConnection();
+				System.out.println(connection);
+				System.out.println(connection.isClosed());
+				
 			}
 			preparedStatement = connection.prepareStatement(sql.toLowerCase());
 			ResultSet rs = preparedStatement.executeQuery();

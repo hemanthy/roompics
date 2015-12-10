@@ -16,7 +16,13 @@
 	<script type="text/javascript" src="js/autosearch.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">  
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+    
+      <!-- Auto Complete Start -->
+     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="/js/bootstrap.js"></script>
+     <!-- Auto Complete End -->
   
   
 </head>
@@ -27,14 +33,14 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="col-sm-4">
+                 <div class="col-sm-4">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button>
+                        </button> -->
                         <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
                         </a>
@@ -85,7 +91,7 @@
         </div>
     </div>
     <hr>
-    <div class="container">
+   <!--  <div class="container">
         <div class="row">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -96,7 +102,7 @@
 
 
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
@@ -110,7 +116,7 @@
                         <c:forEach items="${latestMobilesList}" var="mobile"   varStatus="status" begin="0" end="5">
 	                        <li class="list-group-item">
 	                         	  <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
-                                  <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
+                                  <a  title="${mobile.title}" href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
 	                        </li>
 						</c:forEach>
                         </ul>
@@ -118,28 +124,39 @@
                 </div>
             </div>
             <div class="col-sm-4">
-            	<div class="panel panel-info">
-            		<div class="panel-heading">
-                        <h3 class="panel-title">The Best Mobile Phone October Mobile</h3>
-                    </div>
-		                       <div class="panel-body">
-		                    		<div class="col-sm-6">
-								                                <c:set var="title" value="${fn:toLowerCase(upcomingMobilesList[0])}" />
-				                                   				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-								                              	<img height="146" width="100" src="http://cdn2.gsmarena.com/vv/bigpic/samsung-galaxy-note-5-r.jpg" title="">
-									                                <strong>
-									                               		<span>${mobile.title}</span>
-									                                </strong>
-								                                </a>
-										</div>
-										<div class="col-sm-6">
-											<p> &nbsp;
-				                       		</p>
-										</div>
-								</div>
-                    </div>
 
-            </div>
+					<div id="advanced-search-right-sect">
+						<div class="panel-body-best-mobile">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">The Best Mobile of The November Month</h3>
+								</div>
+								<div class="panel-body">
+									<div class="col-sm-6">
+										<ul>
+											<li>
+												<a title="Samsung Galaxy S6 edge" alt="Samsung Galaxy S6 edge" href="/mobiles/samsung-galaxy-s6-edge+">
+													<img  alt ="Samsung Galaxy S6 edge+" title="Samsung Galaxy S6 edge+" height="146" width="100" src="/brand_images/samsung-galaxy-s6-edge+.jpg">
+					                                <strong>
+					                               		<span>Samsung Galaxy S6 edge</span>
+					                                </strong>
+				                                </a>
+											</li>
+										</ul>
+									</div>
+									<div class="col-sm-6">
+										<p>The Samsung Galaxy S6 edge+ features a 5.7- inch Super
+											AMOLED capacitive touchscreen display with a resolution of
+											1440 x 2560 pixels and has 4.0 GB of RAM.</p>
+											<a title="Samsung Galaxy S6 edge" alt="Samsung Galaxy S6 edge" class="btn btn-primary btn-sm" href="/mobiles/samsung-galaxy-s6-edge+">More Info</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
             <div class="col-sm-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -150,7 +167,7 @@
                             <c:forEach items="${topBrandMobilesList}" var="mobile"   varStatus="status" begin="0" end="5">
 		                        <li class="list-group-item">
 									<c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
-                            	    <a href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
+                            	    <a title="${mobile.title}" href="/mobiles/${fn:replace(title,' ', '-')}">${mobile.title}</a>
 		                        </li>
 						</c:forEach>
                         </ul>
@@ -174,7 +191,7 @@
 										<li>
 				                                <c:set var="title" value="${fn:toLowerCase(mobile.title)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}">
-				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="">
+				                                <img height="146" width="100" src="/brand_images/${mobile.image_path1}" title="${mobile.title}" alt="${mobile.title}">
 					                                <strong>
 					                               		<span>${mobile.title}</span>
 					                                </strong>
@@ -182,9 +199,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/upcoming-phones">More Info</a>
-										</p>
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -202,12 +219,12 @@
 							</div>
 							<div class="panel-body">
 								<ul>
-									<c:forEach items="${companyList}" var="company"  varStatus="status" begin="0" end="6">
-										<li>
+									<c:forEach items="${companyList}" var="company"  varStatus="status" begin="0" end="4">
+										<li style="width:200px;height:176px;">
 				                                <c:set var="title" value="${fn:toLowerCase(company.brandName)}" />
                                    				<a href="/mobiles/${fn:replace(title,' ', '-')}-phones">
 				                               <%--  <img height="146" width="100" src="/images/${company.brandName}/${mobile.image_path1}" title=""> --%>
-				                               <img height="146" width="100" src="http://cdn2.gsmarena.com/vv/bigpic/samsung-galaxy-note-5-r.jpg" title="">
+				                             <img height="100" width="146" src="/brand_images/${title}.jpg" title="${company.brandName} Phones" alt="${company.brandName}">
 					                                <strong>
 					                               		<span>${company.brandName}</span>
 					                                </strong>
@@ -215,9 +232,9 @@
 				                         </li>
 									</c:forEach>
 									<li>
-										<p class="pull-left gutter-bottom">
+										<div id="more-info-mobile-brands" class="pull-left gutter-bottom">
 											<a class="btn btn-primary btn-sm" href="/mobiles/all-brands">More Info</a>
-										</p>
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -257,7 +274,7 @@
 #advanced-search-right-sect .panel-body li:last-child  {
 			  width: 76px;
 }
-#advanced-search-right-sect .panel-body {
+ #advanced-search-right-sect .panel-body {
   padding-top: 36px;
   padding-bottom:0px;
   padding-right:0px;
@@ -308,6 +325,26 @@
     color: #fff;
 }
 
+#advanced-search-right-sect  .panel-body-best-mobile li:last-child  {
+	  width: 100%; 
+}
+
+#advanced-search-right-sect  .panel-body-best-mobile p {
+  font: 13px/15px Arial;
+  color: #333;
+  line-height: 1.68em;
+  text-align: justify;
+}
+
+#more-info-mobile-brands {
+	margin-top: 146px; 
+	margin-left: 26px;
+}
+
+#more-info {
+  margin-top: 176px;
+  margin-left: 26px;
+}
 
 </style>
 

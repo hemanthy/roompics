@@ -175,6 +175,33 @@ public class PresistCrawelData extends TestCase  {
 	      conn.close();
 	}
 	
+	public String getMobileTitleById(int id) throws SQLException {
+
+		conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+		stmt = (Statement) conn.createStatement();
+
+		String sql;
+		sql = "SELECT title FROM mobile where id ='" + id + "'";
+		ResultSet rs = stmt.executeQuery(sql);
+		String title = null;
+		while (rs.next()) {
+
+			System.out.println("Reading from local database ..................." + id);
+			// Retrieve by column name
+			title = rs.getString("title");
+
+			// Display values
+			System.out.print("title : " + title);
+			// System.out.println(", content: " + content);
+		}
+		// STEP 6: Clean-up environment
+		rs.close();
+		stmt.close();
+		conn.close();
+
+		return title;
+	}
+	
 
 	
 	public void saveCompany(String brandName) throws ClassNotFoundException, SQLException {
