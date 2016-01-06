@@ -5,15 +5,31 @@
 <%@ page session="false" %>
 
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
+
+
+    <title>Compare <c:if test="${!empty mobile1}">${mobile1.title}</c:if>
+							<c:if test="${!empty mobile2}"> vs ${mobile2.title}</c:if>
+							<c:if test="${!empty mobile3}"> vs ${mobile3.title}</c:if>
+							<c:if test="${!empty mobile4}"> vs ${mobile4.title}</c:if> | AllGadgetsRoundup.com </title>
+							
+	<meta name="description" content="Compare <c:if test="${!empty mobile1}">${mobile1.title}</c:if>
+							<c:if test="${!empty mobile2}"> vs ${mobile2.title}</c:if>
+							<c:if test="${!empty mobile3}"> vs ${mobile3.title}</c:if>
+							<c:if test="${!empty mobile4}"> vs ${mobile4.title}</c:if> specificatoin and features like ram, rom, memory, processor etc.." />
+    <meta name="keywords" content=" -" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="canonical" href="http://allgadgetsroundup.com/${requestURI}" />
    
    	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	
     
 	<script type="text/javascript" src="/js/autosearch.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/style.css"> 
@@ -107,6 +123,17 @@
 
 <body>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71447534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
 <c:if test="${mobile1.ram gt 0}">
   <c:set var="ram1" value="${mobile1.ram} GB" />
 </c:if>
@@ -186,9 +213,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button> -->
-                        <a class="navbar-brand" href="#">
-                            <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
-                        </a>
+                        <a class="navbar-brand" href="/"> <b> <font
+									face="Trebuchet MS" color="#808080"
+									style="color: #ffffff; text-decoration: none;">AllGadgetsRoundup.com</font>
+							</b>
+						</a>
                     </div>
                 </div>
                  <div class="col-sm-4" id="mobile-search">

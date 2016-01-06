@@ -125,8 +125,11 @@ public class UserController extends HttpServlet {
         if(requestURI.contains("UserController")){
         	requestURI = action;
         }
-        
+       
         System.out.println(requestURI);
+        
+        request.setAttribute("hostName", request.getServerName());
+        request.setAttribute("requestURI", requestURI);
         //System.out.println("MobileService::"+this.MobileService.toString());
         try{
         	
@@ -135,7 +138,7 @@ public class UserController extends HttpServlet {
         		connection = dataSource.getConnection();
         		this.MobileService.setConnection(connection);
         	request.setAttribute("requestURI", requestURI);
-        	//System.out.println("connection:::"+connection.toString());
+        	System.out.println("connection:::"+connection.toString());
         	
         if (action.contains("indexpage")){
         		forward = "/index1.jsp";
@@ -226,6 +229,8 @@ public class UserController extends HttpServlet {
 				request.setAttribute("mobilesBySearchCatageoryList",
 						(Object) this.MobileService.getUpcomingMobileList());
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
+				request.setAttribute("mobilesList", "Upcoming Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find upcoming mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.contains((CharSequence) "screen-size")) {
 				request.setAttribute("screensize", (Object) "5.0-6.0");
@@ -234,6 +239,8 @@ public class UserController extends HttpServlet {
 				List mobilesBySearchCatageoryList = this.MobileService.getMobilesBySearchCatageory(catageorySplit);
 				request.setAttribute("mobilesBySearchCatageoryList", (Object) mobilesBySearchCatageoryList);
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
+				request.setAttribute("mobilesList", "5 Inches Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find 5 inches mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.contains((CharSequence) "selfie")) {
 				request.setAttribute("secondarycamera", (Object) "above-5");
@@ -242,11 +249,15 @@ public class UserController extends HttpServlet {
 				List mobilesBySearchCatageoryList = this.MobileService.getMobilesBySearchCatageory(catageorySplit);
 				request.setAttribute("mobilesBySearchCatageoryList", (Object) mobilesBySearchCatageoryList);
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
+				request.setAttribute("mobilesList", "Best Selfie Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find best selfie mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.contains((CharSequence) "dual-sim")) {
 				request.setAttribute("sim", (Object) "dual-sim");
 				request.setAttribute("mobilesBySearchCatageoryList", (Object) this.MobileService.getDualMobiles());
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
+				request.setAttribute("mobilesList", "Dual Sim Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find dual sim mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.contains((CharSequence) "2-gb-ram-phones")) {
 				String url = "/mobiles/advance-search/ram-2-gb";
@@ -255,6 +266,8 @@ public class UserController extends HttpServlet {
 				request.setAttribute("mobilesBySearchCatageoryList", (Object) mobilesBySearchCatageoryList);
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
 				request.setAttribute("ram", (Object) "2-gb");
+				request.setAttribute("mobilesList", " 2 GB Ram Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find 2 gb ram mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.contains((CharSequence) "5-inches-phones")) {
 				String url = "/mobiles/advance-search/screen-size-5.0-6.0";
@@ -263,11 +276,16 @@ public class UserController extends HttpServlet {
 				List mobilesBySearchCatageoryList = this.MobileService.getMobilesBySearchCatageory(catageorySplit);
 				request.setAttribute("mobilesBySearchCatageoryList", (Object) mobilesBySearchCatageoryList);
 				request.setAttribute("companyList", (Object) this.MobileService.getCompaniesList());
+				request.setAttribute("mobilesList", "5 Inches Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find 5 inches mobile phones with specifications, features and different brands.");
 				forward = "/advanceSearch.jsp";
 			}else if (mobileName.endsWith("-phones")) {
 				String[] brandName = mobileName.split("-phones");
 				request.setAttribute("brand", (Object) brandName[0].toLowerCase());
 				getBrandDetails(request, brandName[0]);
+				String brandTitleName = convertFirstLetterIntoUpperCase(brandName[0]);
+				request.setAttribute("mobilesList", brandTitleName +" Mobile Phones");
+				request.setAttribute("mobilesListdesc", "Find "+ brandName[0] +" mobile phones with specifications, features.");
 				forward = "/advanceSearch.jsp";
 			} else {
 				String mobileName1 = mobileName.replaceAll("-", " ");
@@ -284,7 +302,7 @@ public class UserController extends HttpServlet {
         }catch(Exception e){
         	System.out.println("errormsg........"+e.getMessage());
         	// forward = "/error.jsp";
-        	forward = requestURI;
+        //	forward = requestURI;
 	        	 try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -317,6 +335,8 @@ public class UserController extends HttpServlet {
         
         request.setAttribute("aaa","1234");
         
+        System.out.println("Request URL ::"+forward);
+        
        RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
         
@@ -324,7 +344,6 @@ public class UserController extends HttpServlet {
     }
 
     private void getBrandDetails(HttpServletRequest request, String brandName) throws MobileException {
-    	 Company company = this.MobileService.getBrandByName(brandName);
     	 //request.setAttribute("mobilesBySearchCatageoryList", MobileService.getMobilesByCompanyId(company.getId()));
     	 request.setAttribute("mobilesBySearchCatageoryList", MobileService.getMobilesByBrandName(brandName));
          request.setAttribute("companyList", (Object)this.MobileService.getCompaniesList());
@@ -380,7 +399,7 @@ public class UserController extends HttpServlet {
                 	request.setAttribute("mobilesList", (Object)substring +" Mobiles");
                 }else{
                 	
-                	request.setAttribute("mobilesList", (Object)convertFirstLetterIntoUpperCase(brandName) +" Mobile");
+                	request.setAttribute("mobilesList", (Object)convertFirstLetterIntoUpperCase(brandName) +" Mobiles");
                 }
                 continue;
             }

@@ -7,9 +7,17 @@
 
 
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
+    <title>Mobile Phones, Handset, Latest Mobiles, Upcoming Mobiles | AllGadgetsRoundup.com</title>
+	<meta name="description" content="Visit us now to explore headset information" />
+    <meta name="keywords" content=" -" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="canonical" href="http://allgadgetsroundup.com" />
+    
+    
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -28,6 +36,17 @@
 </head>
 
 <body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71447534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 <div class="index-page">
     <div class="container">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -41,10 +60,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button> -->
-                        <a class="navbar-brand" href="#">
+                        <!-- <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
-                        </a>
-                    </div>
+                        </a> -->
+							<a class="navbar-brand" href="/"> <b> <font
+									face="Trebuchet MS" color="#808080"
+									style="color: #ffffff; text-decoration: none;">AllGadgetsRoundup.com</font>
+							</b>
+							</a>
+						</div>
                 </div>
                 <div class="col-sm-4" id="mobile-search">
               	 	<input id="project" placeholder="Search">
@@ -106,7 +130,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Latest Mobile</h3>
@@ -124,39 +147,29 @@
                 </div>
             </div>
             <div class="col-sm-4">
-
-					<div id="advanced-search-right-sect">
-						<div class="panel-body-best-mobile">
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h3 class="panel-title">The Best Mobile of The November Month</h3>
-								</div>
-								<div class="panel-body">
-									<div class="col-sm-6">
-										<ul>
-											<li>
-												<a title="Samsung Galaxy S6 edge" alt="Samsung Galaxy S6 edge" href="/mobiles/samsung-galaxy-s6-edge+">
-													<img  alt ="Samsung Galaxy S6 edge+" title="Samsung Galaxy S6 edge+" height="146" width="100" src="/brand_images/samsung-galaxy-s6-edge+.jpg">
+				<div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">The Best Mobile of The November Month</h3>
+                    </div>
+                    <div class="panel-body-mb">
+                    <br>
+                       <div class="col-sm-5">
+									<a title="Samsung Galaxy S6 Edge Plus" alt="Samsung Galaxy S6 Edge Plus" href="/mobiles/samsung-galaxy-s6-edge-plus">
+													<img  alt ="Samsung Galaxy S6 Edge Plus" title="Samsung Galaxy S6 Edge Plus"  alt="Samsung Galaxy S6 Edge Plus" height="146" width="100" src="/brand_images/samsung-galaxy-s6-edge+.jpg">
 					                                <strong>
-					                               		<span>Samsung Galaxy S6 edge</span>
+					                               		<span>Samsung Galaxy S6 Edge Plus</span>
 					                                </strong>
-				                                </a>
-											</li>
-										</ul>
-									</div>
-									<div class="col-sm-6">
-										<p>The Samsung Galaxy S6 edge+ features a 5.7- inch Super
-											AMOLED capacitive touchscreen display with a resolution of
-											1440 x 2560 pixels and has 4.0 GB of RAM.</p>
-											<a title="Samsung Galaxy S6 edge" alt="Samsung Galaxy S6 edge" class="btn btn-primary btn-sm" href="/mobiles/samsung-galaxy-s6-edge+">More Info</a>
-										</p>
-									</div>
-								</div>
-							</div>
+				                            </a>
 						</div>
-					</div>
-
-				</div>
+						<div class="col-sm-7">
+							<p style="line-height: 1.75em;">The Samsung Galaxy S6 edge plus features a 5.7- inch Super
+								AMOLED capacitive touchscreen display with a resolution of
+								1440 x 2560 pixels and has 4.0 GB of RAM.</p>
+								<a style="float:right;" title="Samsung Galaxy S6 Edge Plus" alt="Samsung Galaxy S6 Edge Plus" class="btn btn-primary btn-sm" href="/mobiles/samsung-galaxy-s6-edge-plus">More Info</a>
+						</div>
+                    </div>
+                </div>
+			</div>
             <div class="col-sm-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">

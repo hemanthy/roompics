@@ -4,15 +4,40 @@
 <%@ page session="false" %>
 <%@ page isELIgnored="false" %>
 <html lang="en">
-
+<c:if test="${mobile.ram gt 0}">
+  <c:set var="ram" value="${mobile.ram} GB" />
+</c:if>
+<c:if test="${mobile.ramSizeInMB gt 0}">
+  <c:set var="ram" value="${mobile.ramSizeInMB} MB" />
+</c:if>
+<c:if test="${mobile.internal_Memory gt 0}">
+  <c:set var="internal_Memory" value="${mobile.internal_Memory} GB" />
+</c:if>
+<c:if test="${mobile.internal_Memory_In_MB gt 0}">
+  <c:set var="internal_Memory" value="${mobile.internal_Memory_In_MB} MB" />
+</c:if>
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${mobile.title} Specifications, Features and Comparison | AllGadgetsRoundup.com</title>
+    <meta name="description" content="${mobile.title} mobile with ${mobile.screenSize}-inch, ${mobile.resolution} display,
+     												<c:if test="${!empty mobile.processor}">  ${mobile.processor} ${mobile.chipset}  processor, </c:if>
+     												<c:if test="${!empty ram}">${ram} of RAM,</c:if>
+													<c:if test="${mobile.primary_Camera gt 0.1 && mobile.secondary_Camera gt 0.1}">
+												 		  ${mobile.primary_Camera}-megapixel primary camera and ${mobile.secondary_Camera}-megapixel front camera.  
+												 	</c:if>
+												 	<c:if test="${mobile.primary_Camera gt 0.1 && mobile.secondary_Camera eq 0.0}">
+												 		 ${mobile.primary_Camera}-megapixel Primary camera.  
+												 	</c:if> ${mobile.title}" />
+	<meta name="keywords" content=" -" />
+
+ 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<meta name="robots" content="index, follow" />
+
+  	<link rel="canonical" href="http://allgadgetsroundup.com/${requestURI}" />
   	
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="/css/style.css"> 
     <script type="text/javascript" src="/js/autosearch.js"></script>
@@ -118,22 +143,19 @@
 	var vsPath = "-vs-";
 </script>
 
-
-
 <body>
-<c:if test="${mobile.ram gt 0}">
-  <c:set var="ram" value="${mobile.ram} GB" />
-</c:if>
-<c:if test="${mobile.ramSizeInMB gt 0}">
-  <c:set var="ram" value="${mobile.ramSizeInMB} MB" />
-</c:if>
-<c:if test="${mobile.internal_Memory gt 0}">
-  <c:set var="internal_Memory" value="${mobile.internal_Memory} GB" />
-</c:if>
-<c:if test="${mobile.internal_Memory_In_MB gt 0}">
-  <c:set var="internal_Memory" value="${mobile.internal_Memory_In_MB} MB" />
-</c:if>
-	
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71447534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
     <div class="container">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
@@ -146,9 +168,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button> -->
-                        <a class="navbar-brand" href="#">
-                            <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
-                        </a>
+                        <a class="navbar-brand" href="/"> <b> <font
+									face="Trebuchet MS" color="#808080"
+									style="color: #ffffff; text-decoration: none;">AllGadgetsRoundup.com</font>
+							</b>
+						</a>
                     </div>
                 </div>
                  <div class="col-sm-4" id="mobile-search">
@@ -215,11 +239,11 @@
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a title="All Brands" href="/mobiles/all-brands">Mobiles</a>
+                    <a title="All Brands" href="/mobiles/all-brands">All Brands</a>
                 </li>
                 <li><c:set var="brandName" value="${mobile.brandName}" />
                 <c:set var="brandNameLowerCase" value="${fn:toLowerCase(brandName)}" />
-                    <a href="/mobiles/${fn:replace(brandNameLowerCase,' ', '-')}-phones" title="${mobile.brandName} Phones">${mobile.brandName}</a>
+                    <a href="/mobiles/${fn:replace(brandNameLowerCase,' ', '-')}-phones" title="${mobile.brandName} Mobile Phones">${mobile.brandName} Mobile Phones</a>
                 </li>
                 <li class="active">${mobile.title}</li>
             </ul>
@@ -242,7 +266,7 @@
                     </div>
                     <div>
                     	<div class="add_search" style="display:block;">
-						         Compare with : <input autocomplete="off" class="textfield"  type="text" id="project5" placeholder="Enter name of the mobile">
+						         Compare with : <input id="project5" placeholder="Enter name of the mobile">
 						</div>
                     </div>
                     <div class="clear">&nbsp</div>
@@ -344,7 +368,7 @@
 											<p>
 												The ${mobile.title} features a ${mobile.screenSize}-inch ${mobile.screenType}
 												display with a resolution of ${mobile.resolution}
-												<c:if test="${!empty processor}">
+												<c:if test="${!empty mobile.processor}">
 												 and is powered by a ${mobile.processor} ${mobile.chipset} processor 
 												</c:if>
 												<c:if test="${!empty ram}">

@@ -167,7 +167,8 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getTopBrandMobileList() throws MobileException {
-		String sql = "select * from mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 3 or Company_id = 5 or Company_id = 7) and Enabled = true  ORDER BY  Announced_Month,RAND() limit 0,10";
+		//String sql = "select * from mobile where (ram >= 4.7 or Screen_Size >= 5) and (Company_id = 3 or Company_id = 5 or Company_id = 7) and Enabled = true  ORDER BY  Announced_Month,RAND() limit 0,10";
+		String sql = "select * from mobile where id in (277,374,380,23,278,30) and Enabled = true";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}
@@ -183,7 +184,7 @@ public class MobileDAOImpl implements MobileDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Mobile> getRelatedMobilesList(Mobile mobile) throws MobileException {
-		String sql = "select * from Mobile where (ram = "+ mobile.getRam()+") and (Company_id = 7 or Company_id = 14) and Enabled = true";
+		String sql = "select * from Mobile where (ram = "+ Math.round(mobile.getRam())+") and (Company_id = 7 or Company_id = 14) and Enabled = true";
 		List<Mobile> mobileList  =	getMobileObjList(sql, null);
 		return mobileList;
 	}

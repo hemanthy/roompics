@@ -5,9 +5,28 @@
 <%@ page isELIgnored="false" %>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+ <c:if test="${!empty mobilesList}">
+		<title>${mobilesList} | AllGadgetsRoundup.com</title> 
+ </c:if>
+ <c:if test="${empty mobilesList}">
+		<title>Advance Search - Find a Mobile Phone by Specification and Features | AllGadgetsRoundup.com</title> 
+ </c:if>
+ 
+ <c:if test="${!empty mobilesListdesc}">
+		<title>${mobilesListdesc}</title> 
+ </c:if>
+ <c:if test="${empty mobilesListdesc}">
+		<meta name="description" content="Just enter in your requirements to our Advance Search tool and you will get the best recommended mobile phones. Start your search now" />
+ </c:if>
+ 
+	
+    <meta name="keywords" content=" -" />
+    
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -17,6 +36,8 @@
 	<script type="text/javascript" src="/js/autosearch.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">  
 	<script type="text/javascript" src="/js/adv-search.js"></script>
+	
+	<link rel="canonical" href="http://allgadgetsroundup.com/${requestURI}" />
 	
 	  <!-- Auto Complete Start -->
      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
@@ -80,6 +101,18 @@
 
 </style>
 <body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71447534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
 	<c:set var="url" value="${url}" />
 	<c:set var="brand" value="${brand}" />
 	<c:set var="primarycamera" value="${primarycamera}" />
@@ -103,9 +136,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button> -->
-                        <a class="navbar-brand" href="#">
-                            <img src="http://placehold.it/150x50&amp;text=Logo" alt="">
-                        </a>
+                        <a class="navbar-brand" href="/"> <b> <font
+									face="Trebuchet MS" color="#808080"
+									style="color: #ffffff; text-decoration: none;">AllGadgetsRoundup.com</font>
+							</b>
+						</a>
                     </div>
                 </div>
             <div class="col-sm-4" id="mobile-search">

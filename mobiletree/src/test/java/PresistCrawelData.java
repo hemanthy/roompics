@@ -181,7 +181,7 @@ public class PresistCrawelData extends TestCase  {
 		stmt = (Statement) conn.createStatement();
 
 		String sql;
-		sql = "SELECT title FROM mobile where id ='" + id + "'";
+		sql = "SELECT title FROM mobile where id ='" + id + "' and enabled = true";
 		ResultSet rs = stmt.executeQuery(sql);
 		String title = null;
 		while (rs.next()) {
