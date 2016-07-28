@@ -44,7 +44,6 @@ public class SearchTest {
 
 			mobilesDAOImpl = new MobilesDAOImpl(collection);
 			DBCollection collecton = mobilesDAOImpl.getEzoneDAO().collection;
-
 			DBCursor cursor = collecton.find();
 			while (cursor.hasNext()) {
 				DBObject next = cursor.next();
