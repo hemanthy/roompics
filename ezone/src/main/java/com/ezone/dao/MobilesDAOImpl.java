@@ -108,6 +108,7 @@ public class MobilesDAOImpl implements MobilesDAO {
                 sb.append(json);
                 sb.append(",");
         }
+        
      String s1 =   sb.substring(0, sb.length()-1);
      System.out.println("dataArraylist["+s1+"]");
 }
