@@ -41,7 +41,6 @@ public class SearchTest {
 		SearchTest obj = new SearchTest();
 		
 		for (String collection : collections) {
-
 			mobilesDAOImpl = new MobilesDAOImpl(collection);
 			DBCollection collecton = mobilesDAOImpl.getEzoneDAO().collection;
 			DBCursor cursor = collecton.find();
