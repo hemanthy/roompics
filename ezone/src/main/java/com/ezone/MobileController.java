@@ -51,6 +51,15 @@ public class MobileController {
   //      model.addAttribute("companyList", (Object)this.MobileService.getCompaniesList());
         return "index";
     }
+    
+    @RequestMapping(value={"/queryString"}, method={RequestMethod.GET})
+    public String searchQuery(Model model,HttpServletRequest req) {
+    	
+    	String queryString = req.getParameter("q");
+    	
+    	System.out.println(queryString);
+		return null;
+    }
    
     
     @RequestMapping(value={"/electronics/*/**","/electronics"}, method={RequestMethod.GET})

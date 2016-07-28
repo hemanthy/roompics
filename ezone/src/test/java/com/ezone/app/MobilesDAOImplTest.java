@@ -8,7 +8,7 @@ import com.ezone.pojo.Product;
 
 import junit.framework.TestCase;
 
-public class MobilesDAOImplTest extends TestCase {
+public class MobilesDAOImplTest /*extends TestCase*/ {
         
         public MobilesDAOImpl mobilesDAOImpl = null;
 
@@ -16,7 +16,7 @@ public class MobilesDAOImplTest extends TestCase {
                 mobilesDAOImpl =  new MobilesDAOImpl("mobile_accessories");
         }
         
-        public void testGetAllProductInStockItems(){
+        /*public void testGetAllProductInStockItems(){
                 List<String> productsBrandNames = mobilesDAOImpl.getProductBrandNames();
                 for (String product : productsBrandNames) {
                         System.out.println(product);
@@ -67,7 +67,17 @@ public class MobilesDAOImplTest extends TestCase {
                 }
                 
                 //System.out.println(productList.size());
-                }
+                }*/
+        
+        
+        public static void main(String[] args) {
+        	MobilesDAOImpl 	 mobilesDAOImpl =  new MobilesDAOImpl("mobile_accessories");
+        	mobilesDAOImpl.searchProductByQueryString("phone");
+		}
+        
+        /*public void testSearchProductByQueryString(){
+        	mobilesDAOImpl.searchProductByQueryString("Car");
+        }*/
         
         
 }

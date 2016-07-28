@@ -1,6 +1,7 @@
 package com.ezone.dao;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -93,6 +94,23 @@ public class MobilesDAOImpl implements MobilesDAO {
 		EzoneDAO ezoneDAO = new EzoneDAO("search");
 		ezoneDAO.collection.save(document);
 	}
+	
+	public void searchProductByQueryString(String queryString){
+		  BasicDBObject query = new BasicDBObject();
+		  StringBuffer sb =  new StringBuffer();
+         // query.put(Constants.IN_STOCK, true);
+          query.put("title", Pattern.compile(queryString,Pattern.CASE_INSENSITIVE));
+       //   query.put("_id",-1);
+        DBCursor cursor = ezoneDAO.db.getCollection("search").find(query);//.skip(25000);
+        while(cursor.hasNext()){
+                DBObject next = cursor.next();
+                String json = next.toString();
+                sb.append(json);
+                sb.append(",");
+        }
+     String s1 =   sb.substring(0, sb.length()-1);
+     System.out.println("dataArraylist["+s1+"]");
+}
 
         public EzoneDAO getEzoneDAO() {
                 return ezoneDAO;

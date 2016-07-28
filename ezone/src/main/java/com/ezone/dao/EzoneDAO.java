@@ -14,7 +14,7 @@ import com.mongodb.MongoClient;
 
 public class EzoneDAO {
         
-        private DB db;
+        public DB db;
         String tableName = null;
        public DBCollection collection = null;
         

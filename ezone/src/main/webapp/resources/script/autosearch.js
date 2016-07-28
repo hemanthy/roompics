@@ -7,7 +7,16 @@ $(function() {
     	var queryString = $( "#project1" ).val();
     	console.log("project1:::"+queryString);
     	var data = titleArray;
-    	loadingAutoComplete1(data);
+    	  $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: "/queryString?q="+queryString,
+              success: function(jsonData){
+               console.log(jsonData);
+               loadingAutoComplete1(jsonData.mobileVoList);
+              }
+           });
+  //  	loadingAutoComplete1(data);
     });
     
     loadingAutoComplete1("");

@@ -43,6 +43,7 @@ public class SearchTest {
 		for (String collection : collections) {
 			mobilesDAOImpl = new MobilesDAOImpl(collection);
 			DBCollection collecton = mobilesDAOImpl.getEzoneDAO().collection;
+		//	collecton.drop();
 			DBCursor cursor = collecton.find();
 			while (cursor.hasNext()) {
 				DBObject next = cursor.next();
@@ -50,7 +51,7 @@ public class SearchTest {
 				if (unmarshall != null) {
 					Product product = (Product) unmarshall;
 					DBObject document = new BasicDBObject();
-					document.put("id", product.get_id());
+					document.put("_id", product.get_id());
 					document.put("title", product.getProductBaseInfoV1().getTitle());
 					// document.put("productId",
 					// product.getProductBaseInfoV1().getProductId());
