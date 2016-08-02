@@ -65,5 +65,9 @@ public class MobilesServiceImpl implements MobilesService {
                 }
         }
 
+		public String searchProductByQueryString(String queryString) {
+			return mobilesDao.searchProductByQueryString(queryString);	
+		}
+
         
 }

@@ -40,10 +40,12 @@ public class SearchTest {
 		
 		SearchTest obj = new SearchTest();
 		
+		mobilesDAOImpl = new MobilesDAOImpl("search");
+		DBCollection collecton1 = mobilesDAOImpl.getEzoneDAO().collection;
+		collecton1.drop();
 		for (String collection : collections) {
 			mobilesDAOImpl = new MobilesDAOImpl(collection);
 			DBCollection collecton = mobilesDAOImpl.getEzoneDAO().collection;
-		//	collecton.drop();
 			DBCursor cursor = collecton.find();
 			while (cursor.hasNext()) {
 				DBObject next = cursor.next();
@@ -53,6 +55,7 @@ public class SearchTest {
 					DBObject document = new BasicDBObject();
 					document.put("_id", product.get_id());
 					document.put("title", product.getProductBaseInfoV1().getTitle());
+					document.put("value", product.getProductBaseInfoV1().getTitle());
 					// document.put("productId",
 					// product.getProductBaseInfoV1().getProductId());
 					document.put("catId", map.get(collection));

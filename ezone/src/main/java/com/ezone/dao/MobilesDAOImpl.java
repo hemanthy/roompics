@@ -95,7 +95,7 @@ public class MobilesDAOImpl implements MobilesDAO {
 		ezoneDAO.collection.save(document);
 	}
 	
-	public void searchProductByQueryString(String queryString){
+	public String searchProductByQueryString(String queryString){
 		  BasicDBObject query = new BasicDBObject();
 		  StringBuffer sb =  new StringBuffer();
          // query.put(Constants.IN_STOCK, true);
@@ -108,9 +108,10 @@ public class MobilesDAOImpl implements MobilesDAO {
                 sb.append(json);
                 sb.append(",");
         }
-        
      String s1 =   sb.substring(0, sb.length()-1);
-     System.out.println("dataArraylist["+s1+"]");
+     String s2 = "{ \""+"dataArraylist"+"\""   +":[" + s1 + "]}";
+     //System.out.println("{ \""+"dataArraylist"+"\""   +":[" + s1 + "]}");
+     return s2;
 }
 
         public EzoneDAO getEzoneDAO() {

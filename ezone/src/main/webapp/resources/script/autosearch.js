@@ -1,19 +1,26 @@
 var path = window.location.pathname;
 
-var titleArray = [{"title":"Samsung Galaxy On7","value":"Samsung Galaxy On7"},{"title":"Samsung Galaxy On5","value":"Samsung Galaxy On5"},{"title":"Samsung Z3","value":"Samsung Z3"},{"title":"Samsung Galaxy J1 Ace","value":"Samsung Galaxy J1 Ace"},{"title":"Samsung Galaxy Note5 (CDMA)","value":"Samsung Galaxy Note5 (CDMA)"},{"title":"Samsung Galaxy Note5","value":"Samsung Galaxy Note5"},{"title":"Samsung Galaxy Note5 Duos","value":"Samsung Galaxy Note5 Duos"},{"title":"Samsung Galaxy S6 edge Plus (CDMA)","value":"Samsung Galaxy S6 edge Plus (CDMA)"}];
-
+//var titleArray = { "dataArraylist": [{"title":"Samsung Galaxy On7","value":"Samsung Galaxy On7"},{"title":"Samsung Galaxy On5","value":"Samsung Galaxy On5"},{"title":"Samsung Z3","value":"Samsung Z3"},{"title":"Samsung Galaxy J1 Ace","value":"Samsung Galaxy J1 Ace"},{"title":"Samsung Galaxy Note5 (CDMA)","value":"Samsung Galaxy Note5 (CDMA)"},{"title":"Samsung Galaxy Note5","value":"Samsung Galaxy Note5"},{"title":"Samsung Galaxy Note5 Duos","value":"Samsung Galaxy Note5 Duos"},{"title":"Samsung Galaxy S6 edge Plus (CDMA)","value":"Samsung Galaxy S6 edge Plus (CDMA)"}]};
+var titleArray = { "dataArraylist":[{ "_id" : 2 , "title" : "STK IPCAR3GBL/PP3 Car Charger for iPod and iPhones" , "value" : "STK IPCAR3GBL/PP3 Car Charger for iPod and iPhones"},{ "_id" : 100 , "title" : "iHave RK-GLIM-25985 Car Charger for iPad, iPod, iPhone" , "value" : "iHave RK-GLIM-25985 Car Charger for iPad, iPod, iPhone"},{ "_id" : 106 , "title" : "Prolink UM103 Dual USB Travel Charger for Smartphones and Tablets" , "value" : "Prolink UM103 Dual USB Travel Charger for Smartphones and Tablets"},{ "_id" : 132 , "title" : "Fogbe Iphone 5,5S,5G -Skin1 Apple iPhone Mobile Skin" , "value" : "Fogbe Iphone 5,5S,5G -Skin1 Apple iPhone Mobile Skin"}]};
 $(function() {
     $( "#project1").keyup(function() {
     	var queryString = $( "#project1" ).val();
-    	console.log("project1:::"+queryString);
+    	console.log("project1:::"+queryString); 
     	var data = titleArray;
+    	//alert(JSON.stringify(data.dataArraylist));
     	  $.ajax({
               type: "GET",
               dataType: "json",
               url: "/queryString?q="+queryString,
               success: function(jsonData){
-               console.log(jsonData);
-               loadingAutoComplete1(jsonData.mobileVoList);
+          //     console.log(jsonData);
+        //       alert(JSON.stringify(data.dataArraylist));
+       //        var mobileListJson = JSON.stringify(titleArray.dataArraylist);
+          //     console.log(titleArray);
+     //       var  data =  JSON.parse(jsonData);
+   //         console.log("JSON Data :"+JSON.stringify(titleArray));
+       //     console.log(titleArray);
+               loadingAutoComplete1(jsonData.dataArraylist);
               }
            });
   //  	loadingAutoComplete1(data);
@@ -22,6 +29,7 @@ $(function() {
     loadingAutoComplete1("");
     
 function loadingAutoComplete1(data){
+	console.log(JSON.stringify(data));
     $( "#project1" ).autocomplete({
       minLength: 0,
       source: function(request, response) {

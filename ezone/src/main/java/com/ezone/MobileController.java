@@ -2,7 +2,6 @@ package com.ezone;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ezone.constants.Constants;
-import com.ezone.constants.ConstantsCategoryNodeId;
-import com.ezone.constants.ConstantsDatabaseName;
-import com.ezone.constants.Constants_CategoryPath;
 import com.ezone.dao.EzoneHelper;
 import com.ezone.pojo.Category;
 import com.ezone.pojo.Item;
@@ -53,12 +49,16 @@ public class MobileController {
     }
     
     @RequestMapping(value={"/queryString"}, method={RequestMethod.GET})
+    @ResponseBody
     public String searchQuery(Model model,HttpServletRequest req) {
-    	
+    	String jsonData = null;
     	String queryString = req.getParameter("q");
-    	
-    	System.out.println(queryString);
-		return null;
+    	if(queryString!=null && !queryString.trim().isEmpty()){
+    		jsonData =	mobilesservice.searchProductByQueryString(queryString.trim());
+    		System.out.println(jsonData);
+    		model.addAttribute("jsonData", jsonData);
+    	}
+		return jsonData;
     }
    
     
