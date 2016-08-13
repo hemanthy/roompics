@@ -1,655 +1,223 @@
-<!DOCTYPE html>
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-        <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-            <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-                <%@ page session="false" %>
-                    <html lang="en">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="false" %>
+<html>
+<head>
+<title>Lookz an E-Commerce online Shopping Category Flat Bootstarp responsive Website Template| Men :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Lookz Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/resources/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="/resources/css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!--webfont-->
+<link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/resources/script/jquery-1.11.1.min.js"></script>
+<!-- start menu -->
+<link href="/resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="/resources/script/megamenu.js"></script>
+<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 
-                    <head>
-                        <title>Bootstrap Example</title>
-                        <meta charset="utf-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1">
-                        <link rel="stylesheet" href="http://bootswatch.com/spacelab/bootstrap.min.css">
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-                        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-                         
-                         
-                           <!-- Auto Complete Start -->
+  <!-- Auto Complete Start -->
 						     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 						      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 						      <script src="/resources/script/bootstrap.js"></script>
 						      <script type="text/javascript" src="/resources/script/autosearch.js"></script>
-						     <!-- Auto Complete End -->
-                         
-                        <script>
-                            jQuery(document).ready(function($) {
-
-                                var jssor_html5_AdWords_SlideoTransitions = [
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1,
-                                        rY: -120
-                                    }, {
-                                        b: 2600,
-                                        d: 500,
-                                        o: 1,
-                                        rY: 120,
-                                        e: {
-                                            rY: 17
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 1480,
-                                        d: 20,
-                                        o: 1
-                                    }, {
-                                        b: 1500,
-                                        d: 500,
-                                        y: -20,
-                                        e: {
-                                            y: 19
-                                        }
-                                    }, {
-                                        b: 2300,
-                                        d: 300,
-                                        x: -20,
-                                        e: {
-                                            x: 19
-                                        }
-                                    }, {
-                                        b: 3100,
-                                        d: 300,
-                                        o: -1,
-                                        sY: 9
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 2300,
-                                        d: 300,
-                                        x: 20,
-                                        o: 1,
-                                        e: {
-                                            x: 19
-                                        }
-                                    }, {
-                                        b: 3100,
-                                        d: 300,
-                                        o: -1,
-                                        sY: 9
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        sX: -1,
-                                        sY: -1
-                                    }, {
-                                        b: 0,
-                                        d: 1000,
-                                        sX: 2,
-                                        sY: 2,
-                                        e: {
-                                            sX: 7,
-                                            sY: 7
-                                        }
-                                    }, {
-                                        b: 1000,
-                                        d: 500,
-                                        sX: -1,
-                                        sY: -1,
-                                        e: {
-                                            sX: 16,
-                                            sY: 16
-                                        }
-                                    }, {
-                                        b: 1500,
-                                        d: 500,
-                                        y: 20,
-                                        e: {
-                                            y: 19
-                                        }
-                                    }],
-                                    [{
-                                        b: 1000,
-                                        d: 1000,
-                                        r: -30
-                                    }, {
-                                        b: 2000,
-                                        d: 500,
-                                        r: 30,
-                                        e: {
-                                            r: 2
-                                        }
-                                    }, {
-                                        b: 2500,
-                                        d: 500,
-                                        r: -30,
-                                        e: {
-                                            r: 3
-                                        }
-                                    }, {
-                                        b: 3000,
-                                        d: 3000,
-                                        x: 70,
-                                        y: 40,
-                                        rY: -20,
-                                        tZ: -20
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 0,
-                                        d: 1000,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1,
-                                        r: 30
-                                    }, {
-                                        b: 1000,
-                                        d: 1000,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 2780,
-                                        d: 20,
-                                        o: 1
-                                    }, {
-                                        b: 2800,
-                                        d: 500,
-                                        y: -70,
-                                        e: {
-                                            y: 3
-                                        }
-                                    }, {
-                                        b: 3300,
-                                        d: 1000,
-                                        y: 180
-                                    }, {
-                                        b: 4300,
-                                        d: 500,
-                                        y: -40,
-                                        e: {
-                                            y: 3
-                                        }
-                                    }, {
-                                        b: 5300,
-                                        d: 500,
-                                        y: -40,
-                                        e: {
-                                            y: 3
-                                        }
-                                    }, {
-                                        b: 6300,
-                                        d: 500,
-                                        y: -40,
-                                        e: {
-                                            y: 3
-                                        }
-                                    }, {
-                                        b: 7300,
-                                        d: 500,
-                                        y: -40,
-                                        e: {
-                                            y: 3
-                                        }
-                                    }, {
-                                        b: 8300,
-                                        d: 400,
-                                        y: -30
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        c: {
-                                            y: 200
-                                        }
-                                    }, {
-                                        b: 4300,
-                                        d: 4400,
-                                        c: {
-                                            y: -200
-                                        },
-                                        e: {
-                                            c: {
-                                                y: 1
-                                            }
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 4300,
-                                        d: 20,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 5300,
-                                        d: 20,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 6300,
-                                        d: 20,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 7300,
-                                        d: 20,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 8300,
-                                        d: 20,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: 2000,
-                                        d: 1000,
-                                        o: -0.5,
-                                        r: 180,
-                                        sX: 4,
-                                        sY: 4,
-                                        e: {
-                                            r: 5,
-                                            sX: 5,
-                                            sY: 5
-                                        }
-                                    }, {
-                                        b: 3000,
-                                        d: 1000,
-                                        o: -0.5,
-                                        r: 180,
-                                        sX: -4,
-                                        sY: -4,
-                                        e: {
-                                            r: 6,
-                                            sX: 6,
-                                            sY: 6
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1,
-                                        c: {
-                                            m: -35.0
-                                        }
-                                    }, {
-                                        b: 0,
-                                        d: 1500,
-                                        x: 150,
-                                        o: 1,
-                                        e: {
-                                            x: 6
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1,
-                                        c: {
-                                            y: 35.0
-                                        }
-                                    }, {
-                                        b: 0,
-                                        d: 1500,
-                                        x: -150,
-                                        o: 1,
-                                        e: {
-                                            x: 6
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 6500,
-                                        d: 2000,
-                                        o: 1
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 2000,
-                                        d: 1000,
-                                        o: 0.5,
-                                        r: 180,
-                                        sX: 4,
-                                        sY: 4,
-                                        e: {
-                                            r: 5,
-                                            sX: 5,
-                                            sY: 5
-                                        }
-                                    }, {
-                                        b: 3000,
-                                        d: 1000,
-                                        o: 0.5,
-                                        r: 180,
-                                        sX: -4,
-                                        sY: -4,
-                                        e: {
-                                            r: 6,
-                                            sX: 6,
-                                            sY: 6
-                                        }
-                                    }, {
-                                        b: 4500,
-                                        d: 1500,
-                                        x: -45,
-                                        y: 60,
-                                        e: {
-                                            x: 12,
-                                            y: 3
-                                        }
-                                    }],
-                                    [{
-                                        b: -1,
-                                        d: 1,
-                                        o: -1
-                                    }, {
-                                        b: 4500,
-                                        d: 1500,
-                                        o: 1,
-                                        e: {
-                                            o: 5
-                                        }
-                                    }, {
-                                        b: 6500,
-                                        d: 2000,
-                                        o: -1,
-                                        r: 10,
-                                        rX: 30,
-                                        rY: 20,
-                                        e: {
-                                            rY: 6
-                                        }
-                                    }]
-                                ];
-
-                                var jssor_html5_AdWords_options = {
-                                    $AutoPlay: false,
-                                    $Idle: 1600,
-                                    $SlideDuration: 400,
-                                    $SlideEasing: $Jease$.$InOutSine,
-                                    $CaptionSliderOptions: {
-                                        $Class: $JssorCaptionSlideo$,
-                                        $Transitions: jssor_html5_AdWords_SlideoTransitions
-                                    },
-                                    $ArrowNavigatorOptions: {
-                                        $Class: $JssorArrowNavigator$,
-                                        $ChanceToShow: 1
-                                    },
-                                    $BulletNavigatorOptions: {
-                                        $Class: $JssorBulletNavigator$,
-                                        $ActionMode: 2
-                                    }
-                                };
-
-                                var jssor_html5_AdWords_slider = new $JssorSlider$("jssor_html5_AdWords", jssor_html5_AdWords_options);
-                                var jssor_html5_AdWords_slider = new $JssorSlider$("jssor_html5_AdWords1", jssor_html5_AdWords_options);
-                            });
-                        </script>
-                        <style>
-                            /* Remove the navbar's default margin-bottom and rounded borders */
-                            
-                            .navbar {
-                                margin-bottom: 0;
-                                border-radius: 0;
-                            }
-                            /* Add a gray background color and some padding to the footer */
-                            
-                            footer {
-                                background-color: #f2f2f2;
-                                padding: 25px;
-                            }
-                            .body-width {
-                                max-width: 1200px;
-                                min-width: 280px;
-                                margin: 0 auto;
-                            }
-                            @media (min-width: 1224px) .row-fluid {
-                                width: 100%;
-                            }
-                            @media (min-width: 768px) {
-                                ul.nav li:hover > ul.dropdown-menu {
-                                    display: block;
-                                }
-                                #navbar {
-                                    text-align: center;
-                                }
-                            }
-                            #red {
-                                border: 1px red solid;
-                            }
-                            .panel-body li {
-                                float: left;
-                                height: 287px;
-                                position: relative;
-                                text-align: center;
-                                width: 224px;
-                                list-style: none !important;
-                                margin: 0px 0px 5px 0px;
-                                padding-top: 20px;
-                                border: 1px #e3e3e3 solid;
-                            }
-                            .producttitle {
-                                text-align: center;
-                                float: left;
-                                color: #333;
-                                font-size: 13px;
-                                width: 116px;
-                                padding: 5px 5px 4px 5px;
-                                font-family: "open sans";
-                                overflow: hidden;
-                                width: 95%;
-                                height: 21px;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                font-weight: 600;
-                            }
-                        </style>
-                    </head>
-
-                    <body class="body-width">
-                        <nav class="navbar navbar-inverse">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                    <button class="navbar-toggle" data-target="#myNavbar" data-toggle="collapse" type="button"><span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button> <a class="navbar-brand" href="#">Portfolio</a>
-                                </div>
-
-
-                                <div class="collapse navbar-collapse" id="myNavbar">
-                                    <ul class="nav navbar-nav">
-                                        <li class="active">
-                                            <a href="#">Home</a>
-                                        </li>
-
-
-                                        <li>
-                                            <a href="#">About</a>
-                                        </li>
-
-
-                                        <li>
-                                            <a href="#">Gallery</a>
-                                        </li>
-
-
-                                        <li>
-                                            <a href="#">Contact</a>
-                                        </li>
-                                    </ul>
-
-
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li>
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-log-in"></span> Login
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-
-
-                        <div>
-                            <!--div class="row">
-</div-->
-
-
-                            <div class="container-fluid header-grid" style="border: 1px red solid;">
-                                <h3>Some of my Work</h3>
-                                <br>
-
-
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div>
-                                            LOGO
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-4">
-                                        <form class="navbar-form navbar-left" role="search">
-                                            <div class="form-group">
-                                                <input class="form-control" id="project1" placeholder="Search" title="search me" type="text">
-                                            </div>
-                                        </form>
-                                    </div>
-
-
-                                    <div class="col-sm-4">
-                                        <p>Some text..</p>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-
-
-                                <div class="row">
-                                    <nav class="navbar navbar-inverse">
-                                        <div class="container-fluid">
-                                            <div class="navbar-header">
-                                                <!--   <a class="navbar-brand" href="#">Brand</a> -->
-
-                                                <div>
-                                                    <ul class="nav navbar-nav">
-                                                        <li class="dropdown active">
-                                                            <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">Electronics</a>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li class="divider"></li>
-                                                                <li class="dropdown-header">
-                                                                    <b>Mobiles</b>
-                                                                </li>
-                                                                <li class="divider"></li>
-                                                                <li><a href="#">Samsung</a>
-                                                                </li>
-                                                                <li><a href="#">Honor</a>
-                                                                </li>
-                                                                <li class="divider"></li>
-                                                                <li class="dropdown-header">
-                                                                    <b>Mobiles Accessories</b>
-                                                                </li>
-                                                                <li class="divider"></li>
-                                                                <li><a href="#">Cases & Cover</a>
-                                                                </li>
-                                                                <li><a href="#">Power Banks</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">Link <span class="sr-only">(current)</span></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#">Link</a>
-                                                        </li>
-
-
-                                                        <li class="dropdown">
-                                                            <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">Dropdown</a>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li>
-                                                                    <a href="#">Action</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Another action</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Something else here</a>
-                                                                </li>
-                                                                <li class="divider">
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Separated link</a>
-                                                                </li>
-                                                                <li class="divider">
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">One more separated link</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="nav navbar-nav navbar-right">
-                                                        <li>
-                                                            <a href="#">Link</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </nav>
-                                </div>
-                                <br>
-                                <br>
-
-
-                                <div class="row">
+<!-- Auto Complete End -->
+</head>
+<!-- Overriding CSS -->
+<style>
+	.col_1_of_single1 {
+		    margin: 1% 0 1% 2.5%;
+	}
+	.men {
+     padding: 0 0; 
+}
+	
+</style>
+<body>
+<div class="wrap">	
+<div class="container">
+     <div class="header_top">
+		  <div class="col-sm-9 h_menu4">
+				<ul class="megamenu skyblue">
+					  <li><a class="color8" href="index.html">New</a></li>	
+				      <li class="active grid"><a class="color1" href="#">Men</a><div class="megapanel">
+						<div class="row">
+							<div class="col1">
+								<div class="h_nav">
+									<ul>
+										<li><a href="men.html">Accessories</a></li>
+										<li><a href="men.html">Bags</a></li>
+										<li><a href="men.html">Caps & Hats</a></li>
+										<li><a href="men.html">Hoodies & Sweatshirts</a></li>
+										<li><a href="men.html">Jackets & Coats</a></li>
+										<li><a href="men.html">Jeans</a></li>
+										<li><a href="men.html">Jewellery</a></li>
+										<li><a href="men.html">Jumpers & Cardigans</a></li>
+										<li><a href="men.html">Leather Jackets</a></li>
+										<li><a href="men.html">Long Sleeve T-Shirts</a></li>
+										<li><a href="men.html">Loungewear</a></li>
+									</ul>	
+								</div>							
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<ul>
+										<li><a href="men.html">Shirts</a></li>
+										<li><a href="men.html">Shoes, Boots & Trainers</a></li>
+										<li><a href="men.html">Shorts</a></li>
+										<li><a href="men.html">Suits & Blazers</a></li>
+										<li><a href="men.html">Sunglasses</a></li>
+										<li><a href="men.html">Sweatpants</a></li>
+										<li><a href="men.html">Swimwear</a></li>
+										<li><a href="men.html">Trousers & Chinos</a></li>
+										<li><a href="men.html">T-Shirts</a></li>
+										<li><a href="men.html">Underwear & Socks</a></li>
+										<li><a href="men.html">Vests</a></li>
+									</ul>	
+								</div>							
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<h4>Popular Brands</h4>
+									<ul>
+										<li><a href="men.html">Levis</a></li>
+										<li><a href="men.html">Persol</a></li>
+										<li><a href="men.html">Nike</a></li>
+										<li><a href="men.html">Edwin</a></li>
+										<li><a href="men.html">New Balance</a></li>
+										<li><a href="men.html">Jack & Jones</a></li>
+										<li><a href="men.html">Paul Smith</a></li>
+										<li><a href="men.html">Ray-Ban</a></li>
+										<li><a href="men.html">Wood Wood</a></li>
+									</ul>	
+								</div>												
+							</div>
+						  </div>
+						</div>
+					</li>
+				    <li class="grid"><a class="color2" href="#">Women</a>
+					  <div class="megapanel">
+						<div class="row">
+							<div class="col1">
+								<div class="h_nav">
+									<ul>
+										<li><a href="men.html">Accessories</a></li>
+										<li><a href="men.html">Bags</a></li>
+										<li><a href="men.html">Caps & Hats</a></li>
+										<li><a href="men.html">Hoodies & Sweatshirts</a></li>
+										<li><a href="men.html">Jackets & Coats</a></li>
+										<li><a href="men.html">Jeans</a></li>
+										<li><a href="men.html">Jewellery</a></li>
+										<li><a href="men.html">Jumpers & Cardigans</a></li>
+										<li><a href="men.html">Leather Jackets</a></li>
+										<li><a href="men.html">Long Sleeve T-Shirts</a></li>
+										<li><a href="men.html">Loungewear</a></li>
+									</ul>	
+								</div>							
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<ul>
+										<li><a href="men.html">Shirts</a></li>
+										<li><a href="men.html">Shoes, Boots & Trainers</a></li>
+										<li><a href="men.html">Shorts</a></li>
+										<li><a href="men.html">Suits & Blazers</a></li>
+										<li><a href="men.html">Sunglasses</a></li>
+										<li><a href="men.html">Sweatpants</a></li>
+										<li><a href="men.html">Swimwear</a></li>
+										<li><a href="men.html">Trousers & Chinos</a></li>
+										<li><a href="men.html">T-Shirts</a></li>
+										<li><a href="men.html">Underwear & Socks</a></li>
+										<li><a href="men.html">Vests</a></li>
+									</ul>	
+								</div>							
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<h4>Popular Brands</h4>
+									<ul>
+										<li><a href="men.html">Levis</a></li>
+										<li><a href="men.html">Persol</a></li>
+										<li><a href="men.html">Nike</a></li>
+										<li><a href="men.html">Edwin</a></li>
+										<li><a href="men.html">New Balance</a></li>
+										<li><a href="men.html">Jack & Jones</a></li>
+										<li><a href="men.html">Paul Smith</a></li>
+										<li><a href="men.html">Ray-Ban</a></li>
+										<li><a href="men.html">Wood Wood</a></li>
+									</ul>	
+								</div>												
+							</div>
+						  </div>
+						</div>
+			    </li>
+				<li><a class="color4" href="404.html">Accessories</a></li>				
+				<li><a class="color6" href="contact.html">Conact</a></li>
+			  </ul> 
+			</div>
+			<div class="col-sm-3 header-top-right">
+			     <div class="drop_buttons">
+			  	   	<select class="drop-down "> 
+				       <option value="1">Dollar</option>
+				       <option value="2">Euro</option>
+					</select>
+   				    <select class="drop-down drop-down-in">
+						<option value="1">English</option>
+						<option value="2">French</option>
+						<option value="3">German</option>
+					</select>
+   			       <div class="clearfix"></div>
+   			    </div>
+   			    <div class="register-info">
+				    <ul>
+						<li><a href="login.html">Login</a></li>
+					</ul>
+			    </div>
+				<div class="clearfix"> </div>
+   			 </div>
+   			 <div class="clearfix"> </div>
+	</div>
+    <div class="header_bootm">
+		<div class="col-sm-4 span_1">
+		  <div class="logo">
+			<a href="index.html"><img src="/resources/images/logo.png" alt=""/></a>
+		  </div>
+		</div>
+		<div class="col-sm-8 row_2">
+		  <div class="header_bottom_right">
+			<div class="search">
+			  <input type="text" value="Your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your email address';}">
+			  <input type="submit" value="">
+	  		</div>
+	  		<ul class="bag">
+	  			<a href="cart.html"><i class="bag_left"> </i></a>
+	  			<a href="cart.html"><li class="bag_right"><p>205.00 $</p> </li></a>
+	  			<div class="clearfix"> </div>
+	  		</ul>
+	  		<div class="clearfix"> </div>
+		   </div>
+		</div>
+		 <div class="clearfix"></div>
+	</div>
+	<div class="content">
+	<div class="content_box">
+	<div class="row" >
+ 	<div class="h_menu4">
                                     <ul class="breadcrumb">
                                         <li>
                                             <a href="/">Home</a>
@@ -689,87 +257,506 @@
                                         </c:choose>
                                     </ul>
                                 </div>
-
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="list-0group">
-                                            <a class="list-group-item active" href="#">Brand</a>
-                                            <c:forEach items="${brandNames}" var="brand">
-                                                <a class="list-group-item" href="#">${brand}</a>
+                           </div>
+                           </div>
+                           </div>
+	
+<div class="content">
+  <div class="content_box">
+	<div class="men">
+	  <div class="col-md-3 sidebar">
+	  	<div class="block block-layered-nav">
+		    <div class="block-title">
+		        <strong><span>Shop By</span></strong>
+		    </div>
+    <div class="block-content">
+                                    
+            <dl id="narrow-by-list">
+                                                                                                    <dt class="odd">processus</dt>
+                    <dd class="odd">
+<ol>
+    <li>
+                <a href="#"><span class="price1">US$&nbsp;0,00</span> - <span class="price1">US$&nbsp;99,99</span></a>
+                        (4)
+            </li>
+    <li>
+                <a href="#"><span class="price1">US$&nbsp;100,00</span> - <span class="price1">US$&nbsp;199,99</span></a>
+                        (4)
+            </li>
+    <li>
+                <a href="#"><span class="price1">US$&nbsp;200,00</span> - <span class="price1">US$&nbsp;299,99</span></a>
+                        (1)
+            </li>
+    <li>
+                <a href="#"><span class="price1">US$&nbsp;400,00</span> - <span class="price1">US$&nbsp;499,99</span></a>
+                        (1)
+            </li>
+    <li>
+                <a href="#"><span class="price1">US$&nbsp;800,00</span> and above</a>
+                        (1)
+            </li>
+</ol>
+</dd>
+                                                                    <dt class="even">Manufacturer</dt>
+                    <dd class="even">
+<ol>
+    <li>
+                <a href="#">Calvin Klein</a>
+                        (2)
+            </li>
+    <li>
+                <a href="#">Diesel</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">Polo</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">Tommy Hilfiger</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">Versace</a>
+                        (1)
+            </li>
+</ol>
+</dd>
+                                                                    <dt class="last odd">Color</dt>
+                    <dd class="last odd">
+<ol>
+    <li>
+        Black                        (0)
+            </li>
+    <li>
+                <a href="#">Blue</a>
+                        (2)
+            </li>
+    <li>
+                <a href="#">Green</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">Grey</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">Red</a>
+                        (1)
+            </li>
+    <li>
+                <a href="#">White</a>
+                        (1)
+            </li>
+</ol>
+</dd>
+                                            </dl>
+           
+            </div>
+</div>
+<div class="block block-cart">
+        <div class="block-title">
+        <strong><span>Carrello</span></strong>
+    </div>
+    <div class="block-content">
+                        <p class="empty">You have no items in your shopping cart.</p>
+        </div>
+</div>
+<div class="block block-list block-compare">
+    <div class="block-title">
+        <strong><span>Compare Products                    </span></strong>
+    </div>
+    <div class="block-content">
+            <p class="empty">You have no items to compare.</p>
+        </div>
+</div>
+</div>
+<div class="col-md-9">
+	<div class="mens-toolbar">
+          <div class="sort">
+               	<div class="sort-by">
+		            <label>Sort By</label>
+		            <select>
+		                            <option value="">
+		                    Popularity               </option>
+		                            <option value="">
+		                    Price : High to Low               </option>
+		                            <option value="">
+		                    Price : Low to High               </option>
+		            </select>
+		        </div>
+    		</div>
+	        <div class="pager">   
+	           <div class="limiter visible-desktop">
+	            <label>Show</label>
+	            <select>
+	                            <option value="" selected="selected">
+	                    9                </option>
+	                            <option value="">
+	                    15                </option>
+	                            <option value="">
+	                    30                </option>
+	                        </select> per page        
+	             </div>
+	       		<ul class="dc_pagination dc_paginationA dc_paginationA06">
+				    <li><a href="#" class="previous">Pages</a></li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+			  	</ul>
+		   		<div class="clearfix"></div>
+	    	</div>
+     	    <div class="clearfix"></div>
+	     </div>
+	     <div class="content">
+			  <div class="content_box">
+				<div class="men">
+					  <div class="col-md-12">
+					  		 <div class="row">
+                                    <h1>${title}</h1>
+                                    <ul class="nav nav-pills">
+                                        <c:if test="${fn:length(categoryList) gt 1}">
+                                            <c:forEach items="${categoryList}" var="brand">
+                                                <li>
+                                                    <c:set var="lowerCaseBrand" value="${fn:toLowerCase(brand.name)}" />
+                                                    <c:choose>
+                                                        <c:when test="${not empty brand.url}">
+                                                            <a href="${brand.url}">
+                                                                <img alt="" class="ty-pict ty-subcategories-img" src="http://demo.cs-cart.com/images/thumbnails/60/48/detailed/1/comp.png" title="">
+                                                                <span>${fn:replace(brand.name,'-', ' ')}</span>
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="${url}/${fn:replace(lowerCaseBrand,' ', '-')}">
+                                                                <img alt="" class="ty-pict ty-subcategories-img" src="http://demo.cs-cart.com/images/thumbnails/60/48/detailed/1/comp.png" title="">
+                                                                <span>${fn:replace(brand.name,'-', ' ')}</span>
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </li>
                                             </c:forEach>
-                                        </div>
-                                    </div>
+                                        </c:if>
+                                    </ul>
+		                      </div>
+					  </div>
+				 </div>
+			 </div>
+		</div>
+	          <div class="span_2">
+		           <c:forEach items="${productList}" var="product">
+			          	<div class="col_1_of_single1 span_1_of_single1">
+                                <a href="${product.productBaseInfoV1.productUrl}">
+                                     <img src="${product.productBaseInfoV1.imageUrls._200x200}" title="">
+                                    <%-- <a href="${product.productBaseInfoV1.productUrl}" title="Xiaomi Redmi Note 3 16GB Dark Grey" itemprop="itemListElement" class="producttitle ellipsis">${product.productBaseInfoV1.title}</a> --%>
+                                    <h3>${product.productBaseInfoV1.title}</h3>
+								   	 <p>Duis autem vel eum iriure</p>
+								   	 <h4><b>Rs ${product.productBaseInfoV1.maximumRetailPrice.amount}</b></h4>
+                                </a>
+                                <br>
+						  </div>
+		          </c:forEach>
+	          	 <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m1.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				   <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m1.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m2.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m3.jpg"   class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div>
+				  <div class="clearfix"></div>
+			  </div>
+			  <div class="span_2">
+	          	 <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m4.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				    <img src="/resources/images/m5.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m6.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="clearfix"></div>
+			  </div>
+			  <div class="span_3">
+			  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/pic7.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/pic8.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="col_1_of_single1 span_1_of_single1">
+	          	    <a href="single.html">
+				     <img src="/resources/images/m7.jpg" class="img-responsive" alt=""/>
+				     <h3>parum clari</h3>
+				   	 <p>Duis autem vel eum iriure</p>
+				   	 <h4>Rs.399</h4>
+			         </a>  
+				  </div> 
+				  <div class="clearfix"></div>
+			  </div>
+            </div>
+          <div class="clearfix"> </div>
+    </div>
+	<div class="footer_top">
+	  <div class="span_of_4">
+		<div class="col-md-3 box_4">
+			<h4>Shop</h4>
+			<ul class="f_nav">
+				<li><a href="#">new arrivals</a></li>
+				<li><a href="#">men</a></li>
+				<li><a href="#">women</a></li>
+				<li><a href="#">accessories</a></li>
+				<li><a href="#">kids</a></li>
+				<li><a href="#">brands</a></li>
+				<li><a href="#">trends</a></li>
+				<li><a href="#">sale</a></li>
+				<li><a href="#">style videos</a></li>
+			</ul>	
+		</div>
+		<div class="col-md-3 box_4">
+			<h4>help</h4>
+			<ul class="f_nav">
+				<li><a href="#">frequently asked  questions</a></li>
+				<li><a href="#">men</a></li>
+				<li><a href="#">women</a></li>
+				<li><a href="#">accessories</a></li>
+				<li><a href="#">kids</a></li>
+				<li><a href="#">brands</a></li>
+			</ul>				
+		</div>
+		<div class="col-md-3 box_4">
+			<h4>account</h4>
+			<ul class="f_nav">
+				<li><a href="#">login</a></li>
+				<li><a href="#">create an account</a></li>
+				<li><a href="#">create wishlist</a></li>
+				<li><a href="#">my shopping bag</a></li>
+				<li><a href="#">brands</a></li>
+				<li><a href="#">create wishlist</a></li>
+			</ul>
+		</div>
+		<div class="col-md-3 box_4">
+			<h4>popular</h4>
+			<ul class="f_nav">
+				<li><a href="#">new arrivals</a></li>
+				<li><a href="#">men</a></li>
+				<li><a href="#">women</a></li>
+				<li><a href="#">accessories</a></li>
+				<li><a href="#">kids</a></li>
+				<li><a href="#">brands</a></li>
+				<li><a href="#">trends</a></li>
+				<li><a href="#">sale</a></li>
+				<li><a href="#">style videos</a></li>
+				<li><a href="#">login</a></li>
+				<li><a href="#">brands</a></li>
+			</ul>			
+		</div>
+		<div class="clearfix"></div>
+	</div>
+		<!-- start span_of_2 -->
+		<div class="span_of_2">
+			<div class="span1_of_2">
+				<h5>need help? <a href="#">contact us <span> &gt;</span> </a> </h5>
+				<p>(or) Call us: +22-34-2458793</p>
+			</div>
+			<div class="span1_of_2">
+				<h5>follow us </h5>
+				<div class="social-icons">
+					     <ul>
+					        <li><a href="#" target="_blank"></a></li>
+					        <li><a href="#" target="_blank"></a></li>
+					        <li><a href="#" target="_blank"></a></li>
+					        <li><a href="#" target="_blank"></a></li>
+					       <li class="last2"><a href="#" target="_blank"></a></li>
+						</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="copy">
+		   <p>© 2015 All Rights Reseverd Template by <a href="http://w3layouts.com/">W3layouts</a> </p>
+		</div>
+     </div>
+   </div>
+</div>
+</div>
+</div>
 
-
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <h1>${title}</h1>
-                                            <ul class="nav nav-pills">
-                                                <c:if test="${fn:length(categoryList) gt 1}">
-                                                    <c:forEach items="${categoryList}" var="brand">
-                                                        <li>
-                                                            <c:set var="lowerCaseBrand" value="${fn:toLowerCase(brand.name)}" />
-                                                            <c:choose>
-                                                                <c:when test="${not empty brand.url}">
-                                                                    <a href="${brand.url}">
-                                                                        <img alt="" class="ty-pict ty-subcategories-img" src="${brand.img}" title="">
-                                                                        <span>${fn:replace(brand.name,'-', ' ')}</span>
-                                                                    </a>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <a href="${url}/${fn:replace(lowerCaseBrand,' ', '-')}">
-                                                                        <img alt="" class="ty-pict ty-subcategories-img" src="${brand.name}" title="">
-                                                                        <span>${fn:replace(brand.name,'-', ' ')}</span>
-                                                                    </a>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </li>
-                                                    </c:forEach>
-                                                </c:if>
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="panel-body">
-                                                <ul>
-                                                    <c:forEach items="${productList}" var="product">
-                                                        <li>
-                                                            <div style="border: solid 0px #e3e3e3;padding:5px;">
-                                                                <%-- <p>${product.productBaseInfo.productIdentifier.productId}</p> --%>
-                                                                    <a href="${product.productBaseInfoV1.productUrl}">
-                                                                        <%-- <img src="${product.productBaseInfoV1.imageUrls._200x200}" title=""> --%>
-                                                                        <a href="${product.productBaseInfoV1.productUrl}" title="Xiaomi Redmi Note 3 16GB Dark Grey" itemprop="itemListElement" class="producttitle ellipsis">${product.productBaseInfoV1.title}</a>
-                                                                        <%-- <strong><span>${product.productBaseInfo.productAttributes.title}</span>
-                                                                            </strong> --%>
-                                                                    </a>
-                                                                    <br>
-                                                                    <div class="navbar-left" style="margin-left:0px;">
-                                                                        <p class="text-right"><b>Rs ${product.productBaseInfoV1.flipkartSpecialPrice.amount}..${product.productBaseInfoV1.flipkartSellingPrice.amount}</b>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="navbar-right" style="margin-right:0px;text-decoration:line-through;">
-                                                                        <p class="text-right"><b>Rs ${product.productBaseInfoV1.maximumRetailPrice.amount}</b>
-                                                                        </p>
-                                                                    </div>
-                                                            </div>
-                                                        </li>
-                                                        <li style="width:5px;border:0px;">&nbsp;</li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-
-
-                        <footer class="container-fluid text-center">
-                            <p>Footer Text</p>
-                        </footer>
-                    </body>
-
-                    </html>
+</body>
+</html>		
